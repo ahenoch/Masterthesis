@@ -1,2 +1,0 @@
-segment,k_mer_nt,n_neighbors_nt,min_dist_nt,n_components_nt,random_state_nt,metric_nt,k_mer_aa,n_neighbors_aa,min_dist_aa,n_components_aa,random_state_aa,metric_aa,min_samples,min_cluster_size,cluster_selection_epsilon,alpha,metric_dist
-4,7,60,0.1,20,42,cosine,5,20,0.0,20,42,cosine,1,5,0.75,1.0,cosine
