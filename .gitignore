@@ -1,5 +1,6 @@
 .ipynb_checkpoints/
-genome.csv
-fasta.csv
-upload.csv
+**/genome.csv
+**/fasta.csv
+**/upload.csv
+**/dataframe_pca.csv
 A.fasta
