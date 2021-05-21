@@ -4,8 +4,8 @@
 
 \begin{figure}[!hbt]
     \caption[A figure]{\textbf{A figure.} A figure.}
-    \label{fig:3.1}
-    \fbox{\includegraphics[width=\dimexpr\textwidth-2\fboxsep-2\fboxrule,page=1]{UMAP/Cluster_DBCV_Segment_4.pdf}}
+    \label{fig:3.1.1}
+    \includegraphics[width=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox]{UMAP/Cluster_DBCV_Segment_4.pdf}
 \end{figure}
 
 \begin{table}[!hbt]
@@ -38,7 +38,7 @@
         columns/4/.style={multicolumn names=l,column name=\textbf{\#Unclustered}, column type=r},
         columns/5/.style={multicolumn names=l,column name=\textbf{H}, column type=r},
         columns/6/.style={multicolumn names=l,column name=\textbf{N}, column type=r},
-        columns/7/.style={multicolumn names=l,column name=\bm{$\varepsilon$}, column type=r},
+        columns/7/.style={multicolumn names=l,column name=\textbf{Distance}, column type=r},
         %row predicate/.code={%
         %    \ifnum#1>0\relax
         %        \ifnum#1<2\relax
@@ -49,7 +49,7 @@
     ]
     {UMAP/information.csv}
     \caption[A table]{\textbf{A table.} A table.}
-    \label{tab:3.1}
+    \label{tab:3.1.1}
 \end{table}
 
 \blindtext
