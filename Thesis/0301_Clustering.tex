@@ -3,25 +3,38 @@
 \blindtext
 
 \begin{figure}
-    \caption[A figure]{\textbf{A figure.} A figure.}
-    \label{fig:3.1.1}
-    
     \begin{adjustbox}{minipage=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox}
-        \begin{subfigure}[b]{0.45\textwidth}
-            \includegraphics[width=\textwidth]{Extra_Graphics/Euclidean.pdf}
-            \caption[Euclidean]{\textbf{Euclidean}}
-            \label{fig:1.0.2a}
+        \begin{subfigure}[b]{0.475\textwidth}
+            \includegraphics[width=\textwidth]{PCA/Cluster_DBCV_Segment_4.pdf}
+            \caption[Cosine]{\textbf{DBCV Exploration}}
+            \label{fig:3.1.1a}
         \end{subfigure}
         \hfill
-        \begin{subfigure}[b]{0.45\textwidth}
-            \includegraphics[width=\textwidth]{Extra_Graphics/Cosinus.pdf}
-            \caption[Cosine]{\textbf{Cosine}}
-            \label{fig:1.0.2b}
+        \begin{subfigure}[b]{0.475\textwidth}
+            \includegraphics[width=\textwidth]{PCA/Cluster_Elbow_DBCV_Segment_4.pdf}
+            \caption[DBCV Knee]{\textbf{DBCV Knee}}
+            \label{fig:3.1.1b}
+        \end{subfigure}
+        \vskip\baselineskip
+        \begin{subfigure}[b]{0.475\textwidth}
+            \includegraphics[width=\textwidth]{PCA/Cluster_Knee_Segment_4.pdf}
+            \caption[Kneedle Algorithm]{\textbf{Kneedle Algorithm}}
+            \label{fig:3.1.1c}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.475\textwidth}
+            \includegraphics[width=\textwidth]{PCA/Cluster_Elbow_Knee_Segment_4.pdf}
+            \caption[Kneedle Knee]{\textbf{Kneedle Knee}}
+            \label{fig:3.1.1d}
         \end{subfigure}
     \end{adjustbox}
+    \caption[Segment 4 Clustering with PCA]{\textbf{Segment 4 Clustering with PCA.}.}
+    \label{fig:3.1.1}
 \end{figure}
 
 \begin{table}[!hbt]
+    \caption[A table]{\textbf{A table.} A table.}
+    \label{tab:3.1.1}
     \pgfplotstabletypeset[
         every head row/.style={
             before row={
@@ -61,8 +74,6 @@
         %}
     ]
     {UMAP/information.csv}
-    \caption[A table]{\textbf{A table.} A table.}
-    \label{tab:3.1.1}
 \end{table}
 
 \blindtext
