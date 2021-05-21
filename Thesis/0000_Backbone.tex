@@ -1,14 +1,14 @@
 \documentclass[numbers=noenddot, 12pt, listof=totoc, bibliography=totoc, cleardoublepage=headings]{scrbook}
 
-\input{0100_Packages}
+\input{Thesis/0001_Packages}
 
-\input{0200_Abbreviations}
+\input{Thesis/0002_Abbreviations}
 
 \begin{document}
     
-    \input{0300_Settings}
+    \input{Thesis/0003_Settings}
     
-    \input{0400_Titlepage}
+    \input{Thesis/0004_Titlepage}
     
     \thispagestyle{empty}
     
@@ -18,9 +18,9 @@
     
     \mainmatter
     
-    \input{0500_Summary}
+    \input{Thesis/0005_Summary}
     
-    \input{0600_Abstract}
+    \input{Thesis/0006_Abstract}
     
     \glsaddall 
     \setglossarystyle{listgroup}
@@ -32,33 +32,33 @@
     
     %\lstlistoflistings
     
-    \input{0700_Introduction}
+    \input{Thesis/0100_Introduction}
     
     \glsresetall
     \setcounter{table}{0}
     \setcounter{figure}{0}
     \setcounter{equation}{0}
 
-    \input{0800_Materials_and_Methods}
+    \input{Thesis/0200_Materials_and_Methods}
     
     \glsresetall
     \setcounter{table}{0}
     \setcounter{figure}{0}
     \setcounter{equation}{0}
 
-    \input{0900_Results_and_Discussion}
+    \input{Thesis/0300_Results_and_Discussion}
 
     \glsresetall
     \setcounter{table}{0}
     \setcounter{figure}{0}
     \setcounter{equation}{0}
     
-    \input{1000_Conclusion}
+    \input{Thesis/0400_Conclusion}
     
     \nocite{*}
     \printbibliography[title=Bibliography]
     
-    \input{1200_Appendix}
+    \input{Thesis/0500_Appendix}
 
     \backmatter
     

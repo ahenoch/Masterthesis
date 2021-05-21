@@ -5,13 +5,12 @@
 \usepackage[maxbibnames=99,maxcitenames=2,uniquelist=false,backend=biber,terseinits=true,bibstyle=authoryear,giveninits=true,uniquename=init,citestyle=authoryear]{biblatex}
 \urlstyle{same}
 \DeclareNameAlias{sortname}{family-given}
-\addbibresource{1100_Literature.bib}
+\addbibresource{Thesis/0007_Literature.bib}
 
 \usepackage{csquotes}
 \usepackage[english]{babel}
 
 \usepackage[onehalfspacing]{setspace}
-
 \usepackage[twoside,bindingoffset=1cm,right=2.5cm,top=2.5cm,bottom=2.5cm,left=2.5cm,a4paper]{geometry}
 
 \usepackage[automark,headsepline,plainheadsepline]{scrlayer-scrpage}
@@ -39,9 +38,14 @@
 
 \usepackage{pdfpages}
 
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=newest}
+
 \usepackage{booktabs}
-%\usepackage{tabu}
+%\usepackage{tabularx}
 \usepackage{multirow}
+\usepackage{longtable}
 \usepackage{colortbl}
 \usepackage{array}
 
@@ -51,14 +55,15 @@
 \usepackage{empheq}
 \usepackage{amsfonts}
 
-
 %\usepackage{extarrows}
 \usepackage{chngcntr}
 
-%\usepackage{float}
-\usepackage{floatrow}
+\usepackage{float}
+%\usepackage{floatrow}
 \usepackage[labelfont=bf, font=footnotesize, labelsep=space, format=plain, labelformat = simple, nooneline, aboveskip=10pt, belowskip=10pt]{caption}
 \usepackage[labelfont=bf, font=footnotesize, labelsep=space, format=plain, list=true, labelformat = parens, aboveskip=0pt, belowskip=0pt]{subcaption}
+
+%\floatsetup[longtable]{LTcapwidth=table}
 
 \usepackage{newfloat}
 \DeclareFloatingEnvironment[
@@ -70,10 +75,6 @@
 \usepackage{adjustbox}
 
 \usepackage{fancyvrb}
-
-\usepackage{pgfplots}
-\usepackage{pgfplotstable}
-\pgfplotsset{compat=newest}
 
 \usepackage{framed}
 \usepackage{listings}
