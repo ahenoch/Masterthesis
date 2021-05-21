@@ -1,0 +1,60 @@
+\selectlanguage{english}
+
+\setkomafont{disposition}{\normalfont\bfseries}
+
+\raggedbottom
+
+\allowdisplaybreaks[1]
+
+\renewcommand*{\headfont}{\normalfont}
+
+\clearpairofpagestyles
+\lehead*{\pagemark}
+\rohead*{\pagemark}
+\lohead{\rightmark}
+\rehead{\leftmark}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\figureautorefname}{Fig.}
+\renewcommand{\tablename}{Tab.}
+\renewcommand{\tableautorefname}{Tab.}
+\renewcommand{\chapterautorefname}{Chap.}
+\renewcommand{\sectionautorefname}{Sec.}
+\renewcommand{\subsectionautorefname}{Subsec.}
+\renewcommand{\subsubsectionautorefname}{Subsubsec.}
+%\renewcommand{\lstlistingname}{Lst.}
+
+\renewcommand{\thetable}{\thechapter.\arabic{table}}
+\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
+\renewcommand{\theequation}{\thechapter.\arabic{equation}}
+\renewcommand{\thelstlisting}{\thechapter.\arabic{lstlisting}}
+
+\renewcommand{\thesubtable}{\Alph{subtable}}
+\renewcommand{\thesubfigure}{\Alph{subfigure}}
+
+\renewcommand*{\chaptermarkformat}{}
+\renewcommand*{\sectionmarkformat}{}
+\renewcommand*{\subsectionmarkformat}{}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+
+\newcommand{\ltab}{\raggedright\arraybackslash}
+\newcommand{\ctab}{\centering\arraybackslash}
+\newcommand{\rtab}{\raggedleft\arraybackslash}
+
+\newenvironment{nstabbing}
+    {\setlength{\topsep}{0pt}%
+    \setlength{\partopsep}{0pt}%
+    \tabbing}
+    {\endtabbing}
+    
+\newenvironment{nsitemize}
+    {\setlength{\topsep}{0pt}%
+    \setlength{\partopsep}{0pt}%
+    \itemize}
+    {\enditemize}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{0pt}
