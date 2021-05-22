@@ -120,3 +120,35 @@
     \caption[DBCV based Segment 6 Clustering with UMAP]{\textbf{DBCV based Segment 6 Clustering with UMAP.}.}
     \label{fig:A.0.4}
 \end{figure}
+
+\begin{table}[!hbt]
+    \caption[Cluster Database with PCA]{\textbf{Cluster Database with PCA.}.}
+    \label{tab:A.0.5}
+    \pgfplotstabletypeset[
+        every head row/.style={
+            before row={
+                \toprule
+            },
+            after row={
+                \midrule
+            },
+        },
+        every last row/.style={
+            after row={
+                ... & ... & ... & ... & ... & ... & ... \\
+                \bottomrule
+            },
+        },
+        begin table=\begin{tabular*}{\textwidth},
+        end table=\end{tabular*},
+        columns={0,1,2,3,4,5,6},
+        columns/0/.style={string type,multicolumn names=l,column name=\textbf{Accession}, column type=@{\extracolsep{\fill} }r},
+        columns/1/.style={multicolumn names=l,column name=\textbf{Segment}, column type=r},
+        columns/2/.style={multicolumn names=l,column name=\textbf{Cluster}, column type=r},
+        columns/3/.style={string type,multicolumn names=l,column name=\textbf{H}, column type=r},
+        columns/4/.style={string type,multicolumn names=l,column name=\textbf{Centroid}, column type=r},
+        columns/5/.style={string type,multicolumn names=l,column name=\textbf{N}, column type=r},
+        columns/6/.style={string type,multicolumn names=l,column name=\textbf{Strain}, column type=r},
+    ]
+    {PCA/cluster_head.csv}
+\end{table}
