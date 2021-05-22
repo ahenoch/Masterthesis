@@ -3,7 +3,7 @@
 \blindtext
 
 \begin{table}[!hbt]
-    \caption[Clustering with PCA]{\textbf{Clustering with PCA.}.}
+    \caption[Knee based Clustering with PCA]{\textbf{Knee based Clustering with PCA.}.}
     \label{tab:3.1.1}
     \pgfplotstabletypeset[
         every head row/.style={
@@ -47,8 +47,52 @@
 \end{table}
 
 \begin{table}[!hbt]
-    \caption[Clustering with UMAP]{\textbf{Clustering with UMAP.}.}
+    \caption[DBCV based Clustering with PCA]{\textbf{DBCV based Clustering with PCA.}.}
     \label{tab:3.1.2}
+    \pgfplotstabletypeset[
+        every head row/.style={
+            before row={
+                \toprule
+                & \multicolumn{2}{l}{\textbf{Cluster}} &  & \multicolumn{2}{l}{\textbf{mixed}} & &\\
+                \cmidrule(lr){2-3}\cmidrule(lr){5-6}
+            },
+            after row={
+                \midrule
+            },
+        },
+        every last row/.style={
+            after row={
+                %... & ... & ... & ... & ... & ... & ... & ...\\
+                \bottomrule
+            },
+        },
+        begin table=\begin{tabular*}{\textwidth},
+        end table=\end{tabular*},
+        header=false,
+        skip first n=1,
+        columns={0,1,2,3,4,5,6,7},
+        columns/0/.style={multicolumn names=l,column name=\textbf{Segment}, column type=@{\extracolsep{\fill} }r},
+        columns/1/.style={multicolumn names=l,column name=\textbf{\#Final}, column type=r},
+        columns/2/.style={multicolumn names=l,column name=\textbf{\#Raw}, column type=r},
+        columns/3/.style={multicolumn names=l,column name=\textbf{\#Unclustered}, column type=r},
+        columns/4/.style={multicolumn names=l,column name=\textbf{H}, column type=r},
+        columns/5/.style={multicolumn names=l,column name=\textbf{N}, column type=r},
+        columns/6/.style={multicolumn names=l,column name=\textbf{Distance}, column type=r},
+        columns/7/.style={multicolumn names=l,column name=\textbf{DBCV}, column type=r},
+        %row predicate/.code={%
+        %    \ifnum#1>0\relax
+        %        \ifnum#1<2\relax
+        %            \pgfplotstableuserowfalse
+        %        \fi
+        %    \fi
+        %}
+    ]
+    {PCA/information_alt.csv}
+\end{table}
+
+\begin{table}[!hbt]
+    \caption[Knee based Clustering with UMAP]{\textbf{Knee based Clustering with UMAP.}.}
+    \label{tab:3.1.3}
     \pgfplotstabletypeset[
         every head row/.style={
             before row={
@@ -90,6 +134,50 @@
     {UMAP/information.csv}
 \end{table}
 
+\begin{table}[!hbt]
+    \caption[DBCV based Clustering with PCA]{\textbf{DBCV based Clustering with PCA.}.}
+    \label{tab:3.1.4}
+    \pgfplotstabletypeset[
+        every head row/.style={
+            before row={
+                \toprule
+                & \multicolumn{2}{l}{\textbf{Cluster}} &  & \multicolumn{2}{l}{\textbf{mixed}} & &\\
+                \cmidrule(lr){2-3}\cmidrule(lr){5-6}
+            },
+            after row={
+                \midrule
+            },
+        },
+        every last row/.style={
+            after row={
+                %... & ... & ... & ... & ... & ... & ... & ...\\
+                \bottomrule
+            },
+        },
+        begin table=\begin{tabular*}{\textwidth},
+        end table=\end{tabular*},
+        header=false,
+        skip first n=1,
+        columns={0,1,2,3,4,5,6,7},
+        columns/0/.style={multicolumn names=l,column name=\textbf{Segment}, column type=@{\extracolsep{\fill} }r},
+        columns/1/.style={multicolumn names=l,column name=\textbf{\#Final}, column type=r},
+        columns/2/.style={multicolumn names=l,column name=\textbf{\#Raw}, column type=r},
+        columns/3/.style={multicolumn names=l,column name=\textbf{\#Unclustered}, column type=r},
+        columns/4/.style={multicolumn names=l,column name=\textbf{H}, column type=r},
+        columns/5/.style={multicolumn names=l,column name=\textbf{N}, column type=r},
+        columns/6/.style={multicolumn names=l,column name=\textbf{Distance}, column type=r},
+        columns/7/.style={multicolumn names=l,column name=\textbf{DBCV}, column type=r},
+        %row predicate/.code={%
+        %    \ifnum#1>0\relax
+        %        \ifnum#1<2\relax
+        %            \pgfplotstableuserowfalse
+        %        \fi
+        %    \fi
+        %}
+    ]
+    {UMAP/information_alt.csv}
+\end{table}
+
 \begin{figure}
     \begin{adjustbox}{minipage=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox}
         \begin{subfigure}[b]{0.475\textwidth}
@@ -124,7 +212,7 @@
     \begin{adjustbox}{minipage=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox}
         \begin{subfigure}[b]{0.475\textwidth}
             \includegraphics[width=\textwidth]{PCA/Cluster_DBCV_Segment_4.pdf}
-            \caption[Cosine]{\textbf{DBCV Exploration}}
+            \caption[DBCV Exploration]{\textbf{DBCV Exploration}}
             \label{fig:3.1.2a}
         \end{subfigure}
         \hfill
@@ -184,7 +272,7 @@
     \begin{adjustbox}{minipage=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox}
         \begin{subfigure}[b]{0.475\textwidth}
             \includegraphics[width=\textwidth]{UMAP/Cluster_DBCV_Segment_4.pdf}
-            \caption[Cosine]{\textbf{DBCV Exploration}}
+            \caption[DBCV Exploration]{\textbf{DBCV Exploration}}
             \label{fig:3.1.4a}
         \end{subfigure}
         \hfill
