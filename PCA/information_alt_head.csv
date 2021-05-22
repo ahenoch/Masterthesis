@@ -1,0 +1,3 @@
+segment,n_cluster,n_cluster_raw,unclustered,H_unmatch,N_unmatch,epsilon,dbcv
+4,48,54,4,2,36,0.21,0.5573911812135682
+6,11146,34600,12046,711,3,0.0001,0.4562943108813609
