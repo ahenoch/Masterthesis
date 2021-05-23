@@ -272,7 +272,12 @@
 \blindtext
 
 \begin{figure}[!hbt]
-    \includegraphics[width=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox]{PCA/Clustertree_Segment_4_H_Knee.pdf}
+
+    \begin{annotatedFigure}
+        {\includegraphics[width=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox]{PCA/Clustertree_Segment_4_H_Knee.pdf}}
+        \annotatedFigureBox{0.084,0.614}{0.394,0.804}{A}{0.084,0.614}%bl
+    \end{annotatedFigure}
+    
     \caption[Segment 4 Clustertree with PCA]{\textbf{Segment 4 Clustertree with PCA.} .}
     \label{fig:3.1.5}
 \end{figure}
