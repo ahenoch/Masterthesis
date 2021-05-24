@@ -8,28 +8,23 @@
     
     \input{Thesis/0003_Settings}
     
-    \input{Thesis/0004_Titlepage}
-    
-    \thispagestyle{empty}
-    
     \frontmatter
     
-    \tableofcontents
+    \input{Thesis/0004_Titlepage}
     
-    \mainmatter
+    %\thispagestyle{empty}
     
     \input{Thesis/0005_Summary}
     
     \input{Thesis/0006_Abstract}
     
+    \tableofcontents
+    
     \glsaddall 
     \setglossarystyle{listgroup}
     \printnoidxglossary[title=List of Abbreviations, type=\acronymtype]
-     
-    \listoffigures
     
-    \listoftables
-    
+    \mainmatter
     %\lstlistoflistings
     
     \input{Thesis/0100_Introduction}
@@ -58,8 +53,16 @@
     %\nocite{*}
     \printbibliography[title=Bibliography]
     
+    \listoffigures
+    
+    \listoftables
+    
+    \appendix
+    
     \input{Thesis/0500_Appendix}
-
+    
     \backmatter
+    
+    \input{Thesis/0600_Declaration_of_Originality}
     
 \end{document}

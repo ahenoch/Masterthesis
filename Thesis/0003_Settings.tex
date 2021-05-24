@@ -14,6 +14,15 @@
 \lohead{\rightmark}
 \rehead{\leftmark}
 
+\DeclareTOCStyleEntry[numwidth=4em]{tocline}{chapter}
+\DeclareTOCStyleEntry[numwidth=4em]{tocline}{section}
+\DeclareTOCStyleEntry[numwidth=4em]{tocline}{subsection}
+\DeclareTOCStyleEntry[numwidth=4em]{tocline}{figure}
+\DeclareTOCStyleEntry[numwidth=4em]{tocline}{subfigure}
+\DeclareTOCStyleEntry[numwidth=4em]{tocline}{table}
+\DeclareTOCStyleEntry[numwidth=4em]{tocline}{subtable}
+%\RedeclareSectionCommand[tocindent=9em,tocnumwidth=7em,]{subsection}
+
 \renewcommand{\figurename}{Fig.}
 \renewcommand{\figureautorefname}{Fig.}
 \renewcommand{\tablename}{Tab.}
@@ -29,8 +38,8 @@
 \renewcommand{\theequation}{\thesection.\arabic{equation}}
 \renewcommand{\thelstlisting}{\thesection.\arabic{lstlisting}}
 
-\renewcommand{\thesubtable}{\Alph{subtable}}
-\renewcommand{\thesubfigure}{\Alph{subfigure}}
+\renewcommand{\thesubtable}{\alph{subtable}}
+\renewcommand{\thesubfigure}{\alph{subfigure}}
 
 \renewcommand*{\chaptermarkformat}{}
 \renewcommand*{\sectionmarkformat}{}
@@ -69,3 +78,15 @@
     %string replace*={_}{\textsubscript},
     string replace*={_}{\_},
 }
+
+%https://github.com/f2cx/latex-overlay-generator
+% LaTeX Overlay Generator - Annotated Figures v0.0.1
+% Created with http://ff.cx/latex-overlay-generator/
+
+%\annotatedFigureBoxCustom{bottom-left}{top-right}{label}{label-position}{box-color}{label-color}{border-color}{text-color}
+\newcommand*\annotatedFigureBoxCustom[8]{\draw[#5,thick,rounded corners] (#1) rectangle (#2);\node at (#4) [fill=#6,thick,shape=circle,draw=#7,inner sep=2pt,font=\sffamily,text=#8] {\textbf{#3}};}
+%\annotatedFigureBox{bottom-left}{top-right}{label}{label-position}
+\newcommand*\annotatedFigureBox[4]{\annotatedFigureBoxCustom{#1}{#2}{#3}{#4}{white}{white}{black}{black}}
+\newcommand*\annotatedFigureText[4]{\node[draw=none, anchor=south west, text=#2, inner sep=0, text width=#3\linewidth,font=\sffamily] at (#1){#4};}
+\newenvironment {annotatedFigure}[1]{\centering\begin{tikzpicture}
+    \node[anchor=south west,inner sep=0] (image) at (0,0) { #1};\begin{scope}[x={(image.south east)},y={(image.north west)}]}{\end{scope}\end{tikzpicture}}
