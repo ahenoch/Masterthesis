@@ -1,25 +1,27 @@
-\chapter{Materials and Methods} \label{chap:2}
+\chapter{Materials and Methods} \label{chap:Materials_and_Methods}
 
 \begin{figure}[!hbt]
     \includegraphics[width=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox]{PCA/Data_Overview_Segment_4_H.pdf}
     \caption[Segment 4 \Acrlong{HA} Antigen Subtype Frequency]{\textbf{Segment 4 \Acrlong{HA} Antigen Subtype Frequency.} .}
-    \label{fig:2.0.1}
+    \label{fig:Frequency_4}
 \end{figure}
 
 \begin{figure}[!hbt]
     \includegraphics[width=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox]{PCA/Data_Overview_Segment_6_N.pdf}
     \caption[Segment 6 \Acrlong{NA} Antigen Subtype Frequency]{\textbf{Segment 4 \Acrlong{NA} Antigen Subtype Frequency.} .}
-    \label{fig:2.0.2}
+    \label{fig:Frequency_6}
 \end{figure}
 
-\input{Thesis/0201_Pipeline}
+\input{Thesis/0201_PCA}
 
-\input{Thesis/0202_PCA}
+\input{Thesis/0202_UMAP}
 
-\input{Thesis/0203_UMAP}
+\input{Thesis/0203_L2_Normalization}
 
-\input{Thesis/0204_L2_Normalization}
+\input{Thesis/0204_HDBSCAN}
 
-\input{Thesis/0205_HDBSCAN}
+\input{Thesis/0205_Kneedle}
 
-\input{Thesis/0206_Kneedle}
+\input{Thesis/0206_Clustering_Pipeline}
+
+\input{Thesis/0207_Analysis_Pipeline}

@@ -14,6 +14,15 @@
 \lohead{\rightmark}
 \rehead{\leftmark}
 
+\DeclareTOCStyleEntry[numwidth=4em]{tocline}{chapter}
+\DeclareTOCStyleEntry[numwidth=4em]{tocline}{section}
+\DeclareTOCStyleEntry[numwidth=4em]{tocline}{subsection}
+\DeclareTOCStyleEntry[numwidth=4em]{tocline}{figure}
+\DeclareTOCStyleEntry[numwidth=4em]{tocline}{subfigure}
+\DeclareTOCStyleEntry[numwidth=4em]{tocline}{table}
+\DeclareTOCStyleEntry[numwidth=4em]{tocline}{subtable}
+%\RedeclareSectionCommand[tocindent=9em,tocnumwidth=7em,]{subsection}
+
 \renewcommand{\figurename}{Fig.}
 \renewcommand{\figureautorefname}{Fig.}
 \renewcommand{\tablename}{Tab.}
@@ -29,8 +38,8 @@
 \renewcommand{\theequation}{\thesection.\arabic{equation}}
 \renewcommand{\thelstlisting}{\thesection.\arabic{lstlisting}}
 
-\renewcommand{\thesubtable}{\Alph{subtable}}
-\renewcommand{\thesubfigure}{\Alph{subfigure}}
+\renewcommand{\thesubtable}{\alph{subtable}}
+\renewcommand{\thesubfigure}{\alph{subfigure}}
 
 \renewcommand*{\chaptermarkformat}{}
 \renewcommand*{\sectionmarkformat}{}
