@@ -144,7 +144,7 @@
         },
         begin table=\begin{tabular*}{\textwidth},
         end table=\end{tabular*},
-        columns={0,1,2,3,4,5,6,7},
+        columns={0,1,2,3,4,5,6,7,8},
         columns/0/.style={multicolumn names=l,column name=\textbf{Segment}, column type=@{\extracolsep{\fill} }r},
         columns/1/.style={multicolumn names=l,column name=\textbf{\#Final}, column type=r},
         columns/2/.style={multicolumn names=l,column name=\textbf{\#Raw}, column type=r},
@@ -153,6 +153,7 @@
         columns/5/.style={multicolumn names=l,column name=\textbf{H}, column type=r},
         columns/6/.style={multicolumn names=l,column name=\textbf{N}, column type=r},
         columns/7/.style={multicolumn names=l,column name=\textbf{Distance}, column type=r},
+        columns/8/.style={multicolumn names=l,column name=\textbf{Variance}, column type=r},
     ]
     {PCA/information.csv}
 \end{table}
@@ -179,7 +180,7 @@
         },
         begin table=\begin{tabular*}{\textwidth},
         end table=\end{tabular*},
-        columns={0,1,2,3,4,5,6,7},
+        columns={0,1,2,3,4,5,6,7,8},
         columns/0/.style={multicolumn names=l,column name=\textbf{Segment}, column type=@{\extracolsep{\fill} }r},
         columns/1/.style={multicolumn names=l,column name=\textbf{\#Final}, column type=r},
         columns/2/.style={multicolumn names=l,column name=\textbf{\#Raw}, column type=r},
@@ -188,6 +189,7 @@
         columns/5/.style={multicolumn names=l,column name=\textbf{N}, column type=r},
         columns/6/.style={multicolumn names=l,column name=\textbf{Distance}, column type=r},
         columns/7/.style={multicolumn names=l,column name=\textbf{DBCV}, column type=r},
+        columns/8/.style={multicolumn names=l,column name=\textbf{Variance}, column type=r},
     ]
     {PCA/information_alt.csv}
 \end{table}
@@ -214,7 +216,7 @@
         },
         begin table=\begin{tabular*}{\textwidth},
         end table=\end{tabular*},
-        columns={0,1,2,3,4,5,6,7},
+        columns={0,1,2,3,4,5,6,7,8},
         columns/0/.style={multicolumn names=l,column name=\textbf{Segment}, column type=@{\extracolsep{\fill} }r},
         columns/1/.style={multicolumn names=l,column name=\textbf{\#Final}, column type=r},
         columns/2/.style={multicolumn names=l,column name=\textbf{\#Raw}, column type=r},
@@ -223,12 +225,13 @@
         columns/5/.style={multicolumn names=l,column name=\textbf{H}, column type=r},
         columns/6/.style={multicolumn names=l,column name=\textbf{N}, column type=r},
         columns/7/.style={multicolumn names=l,column name=\textbf{Distance}, column type=r},
+        columns/8/.style={multicolumn names=l,column name=\textbf{Variance}, column type=r},
     ]
     {UMAP/information.csv}
 \end{table}
 
 \begin{table}[!hbt]
-    \caption[\Acrshort{DBCV} based Clustering with \Acrshort{PCA}]{\textbf{\Acrshort{DBCV} based Clustering with \Acrshort{PCA}.}.}
+    \caption[\Acrshort{DBCV} based Clustering with \Acrshort{UMAP}]{\textbf{\Acrshort{DBCV} based Clustering with \Acrshort{UMAP}.}.}
     \label{tab:UMAP_Cluster_DBCV}
     \pgfplotstabletypeset[
         every head row/.style={
@@ -249,7 +252,7 @@
         },
         begin table=\begin{tabular*}{\textwidth},
         end table=\end{tabular*},
-        columns={0,1,2,3,4,5,6,7},
+        columns={0,1,2,3,4,5,6,7,8},
         columns/0/.style={multicolumn names=l,column name=\textbf{Segment}, column type=@{\extracolsep{\fill} }r},
         columns/1/.style={multicolumn names=l,column name=\textbf{\#Final}, column type=r},
         columns/2/.style={multicolumn names=l,column name=\textbf{\#Raw}, column type=r},
@@ -258,6 +261,7 @@
         columns/5/.style={multicolumn names=l,column name=\textbf{N}, column type=r},
         columns/6/.style={multicolumn names=l,column name=\textbf{Distance}, column type=r},
         columns/7/.style={multicolumn names=l,column name=\textbf{DBCV}, column type=r},
+        columns/8/.style={multicolumn names=l,column name=\textbf{Variance}, column type=r},
         %row predicate/.code={%
         %    \ifnum#1>0\relax
         %        \ifnum#1<2\relax

@@ -1,0 +1,38 @@
+\renewcommand\frontmatter{%
+    \cleardoublepage
+    \@mainmatterfalse
+    \pagenumbering{gobble}
+    }
+
+\renewcommand\mainmatter{%
+    \cleardoublepage
+    \@mainmattertrue
+    \pagenumbering{arabic}
+    \setcounter{page}{11}
+}
+
+\renewcommand\backmatter{%
+    \if@openright
+        \cleardoublepage
+    \else
+        \clearpage
+    \fi
+    \@mainmatterfalse
+    %\pagenumbering{gobble}
+}
+
+% \newcommand\frontmatter{%
+%     \cleardoublepage
+%   \@mainmatterfalse
+%   \pagenumbering{roman}}
+% \newcommand\mainmatter{%
+%     \cleardoublepage
+%   \@mainmattertrue
+%   \pagenumbering{arabic}}
+% \newcommand\backmatter{%
+%   \if@openright
+%     \cleardoublepage
+%   \else
+%     \clearpage
+%   \fi
+%   \@mainmatterfalse}

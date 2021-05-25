@@ -8,25 +8,27 @@
     
     \input{Thesis/0003_Settings}
     
+    \makeatletter
+    \input{Thesis/0004_Catcode}
+    \makeatother
+    
     \frontmatter
     
-    \input{Thesis/0004_Titlepage}
+    \input{Thesis/0005_Titlepage}
+
+    \input{Thesis/0006_Summary}
     
-    %\thispagestyle{empty}
+    \input{Thesis/0007_Abstract}
     
-    \input{Thesis/0005_Summary}
-    
-    \input{Thesis/0006_Abstract}
+    \mainmatter
     
     \tableofcontents
     
     \glsaddall 
     \setglossarystyle{listgroup}
     \printnoidxglossary[title=List of Abbreviations, type=\acronymtype]
-    
-    \mainmatter
     %\lstlistoflistings
-    
+
     \input{Thesis/0100_Introduction}
     
     \glsresetall
@@ -61,8 +63,8 @@
     
     \input{Thesis/0500_Appendix}
     
-    \backmatter
-    
     \input{Thesis/0600_Declaration_of_Originality}
+    
+    \backmatter
     
 \end{document}
