@@ -265,13 +265,14 @@
 
 \begin{figure}[!hbt]
 
-    %\begin{annotatedFigure}
-        %{
-            \includegraphics[width=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox]{PCA/Clustertree_Segment_4_H_Knee.pdf}
-        %}
-        %\annotatedFigureBox{0.084,0.614}{0.394,0.804}{A}{0.084,0.614}%bl
-    %\end{annotatedFigure}
-    
+    \begin{tikzpicture}
+        \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox]{PCA/Clustertree_Segment_4_H_Knee.pdf}};
+        \begin{scope}[x={(image.south east)},y={(image.north west)}]
+            %\draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
+            %\draw[black, thick,rounded corners] (7.5,5.3) rectangle (9.4,6.2);
+        \end{scope}
+    \end{tikzpicture}
+
     \caption[Knee based Segment 4 Clustertree (\Acrshort{PCA})]{\textbf{Knee based Segment 4 Clustertree (\Acrshort{PCA}).} .}
     \label{fig:PCA_Clusteree_Knee_4}
 \end{figure}

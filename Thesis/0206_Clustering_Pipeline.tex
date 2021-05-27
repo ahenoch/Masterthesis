@@ -7,3 +7,29 @@
     \caption[Clustering Pipeline]{\textbf{Clustering Pipeline.} .}
     \label{fig:Clustering_Pipeline}
 \end{figure}
+
+\begin{table}[!hbt]
+    \caption[Explained Variance by different PCA settings]{\textbf{Explained Variance by different PCA settings.}.}
+    \label{tab:PCA_Dimension}
+    \pgfplotstabletypeset[
+        every head row/.style={
+            before row={
+                \toprule
+            },
+            after row={
+                \midrule
+            },
+        },
+        every last row/.style={
+            after row={
+                \bottomrule
+            },
+        },
+        begin table=\begin{tabular*}{.5\textwidth},
+        end table=\end{tabular*},
+        columns={0,1},
+        columns/0/.style={int detect, multicolumn names=l,column name=\textbf{\#Components}, column type=@{\extracolsep{\fill} }r},
+        columns/1/.style={multicolumn names=l,column name=\textbf{Explained Variance}, column type=r}
+    ]
+    {Extra_Graphics/PCA.csv}
+\end{table}
