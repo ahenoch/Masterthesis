@@ -40,8 +40,8 @@ The raw pipeline to cluster \gls{IAV} genomes and save the results as clustertre
 
 \begin{lstlisting}[language=sh]
 conda activate Masterthesis
-python3 Masterthesis.py -i A.fasta -o PCA_raw -p 30
-python3 Masterthesis.py -i A.fasta -o UMAP_raw -p 100 -u 30
+python3 Masterthesis.py -i A.fasta -o PCA_raw -p 50
+python3 Masterthesis.py -i A.fasta -o UMAP_raw -p 100 -u 50
 \end{lstlisting}  
 
 The script takes ca. one hour to cluster all segments of \gls{IAV} and create the output in form of tables and graphics with \gls{PCA} and ca. one and a half hours with the suggested \gls{UMAP} settings.
