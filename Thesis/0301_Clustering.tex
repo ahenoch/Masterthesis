@@ -5,6 +5,7 @@
 \subsection{Clustering Results}
 
 \begin{figure}
+    \centering
     \begin{adjustbox}{minipage=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox}
         \begin{subfigure}[b]{0.475\textwidth}
             \caption[Kneedle Algorithm]{\textbf{Kneedle Algorithm}}
@@ -31,6 +32,7 @@
 \end{figure}
 
 \begin{figure}
+    \centering
     \begin{adjustbox}{minipage=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox}
         \begin{subfigure}[b]{0.475\textwidth}
             \caption[\Acrshort{DBCV} Exploration]{\textbf{\Acrshort{DBCV} Exploration}}
@@ -57,6 +59,7 @@
 \end{figure}
 
 \begin{figure}
+    \centering
     \begin{adjustbox}{minipage=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox}
         \begin{subfigure}[b]{0.475\textwidth}
             \caption[Kneedle Algorithm]{\textbf{Kneedle Algorithm}}
@@ -83,6 +86,7 @@
 \end{figure}
 
 \begin{figure}
+    \centering
     \begin{adjustbox}{minipage=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox}
         \begin{subfigure}[b]{0.475\textwidth}
             \caption[\Acrshort{DBCV} Exploration]{\textbf{\Acrshort{DBCV} Exploration}}
@@ -109,6 +113,7 @@
 \end{figure}
 
 \begin{table}[!hbt]
+    \centering
     \caption[Knee based Clustering (\Acrshort{PCA})]{\textbf{Knee based Clustering (\Acrshort{PCA}).}.}
     \label{tab:PCA_Cluster_Knee}
     \pgfplotstabletypeset[
@@ -145,6 +150,7 @@
 \end{table}
 
 \begin{table}[!hbt]
+    \centering
     \caption[\Acrshort{DBCV} based Clustering (\Acrshort{PCA})]{\textbf{\Acrshort{DBCV} based Clustering (\Acrshort{PCA}).}.}
     \label{tab:PCA_Cluster_DBCV}
     \pgfplotstabletypeset[
@@ -181,6 +187,7 @@
 \end{table}
 
 \begin{table}[!hbt]
+    \centering
     \caption[Knee based Clustering (\Acrshort{UMAP})]{\textbf{Knee based Clustering (\Acrshort{UMAP}).}.}
     \label{tab:UMAP_Cluster_Knee}
     \pgfplotstabletypeset[
@@ -217,6 +224,7 @@
 \end{table}
 
 \begin{table}[!hbt]
+    \centering
     \caption[\Acrshort{DBCV} based Clustering (\Acrshort{UMAP})]{\textbf{\Acrshort{DBCV} based Clustering (\Acrshort{UMAP}).}.}
     \label{tab:UMAP_Cluster_DBCV}
     \pgfplotstabletypeset[
@@ -264,7 +272,7 @@
 \subsection{Clustertrees}
 
 \begin{figure}[!hbt]
-
+    \centering
     \begin{tikzpicture}
         \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox]{PCA/Clustertree_Segment_4_H_Knee.pdf}};
         \begin{scope}[x={(image.south east)},y={(image.north west)}]
@@ -278,6 +286,7 @@
 \end{figure}
 
 \begin{figure}[!hbt]
+    \centering
     \includegraphics[width=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox]{UMAP/Clustertree_Segment_4_H_Knee.pdf}
     \caption[Knee based Segment 4 Clustertree (\Acrshort{UMAP})]{\textbf{Knee based Segment 4 Clustertree (\Acrshort{UMAP}).} .}
     \label{fig:UMAP_Clusteree_Knee_4}

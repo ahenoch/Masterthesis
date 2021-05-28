@@ -1,4 +1,4 @@
-\documentclass[numbers=noenddot, 12pt, listof=totoc, bibliography=totoc, cleardoublepage=headings]{scrbook}
+\documentclass[numbers=noenddot, 12pt, listof=totoc, bibliography=totoc]{scrbook}
 
 \input{Thesis/0001_Packages}
 
@@ -7,21 +7,22 @@
 \begin{document}
     
     \input{Thesis/0003_Settings}
-    
-    \makeatletter
-    \input{Thesis/0004_Catcode}
-    \makeatother
+    %\input{Thesis/0004_Catcode}
     
     \frontmatter
-    
-    \input{Thesis/0005_Titlepage}
-    \thispagestyle{empty}
+    \pagestyle{empty} 
+    \renewcommand*{\chapterpagestyle}{empty}
 
+    \input{Thesis/0005_Titlepage}
+    
     \input{Thesis/0006_Summary}
     
     \input{Thesis/0007_Abstract}
     
     \mainmatter
+    \pagestyle{scrheadings} 
+    \renewcommand*{\chapterpagestyle}{plain}
+    \KOMAoptions{cleardoublepage=headings}
     
     \tableofcontents
     
@@ -64,8 +65,10 @@
     
     \input{Thesis/0500_Appendix}
     
-    \input{Thesis/0600_Declaration_of_Originality}
-    
     \backmatter
+    \pagestyle{empty} 
+    \renewcommand*{\chapterpagestyle}{empty}
     
+    \input{Thesis/0600_Declaration_of_Originality}
+
 \end{document}

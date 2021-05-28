@@ -1,16 +1,85 @@
 \chapter{Materials and Methods} \label{chap:Materials_and_Methods}
 
-\begin{figure}[!hbt]
-    \includegraphics[width=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox]{PCA/Data_Overview_Segment_4_H.pdf}
-    \caption[Segment 4 \Acrlong{HA} Antigen Subtype Frequency]{\textbf{Segment 4 \Acrlong{HA} Antigen Subtype Frequency.} .}
-    \label{fig:Frequency_4}
-\end{figure}
+The tools used in this project were installed with the Conda package distribution system version 2-2.4.0 \autocite{anaconda_software_distribution_anaconda_2020}. With Conda, Python packages containing e.g. full software tools can be managed by local environments for simple access without the necessity of a complex system-wide installation. By creation of an environment similar to the one used in this project, with conda environment creation from YAML file, the results can be easily recreated on any modern UNIX-like operating system that has Conda installed. 
 
-\begin{figure}[!hbt]
-    \includegraphics[width=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox]{PCA/Data_Overview_Segment_6_N.pdf}
-    \caption[Segment 6 \Acrlong{NA} Antigen Subtype Frequency]{\textbf{Segment 4 \Acrlong{NA} Antigen Subtype Frequency.} .}
-    \label{fig:Frequency_6}
-\end{figure}
+\begin{lstlisting}[language=sh]
+git clone https://github.com/ahenoch/Masterthesis.git
+cd Masterthesis
+conda env create -f Masterthesis.yml
+\end{lstlisting}  
+
+The YAML file containing the necessary informations for installation like e.g. the used tools versions is present in the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository} an can be made available by e.g. cloning the repository.
+
+Since its file size exceeds the limits of GitHub, the FASTA file containing all the known high quality sequences of the \gls{IAV}, that is used in this project must be manually retrieved in the latest version from the \href{https://www.fludb.org/brc/home.spg?decorator=influenza}{Influenza Research Database}.
+
+\begin{enumerate}[noitemsep]
+    \item \textit{SEARCH DATA}
+    \item \textit{Search Sequences}
+    \item \textit{Nucleotide Sequences}
+    \item \textit{Data Type:} Genome Segments, \textit{Virus Type:} A, \textit{Complete Genome:} Complete Genome Only, \textit{Select Segments:} All, \textit{Complete:} All
+    \item \textit{Search}
+    \item \textit{Select all X segments}
+    \item \textit{Download}
+    \item \textit{Specify Download Type:} Segment FASTA
+    \item \textit{Format for FASTA file definition line:}  Custom format - select fields from list
+    \item \textbf{add in the following order:} Accession Number, Strain Name, Segment, Protein Symbol, Type, SubType, Date, Host Species, Curation Flag
+    \item save as A.fasta in the cloned Masterthesis folder
+\end{enumerate}
+
+%or from the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository}. Using the manually retrieved updated version of the FASTA file might change the recreated results slightly.
+The version used for the proposed results was acquired at 08.11.2020. Newer versions might change the results slightly.
+
+
+
+
+
+To access the Jupyter Notebooks holding the cluster and analysis pipeline, as well as recreate the results, the IPYNB Files in the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository} have to be opened and started in a Jupyter Lab server.
+
+\begin{lstlisting}[language=sh]
+conda activate Masterthesis
+jupyter lab
+\end{lstlisting}  
+
+The raw pipeline to cluster \gls{IAV} genomes and save the results as clustertrees and tables without excessive analysis, is designed to function as a clustering tool, without the need of a running Jupyter Lab server and with easier modification and faster execution in mind.
+
+\begin{lstlisting}[language=sh]
+conda activate Masterthesis
+python3 Masterthesis.py -i A.fasta -o PCA_raw -p 30
+python3 Masterthesis.py -i A.fasta -o UMAP_raw -p 100 -u 30
+\end{lstlisting}  
+
+The script takes ca. one hour to cluster all segments of \gls{IAV} and create the output in form of tables and graphics with \gls{PCA} and ca. one and a half hours with the suggested \gls{UMAP} settings.
+
+\begin{leftbar}
+    \textbf{Masterthesis.py}
+    \begin{nstabbing}
+        \qquad \= \qquad\qquad\qquad\qquad \= \kill
+    
+        -i \> -{}-{}infile \> [path to input file (e.g. A.fasta)]\\
+        
+        -o \> -{}-{}outfolder \> [path to input file (default: Results)]\\
+        
+        -s \> -{}-{}segments \> [segments to run the pipeline on (default: 1 2 3 4 5 6 7 8)]\\
+        
+        -c \> -{}-{}custom\_header \> [if using FASTA with a custom header, every part of it has\\
+        
+        \> \> to be declared (default: accession strain segment protein\\
+        
+        \> \> genus subtype date host curation genome)]\\
+        
+        -m \> -{}-{}metric \> [metric to use in the pipeline (default: cosine)]\\
+        
+        -mc \> -{}-{}min\_clust \> [min\_cluster\_size parameter for HDBSCAN (default: 2)]\\
+        
+        -ms \> -{}-{}min\_sample \> [min\_samples parameter for HDBSCAN (default: 1)]\\
+        
+        -n \> -{}-{}neigbors \> [n\_neighbors parameter for UMAP (default: 100)]\\
+        
+        -u \> -{}-{}umap \> [n\_components parameter for UMAP (optional)]\\
+        
+        -p \> -{}-{}pca \> [n\_components parameter for PCA (optional)]
+    \end{nstabbing}
+\end{leftbar}
 
 \input{Thesis/0201_PCA}
 

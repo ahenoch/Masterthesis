@@ -1,13 +1,15 @@
+\makeatletter
 \renewcommand\frontmatter{%
     \cleardoublepage
     \@mainmatterfalse
     \pagenumbering{gobble}
-    }
+    %\pagenumbering{roman}
+}
 
 \renewcommand\mainmatter{%
     \cleardoublepage
     \@mainmattertrue
-    \pagenumbering{arabic}
+    %\pagenumbering{arabic}
     \setcounter{page}{11}
 }
 
@@ -18,21 +20,6 @@
         \clearpage
     \fi
     \@mainmatterfalse
-    %\pagenumbering{gobble}
+    \pagenumbering{gobble}
 }
-
-% \newcommand\frontmatter{%
-%     \cleardoublepage
-%   \@mainmatterfalse
-%   \pagenumbering{roman}}
-% \newcommand\mainmatter{%
-%     \cleardoublepage
-%   \@mainmattertrue
-%   \pagenumbering{arabic}}
-% \newcommand\backmatter{%
-%   \if@openright
-%     \cleardoublepage
-%   \else
-%     \clearpage
-%   \fi
-%   \@mainmatterfalse}
+\makeatother
