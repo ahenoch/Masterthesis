@@ -5,7 +5,7 @@ The tools used in this project were installed with the Conda package distributio
 \begin{lstlisting}[language=sh]
 git clone https://github.com/ahenoch/Masterthesis.git
 cd Masterthesis
-conda env create -f Masterthesis.yml
+conda env create -f Environment.yml
 \end{lstlisting}  
 
 The YAML file containing the necessary informations for installation like e.g. the used tools versions is present in the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository} an can be made available by e.g. cloning the repository.
@@ -40,8 +40,7 @@ The raw pipeline to cluster \gls{IAV} genomes and save the results as clustertre
 
 \begin{lstlisting}[language=sh]
 conda activate Masterthesis
-python3 Masterthesis.py -i A.fasta -o PCA_raw -p 50
-python3 Masterthesis.py -i A.fasta -o UMAP_raw -p 100 -u 50
+python3 Clustering.py -i A.fasta -o PCA_raw -p 50
 \end{lstlisting}  
 
 The script takes ca. one hour to cluster all segments of \gls{IAV} and create the output in form of tables and graphics with \gls{PCA} and ca. one and a half hours with the suggested \gls{UMAP} settings.
