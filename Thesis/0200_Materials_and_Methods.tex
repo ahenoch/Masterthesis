@@ -8,28 +8,84 @@ cd Masterthesis
 conda env create -f Environment.yml
 \end{lstlisting}  
 
-The YAML file containing the informations for installation like e.g. the used tools versions is present in the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository} an can be made available by e.g. cloning the repository.
+The YAML file containing the informations for installation like e.g. the used tools versions is present in the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository} an can be made available by e.g. cloning the repository (the most important package versions are also listed in \autoref{tab:Package_Version}).
+
+\begin{table}[!hbt]
+    \centering
+    \caption[Package Version]{\textbf{Package Version.}.}
+    \label{tab:Package_Version}
+    \pgfplotstabletypeset[
+        every head row/.style={
+            before row={
+                \toprule
+            },
+            after row={
+                \midrule
+            },
+        },
+        every last row/.style={
+            after row={
+                \bottomrule
+            },
+        },
+        begin table=\begin{tabular*}{.5\textwidth},
+        end table=\end{tabular*},
+        columns={0,1,2},
+        columns/0/.style={string type, multicolumn names=l,column name=\textbf{Name}, column type=@{\extracolsep{\fill}\hspace{6pt}}l},
+        columns/1/.style={string type, multicolumn names=l,column name=\textbf{Version}, column type=l},
+        columns/2/.style={string type, multicolumn names=l,column name=\textbf{Channel}, column type=l}
+    ]
+    {Graphics/Packages.csv}
+\end{table}
 
 Since its file size exceeds the limits of GitHub, the FASTA file containing all the known high quality sequences of the \gls{IAV}, that is used in this project must be manually retrieved in the latest version from the \href{https://www.fludb.org/brc/home.spg?decorator=influenza}{Influenza Research Database}.
 
-\begin{enumerate}[noitemsep]
-    \item \textit{SEARCH DATA}
-    \item \textit{Search Sequences}
-    \item \textit{Nucleotide Sequences}
-    \item \textit{Data Type:} Genome Segments, \textit{Virus Type:} A, \textit{Complete Genome:} Complete Genome Only, \textit{Select Segments:} All, \textit{Complete:} All
-    \item \textit{Search}
-    \item \textit{Select all X segments}
-    \item \textit{Download}
-    \item \textit{Specify Download Type:} Segment FASTA
-    \item \textit{Format for FASTA file definition line:}  Custom format - select fields from list
-    \item \textbf{add in the following order:} Accession Number, Strain Name, Segment, Protein Symbol, Type, SubType, Date, Host Species, Curation Flag
-    \item save as A.fasta in the cloned Masterthesis folder
-\end{enumerate}
+\begin{table}[!hbt]
+    \centering
+    \caption[Search Parameter for FASTA file]{\textbf{Search Parameter for FASTA file.}.}
+    \label{tab:Search}
+    \pgfplotstabletypeset[
+        every head row/.style={
+            before row={
+                \toprule
+            },
+            after row={
+                \midrule
+            },
+        },
+        every last row/.style={
+            after row={
+                %... & ... & ... & ... & ... & ... & ... & ...\\
+                \bottomrule
+            },
+        },
+        begin table=\begin{tabular*}{.5\textwidth},
+        end table=\end{tabular*},
+        columns={0,1},
+        columns/0/.style={string type, multicolumn names=l,column name=\textbf{Field}, column type=@{\extracolsep{\fill}\hspace{6pt}}l},
+        columns/1/.style={string type, multicolumn names=l,column name=\textbf{Parameter}, column type=l},
+    ]
+    {Graphics/search.csv}
+\end{table}
 
+The FASTA file can be retrieved by navigating from \textit{SEARCH DATA} to \textit{Search Sequences} and then to \textit{Nucleotide Sequences}. On the following page the parameters given in \autoref{tab:Search} have to be used to request the correct file. Following the search request \textit{Select all X segments} have to be checked and after \textit{Download}, \textit{Segment FASTA} has to be checked in \textit{Specify Download Type} setting and \textit{Custom format - select fields from list} in \textit{Format for FASTA file definition line}. Accession Number, Strain Name, Segment, Protein Symbol, Type, SubType, Date, Host Species, Curation Flag have then to be added in the following order. After downloading the FASTA file it has to be placed as \textit{A.fasta} in the local root of the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository}. The version used for the proposed results was acquired at 08.11.2020. Newer versions might change the results slightly.
+
+% \begin{enumerate}[noitemsep]
+%     \item \textit{SEARCH DATA}
+%     \item \textit{Search Sequences}
+%     \item \textit{Nucleotide Sequences}
+%     \item \textit{Data Type:} Genome Segments, \textit{Virus Type:} A, \textit{Complete Genome:} Complete Genome Only, \textit{Select Segments:} All, \textit{Complete:} All
+%     \item \textit{Search}
+%     \item \textit{Select all X segments}
+%     \item \textit{Download}
+%     \item \textit{Specify Download Type:} Segment FASTA
+%     \item \textit{Format for FASTA file definition line:}  Custom format - select fields from list
+%     \item \textbf{add in the following order:} Accession Number, Strain Name, Segment, Protein Symbol, Type, SubType, Date, Host Species, Curation Flag
+%     \item save as A.fasta in the cloned Masterthesis folder
+% \end{enumerate}
 %or from the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository}. Using the manually retrieved updated version of the FASTA file might change the recreated results slightly.
-The version used for the proposed results was acquired at 08.11.2020. Newer versions might change the results slightly.
 
-To access the Jupyter Notebooks holding the cluster and analysis pipeline, as well as recreate the results, the IPYNB Files in the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository} have to be opened and started in a Jupyter Lab server.
+To access the Jupyter Notebooks holding the cluster and analysis pipeline, as well as recreate the results, the IPYNB Files in the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository} have to be opened and started in a Jupyter Lab server \autocite{kluyver_jupyter_2016, perez_ipython_2007}.
 
 \begin{lstlisting}[language=sh]
 conda activate Masterthesis
@@ -43,12 +99,12 @@ conda activate Masterthesis
 python3 Clustering.py -i A.fasta -o PCA_raw -p 50
 \end{lstlisting}  
 
-The script takes ca. one hour to cluster all segments of \gls{IAV} and create the output in form of tables and graphics with \gls{PCA} and ca. one and a half hours with the suggested \gls{UMAP} settings.
+The tool takes around one hour to cluster all eight segments of \gls{IAV} and create the output in form of tables and clustertree graphics with the suggested settings. All settings available to the present day are listed below.
 
 \begin{leftbar}
-    \textbf{Masterthesis.py}
+    \textbf{Clustering.py}
     \begin{nstabbing}
-        \qquad \= \qquad\qquad\qquad\qquad \= \kill
+        \qquad\=\qquad\qquad\qquad\qquad\quad\=\kill
     
         -i \> -{}-{}infile \> [path to input file (e.g. A.fasta)]\\
         
@@ -86,6 +142,6 @@ The script takes ca. one hour to cluster all segments of \gls{IAV} and create th
 
 \input{Thesis/0205_Kneedle}
 
-\input{Thesis/0206_Clustering_Pipeline}
+\input{Thesis/0206_MAFFT}
 
-\input{Thesis/0207_Analysis_Pipeline}
+\input{Thesis/0207_Pipeline}
