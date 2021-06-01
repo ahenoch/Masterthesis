@@ -107,13 +107,15 @@
 \textbf{Cosinus similarity:}
 
 \begin{empheq}{alignat = -1}
-    &\cos\angle(\mathbf{x}, \mathbf{y}) &&= \frac{\mathbf{x}^\top\mathbf{y}}{\Vert\mathbf{x}\Vert \cdot \Vert\mathbf{y}\Vert}
+    %&\cos\angle(\mathbf{x}, \mathbf{y}) &&= \frac{\mathbf{x}^\top\mathbf{y}}{\Vert\mathbf{x}\Vert \cdot \Vert\mathbf{y}\Vert}
+    &\cos(\Theta) &&= \frac{\mathbf{x}^\top\mathbf{y}}{\Vert\mathbf{x}\Vert \cdot \Vert\mathbf{y}\Vert}
 \end{empheq}
 
 \textbf{cosinus distance}
 
 \begin{empheq}{alignat = -1}
-    &d(\mathbf{x},\mathbf{y}) &&= 1 - \cos\angle(\mathbf{x}, \mathbf{y})
+    %&d(\mathbf{x},\mathbf{y}) &&= 1 - \cos\angle(\mathbf{x}, \mathbf{y})
+    &d(\mathbf{x},\mathbf{y}) &&= 1 - \cos(\Theta)
 \end{empheq}
 
 \textbf{Normalization with l2 norm:} 
@@ -139,5 +141,6 @@
     &\Vert\mathbf{x} - \mathbf{y}\Vert_2^2 &&= (\mathbf{x} - \mathbf{y})^\top (\mathbf{x} - \mathbf{y}) \\
     &&&= \mathbf{x}^\top \mathbf{x} - 2 \mathbf{x}^\top \mathbf{y} + \mathbf{y}^\top \mathbf{y} \\
     &&&= 2 - 2\mathbf{x}^\top \mathbf{y} \\
-    &&&= 2 - 2 \cos\angle(\mathbf{x}, \mathbf{y})
+    %&&&= 2 - 2 \cos\angle(\mathbf{x}, \mathbf{y})
+    &&&= 2 - 2 \cos(\Theta)
 \end{empheq}
