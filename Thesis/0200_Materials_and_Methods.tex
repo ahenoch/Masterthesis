@@ -8,7 +8,7 @@ cd Masterthesis
 conda env create -f Environment.yml
 \end{lstlisting}  
 
-The YAML file containing the informations for installation like e.g. the used tools versions is present in the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository} an can be made available by e.g. cloning the repository (the most important package versions are also listed in \autoref{tab:Package_Version}).
+The YAML file containing the informations for installation like e.g. the used tools versions is present in the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository} an can be made available by e.g. cloning the repository (the important packages and their related versions are also listed in \autoref{tab:Package_Version}).
 
 \begin{table}[!hbt]
     \centering
@@ -92,7 +92,7 @@ conda activate Masterthesis
 jupyter lab
 \end{lstlisting}  
 
-The raw pipeline to cluster \gls{IAV} genomes and save the results as clustertrees and tables without excessive analysis, is designed to function as a clustering tool, without the need of a running Jupyter Lab server and with easier modification and faster execution in mind.
+The raw pipeline to cluster \gls{IAV} genomes and save the results as clustertrees and tables without excessive analysis, is designed to function as a clustering tool, without the need of a running Jupyter Lab server and with easier modification and faster execution in mind (\autoref{fig:Vectorization_Pipeline} and \autoref{fig:Clustering_Pipeline}).
 
 \begin{lstlisting}[language=sh]
 conda activate Masterthesis
@@ -132,16 +132,30 @@ The tool takes around one hour to cluster all eight segments of \gls{IAV} and cr
     \end{nstabbing}
 \end{leftbar}
 
-\input{Thesis/0201_PCA}
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Graphics/Vectorization.pdf}
+    \caption[Clustering Pipeline]{\textbf{Vectorization Pipeline.} .}
+    \label{fig:Vectorization_Pipeline}
+\end{figure}
 
-\input{Thesis/0202_UMAP}
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Graphics/Clustering.pdf}
+    \caption[Clustering Pipeline]{\textbf{Clustering Pipeline.} .}
+    \label{fig:Clustering_Pipeline}
+\end{figure}
 
-\input{Thesis/0203_L2_Normalization}
+\input{Thesis/0201_Frequency}
 
-\input{Thesis/0204_HDBSCAN}
+\input{Thesis/0202_Normalization}
 
-\input{Thesis/0205_Kneedle}
+\input{Thesis/0203_PCA}
 
-\input{Thesis/0206_MAFFT}
+\input{Thesis/0204_UMAP}
 
-\input{Thesis/0207_Pipeline}
+\input{Thesis/0205_HDBSCAN}
+
+\input{Thesis/0206_Kneedle}
+
+\input{Thesis/0207_MAFFT}

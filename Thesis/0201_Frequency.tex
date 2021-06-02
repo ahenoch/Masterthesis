@@ -1,0 +1,26 @@
+\section{K-Mer Frequency} \label{sec:Frequency}
+
+The FASTA file containing the to be clustered genomes of \gls{IAV} were translated to vectors for clustering in high dimension by counting their 7-mer frequency (\autoref{fig:Vectorization_Pipeline} \textsf{\textbf{A}}). Let $a_n$ be a mathematical sequence of all permutations with repetition of the set $\{A,C,G,T\}$ to the magnitude of seven, thus $4^7$ elements (\autoref{eq:alphabet}) and $s_n$ a mathematical sequence of all genome sequences in the FASTA file (\autoref{eq:alphabet}).
+
+\begin{empheq}{alignat = -1}
+    &a_n &&= ( \text{AAAAAAA} , \text{AAAAAAC} , \text{AAAAAAG} , \ldots , \text{TTTTTTT} &&)\label{eq:alphabet}\\
+    &s_n &&= ( \text{GCAAAA...} , \text{GCAAAA...} , \text{AGCAAA...} , \ldots , \text{ATGGC...} &&)\label{eq:sequences}
+\end{empheq}
+
+The elements of $a_n$ represent all possible constellations of 7-mers. The vector component $x_{i,j}$ of a genome sequence $s_j$ with the length $l$ were calculated by summing up the number of occurrences of element $a_i$ in all the 7-mers of genome sequence $s_j$ (\autoref{eq:frequency}). 
+
+\begin{empheq}{alignat = -1}
+    &x_{i,j} = \sum^{l-7+1}_{k=1} \delta(s_i[k\ldots k+7-1], a_j), \ \text{ with }\delta(s,a)=\left\{ \begin{array}{c}1\text{ if \ensuremath{s=a}}\\0\text{ if \ensuremath{s\neq a}}\end{array}\right.\label{eq:frequency}
+\end{empheq}
+
+This calculation was repeated for all of the $4^7$ elements of $a_n$ building the vector $\mathbf{x}_i$ (\autoref{eq:full_vector}).
+
+\begin{empheq}{alignat = -1}
+    &\mathbf{x}_i = \begin{pmatrix}x_{i,1}\\x_{i,2}\\x_{i,3}\\\vdots\\x_{i,4^7}\end{pmatrix}\label{eq:full_vector}
+\end{empheq}
+
+By repeating the calculation \autoref{eq:frequency} for all sequences in $s_n$ a matrix $\mathbf{M}$ was created, holding the k-mer frequency vectors of the genome sequences (\autoref{eq:full_matrix}). The entries in the $j$ columns represent the number of occurencences of 7-mer $a_j$ in a genome sequence $s_i$. The rows represent the $i$ genome sequences from $s_n$. In summary e.g. $\mathbf{M}_{1,1}$ represents the number of occurences of the first 7-mer in $a_n$ in the first genome sequence of $s_n$.
+
+\begin{empheq}{alignat = -1}
+    &\mathbf{M} = \begin{bmatrix}\mathbf{x}_1\\\mathbf{x}_2\\\mathbf{x}_3\\\vdots\\\mathbf{x}_i\end{bmatrix}\label{eq:full_matrix}
+\end{empheq}

@@ -1,13 +1,21 @@
-\section{Pipeline} \label{sec:Analysis_Pipeline}
+\section{PCA} \label{sec:PCA}
 
-\blindtext
+To handle the complexity of the datasets generated in the project, as well as to simplify them with the least loss of information as possible \gls{PCA} was used. 
 
-\begin{figure}[!hbt]
-    \centering
-    \includegraphics[width=\textwidth]{Graphics/Pipeline_V2.pdf}
-    \caption[Clustering Pipeline]{\textbf{Clustering Pipeline.} .}
-    \label{fig:Clustering_Pipeline}
-\end{figure}
+\autocite{jolliffe_principal_2016}
+\autocite{pearson_liii_1901}
+
+The parameters used in this project with settings varying from the default are listed below. All available settings can be fount in the
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html}{API} \autocite{pedregosa_scikit-learn_2011}
+
+\begin{leftbar}
+    \textbf{sklearn.decomposition.PCA}
+    \begin{nstabbing}
+        \qquad\qquad\qquad\qquad\qquad\quad\=\kill
+
+        n\_components \> (default: None)
+    \end{nstabbing}
+\end{leftbar}
 
 \begin{table}[!hbt]
     \centering

@@ -1,0 +1,72 @@
+\section{Normalization} \label{sec:Normalization}
+
+The matrix $\mathbf{M}$ was normalized row-wise with the L1-norm to align the k-mer frequency vectors located in the rows to an equal length of one (\autoref{fig:Vectorization_Pipeline} \textsf{\textbf{B}}) (\autoref{eq:l1_norm} to \autoref{eq:l1_full_matrix}). The \textbf{preprocessing.normalize} function from the \textbf{scikit-learn (sklearn)} package, with \colorbox{backcolour}{norm='l1'} setting was used for the normalization \autocite{pedregosa_scikit-learn_2011}.
+
+%\begin{lstlisting}[language=python]
+%sklearn.preprocessing.normalize(M, norm='l1')
+%\end{lstlisting}  
+
+\begin{empheq}{alignat = -1}
+    \mathbf{\hat{x}}_i &= \frac{\mathbf{x}_i}{\Vert\mathbf{x}_i\Vert_1} \label{eq:l1_norm}
+\end{empheq}
+
+\begin{empheq}{alignat = -1}
+    \Vert\mathbf{\hat{x}}_i\Vert_1 &= 1\label{eq:l1_result}
+\end{empheq}
+
+\begin{empheq}{alignat = -1}
+    &\mathbf{M}' = \begin{bmatrix}\mathbf{\hat{x}}_1\\\mathbf{\hat{x}}_2\\\mathbf{\hat{x}}_3\\\vdots\\\mathbf{\hat{x}}_i\end{bmatrix}\label{eq:l1_full_matrix}
+\end{empheq}
+
+The parameters used in this project with settings varying from the default are listed below. All available settings can be fount in the \href{https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.normalize.html}{API}
+
+\begin{leftbar}
+    \textbf{sklearn.preprocessing.normalize}
+    \begin{nstabbing}
+        \qquad\qquad\qquad\qquad\qquad\quad\=\kill
+        
+        X \> \\
+        
+        norm \> [Norm used for normalization (default: ’l2’)]
+        
+    \end{nstabbing}
+\end{leftbar}
+
+Due to an open\footnote{last accessed 02/06/21} \href{https://github.com/scikit-learn-contrib/hdbscan/issues/69}{issue} in the GitHub Repository of \gls{HDBSCAN} normalization with \textbf{preprocessing.normalize} was again used with the \colorbox{backcolour}{norm='l2'} setting, right before clustering. (\autoref{fig:Clustering_Pipeline} \textsf{\textbf{D}}). It was stated, normalization with L2-norm prior to clustering with euclidean metric setting, chord distance, which is also not directly available, can be used to approximate cosine distance.
+
+\begin{figure}[!hbt]
+    \centering
+    %\includegraphics[width=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox]{Graphics/L2_Euclidean.pdf}
+    \includegraphics[width=\textwidth]{Graphics/L2_Euclidean.pdf}
+    \caption[Graphical Background of L2 Normalisation]{\textbf{Graphical Background of L2 Normalisation.} .}
+    \label{fig:L2_Normalisation_Background}
+\end{figure}
+
+Chord distance can be calculated when having two vectors $\mathbf{x}$ and $\mathbf{y}$ with the same L2-norm equal to a radius $r$ of a circle centered to the origin of the coordinate system (\autoref{eq:chord}). 
+
+\begin{empheq}{alignat = -1}
+    &\Vert\mathbf{x}\Vert_2 = \Vert\mathbf{y}\Vert_2 = r &&\to d_{chord}(\mathbf{x},\mathbf{y}) &&= 2 \cdot r \sin \left(\frac{\Theta}{2}\right) \vee\label{eq:chord}\\
+    &\Vert\mathbf{x}\Vert_2 = \Vert\mathbf{y}\Vert_2 = r &&\to d_{chord}(\mathbf{x},\mathbf{y}) &&= d_{eucl}(\mathbf{x},\mathbf{y})\\
+    &&&&&= \Vert\mathbf{x} - \mathbf{y}\Vert_2
+\end{empheq}
+
+Thus chord distance can be calculated with the euclidean distance metric, posterior to the normalization with the L2-norm (\autoref{eq:chord_eucl_1} and \autoref{eq:chord_eucl_2}).
+
+\begin{empheq}{alignat = -1}
+    &\Vert\mathbf{\hat{x}}\Vert_2 = \Vert\mathbf{\hat{y}}\Vert_2 = 1 &&\to d_{chord}(\mathbf{\hat{x}},\mathbf{\hat{y}}) &&= d_{eucl}(\mathbf{\hat{x}},\mathbf{\hat{y}})\label{eq:chord_eucl_1}\\
+    &&&&&= \Vert\mathbf{\hat{x}} - \mathbf{\hat{y}}\Vert_2 \label{eq:chord_eucl_2}
+\end{empheq}
+
+The used chord distance is proportional with the initially intended to use cosine distance as shown in \autoref{eq:chord_cos_1} to \autoref{eq:chord_cos_7}. Dividing the squared chord distance by 2 results in the cosinus distance of the vectors.
+
+\begin{empheq}{alignat = -1}    
+    &\Vert\mathbf{\hat{x}}\Vert_2 = \Vert\mathbf{\hat{y}}\Vert_2 = 1 &&\to d_{chord}(\mathbf{\hat{x}},\mathbf{\hat{y}})^2 &&= \Vert\mathbf{\hat{x}} - \mathbf{\hat{y}}\Vert_2^2\label{eq:chord_cos_1}\\
+    &&&&&= (\mathbf{\hat{x}} - \mathbf{\hat{y}})^\top (\mathbf{\hat{x}} - \mathbf{\hat{y}})\label{eq:chord_cos_2}\\
+    &&&&&= \mathbf{\hat{x}}^\top \mathbf{\hat{x}} - 2 \mathbf{\hat{x}}^\top \mathbf{\hat{y}} + \mathbf{\hat{y}}^\top \mathbf{\hat{y}}\label{eq:chord_cos_3}\\
+    &&&&&= 2 - 2\mathbf{\hat{x}}^\top \mathbf{\hat{y}}\label{eq:chord_cos_4}\\
+    &&&&&= 2 - 2 \cos(\Theta)\label{eq:chord_cos_5}\\
+    &&&&&= 2 \cdot (1 - \cos(\Theta))\label{eq:chord_cos_6}\\
+    &&&&&= 2 \cdot d_{cos}(\mathbf{x},\mathbf{y})\label{eq:chord_cos_7}
+\end{empheq}
+
+ Approximation of cosine distance by normalization with L2-norm followed by euclidean distance calculation is thus a possible and in this project used workaround to overcome the missing cosine distance feature.
