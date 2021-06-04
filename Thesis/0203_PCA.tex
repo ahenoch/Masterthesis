@@ -1,21 +1,12 @@
 \section{PCA} \label{sec:PCA}
 
-To handle the complexity of the datasets generated in the project, as well as to simplify them with the least loss of information as possible \gls{PCA} was used. 
+To handle the complexity of the datasets generated in the project, as well as to simplify them with the least loss of information as possible \gls{PCA} was used (\autoref{fig:Clustering_Pipeline} \textsf{\textbf{C}}) \autocite{pearson_liii_1901}.\gls{PCA} is a statistical technique, used to find a new presentation of the dataset with a lower complexity by variance maximizing, uncorrelated variables, the \glspl{PC}, which are linear functions of the previous ones \autocite{jolliffe_principal_2016}. 
 
-\autocite{jolliffe_principal_2016}
-\autocite{pearson_liii_1901}
+For the \gls{PCA} of matrix $\mathbf{X}$ the \textbf{decomposition.PCA} function from the \textbf{scikit-learn (sklearn)} package, with \colorbox{backcolour}{n\_components=30} setting was used \autocite{pedregosa_scikit-learn_2011}.
 
-The parameters used in this project with settings varying from the default are listed below. All available settings can be fount in the
-\href{https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html}{API} \autocite{pedregosa_scikit-learn_2011}
+The matrix of $\mathbf{X}$ for e.g. segment 4 of \gls{IAV} is of size $56617 \times 4^7$ and the number of components to extract 30 of $4^7$ thereby $\approx 0.18\%$. The size limit of the \textbf{decomposition.PCA} function for calculation with default setting \colorbox{backcolour}{svd\_solver='auto'} is $500 \times 500$ and min. 80\% of the smallest dimension of components to extract. Thus \colorbox{backcolour}{svd\_solver='randomized'} setting of \textbf{decomposition.PCA} is used automatically \autocite{pedregosa_scikit-learn_2011}. Randomized truncated \gls{SVD} is calculated by \textbf{decomposition.PCA} as described in \textcite{halko_finding_2010}.
 
-\begin{leftbar}
-    \textbf{sklearn.decomposition.PCA}
-    \begin{nstabbing}
-        \qquad\qquad\qquad\qquad\qquad\quad\=\kill
-
-        n\_components \> (default: None)
-    \end{nstabbing}
-\end{leftbar}
+The number of components to extract was selected by running \gls{PCA} with different settings for \colorbox{backcolour}{n\_components} with matrix $\mathbf{X}$ of segment 4 and comparing the sum of explained variance. Because of the high increase of explained variance from 10 to 20 and also from 20 to 30 components, a value of 30 was used as default in this project. A fairly small value was used, due to increasing computational effort of \gls{PCA} and also to preserve the usability of Spanning Tree calculation with \gls{HDBSCAN} (\autoref{tab:PCA_Dimension}).
 
 \begin{table}[!hbt]
     \centering
@@ -43,3 +34,48 @@ The parameters used in this project with settings varying from the default are l
     ]
     {Graphics/PCA.csv}
 \end{table}
+
+% Let $\mathbf{S}$ be a square covariance matrix of size $i \times i$, calculated on the dataset matrix $\mathbf{X}$ with $i$ $j$-dimensional vectors (size $i \times j)$. 
+
+% \autocite{jolliffe_principal_2016}.
+
+% \begin{empheq}{alignat = -1}
+%     x^\ast_{i,j} = x_{i,j} - \bar{x}_j
+% \end{empheq}
+
+% \begin{empheq}{alignat = -1}
+%     &\mathbf{X}^\ast &&= \mathbf{U} \mathbf{L} \mathbf{A}^\top\\
+%     &&&= \mathbf{Y}
+% \end{empheq}
+
+% \begin{empheq}{alignat = -1}
+%     &\mathbf{X}^{\ast^\top} \mathbf{X}^\ast &&= (\mathbf{U} \mathbf{L} \mathbf{A}^\top)^\top (\mathbf{U} \mathbf{L} \mathbf{A}^\top)\\
+%     &&&= \mathbf{A}\mathbf{L}\mathbf{U}^\top\mathbf{U} \mathbf{L} \mathbf{A}^\top\\
+%     &&&= \mathbf{A}\mathbf{L}^2\mathbf{A}^\top 
+% \end{empheq}
+
+% \begin{empheq}{alignat = -1}
+%     \mathbf{Y}_{30} = \mathbf{U}_{30} \mathbf{L}_{30} \mathbf{A}_{30}^\top
+% \end{empheq}
+
+The parameters used in this project with settings varying from the default are listed below. All available settings can be fount in the
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html}{API} \autocite{pedregosa_scikit-learn_2011}.
+
+% \begin{empheq}{alignat = -1}
+%     &\mathbf{X} = \begin{bmatrix}x_{1,1} & x_{1,2} & x_{1,3} & \dots & x_{1,30}\\
+%     x_{2,1} & x_{2,2} & x_{2,3} & \dots & x_{2,30}\\
+%     x_{3,1} & x_{3,2} & x_{3,3} & \dots & x_{3,30}\\
+%     \vdots & \vdots & \vdots & \ddots & \vdots\\
+%     x_{i,1} & x_{i,2} & x_{i,3} & \dots & x_{i,30}
+%     \end{bmatrix}\label{eq:full_matrix_2}
+% \end{empheq}
+
+\begin{leftbar}
+    \textbf{sklearn.decomposition.PCA}
+    \begin{nstabbing}
+        \qquad\qquad\qquad\qquad\qquad\quad\=\kill
+
+        svd\_solver \> [Strategy used to solve the \gls{SVD} (default: auto)]\\
+        n\_components \> [Number of components to extract (default: None)]
+    \end{nstabbing}
+\end{leftbar}
