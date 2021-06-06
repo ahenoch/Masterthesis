@@ -6,7 +6,7 @@ For the \gls{PCA} of matrix $\mathbf{X}$ the \textbf{decomposition.PCA} function
 
 The matrix of $\mathbf{X}$ for e.g. segment 4 of \gls{IAV} is of size $56617 \times 4^7$ and the number of components to extract 30 of $4^7$ thereby $\approx 0.18\%$. The size limit of the \textbf{decomposition.PCA} function for calculation with default setting \colorbox{backcolour}{svd\_solver='auto'} is $500 \times 500$ and min. 80\% of the smallest dimension of components to extract. Thus \colorbox{backcolour}{svd\_solver='randomized'} setting of \textbf{decomposition.PCA} is used automatically \autocite{pedregosa_scikit-learn_2011}. Randomized truncated \gls{SVD} is calculated by \textbf{decomposition.PCA} as described in \textcite{halko_finding_2010}.
 
-\autoref{eq:PCA_k} and \autoref{eq:PCA_30} denote the use of the \gls{PCA} by the method of \textcite{halko_finding_2010} to reduce the matrix $\mathbf{X}$ with $j=4^7$ dimensions to $k=30$ dimensions and the settings for the Jupyter results with the use of \gls{PCA} only \autocite{kluyver_jupyter_2016, jolliffe_principal_2016, pedregosa_scikit-learn_2011}.
+\autoref{eq:PCA_k} and \autoref{eq:PCA_30} illustrate the use of the \gls{PCA} by the method of \textcite{halko_finding_2010} to reduce the matrix $\mathbf{X}$ with $j=4^7$ dimensions to $k=30$ dimensions \autocite{jolliffe_principal_2016, pedregosa_scikit-learn_2011}. This calculation is a representation of the approach used in \autoref{fig:Clustering_Pipeline} pathway \textsf{\textbf{1}} and the settings for the Jupyter results with the use of \gls{PCA} only \autocite{kluyver_jupyter_2016}.
 
 \begin{empheq}{alignat = -1}
     &\mathbf{X}_{(k)} &&= \text{PCA}(\mathbf{X}, k)\label{eq:PCA_k}\\
