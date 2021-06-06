@@ -1,8 +1,12 @@
 \section{HDBSCAN} \label{sec:HDBSCAN}
 
-\blindtext
-\autocite{mcinnes_hdbscan_2017}
+\gls{HDBSCAN} is an clustering algorithm proposed by \textcite{campello_hierarchical_2015}. It is a novel version of \gls{DBSCAN} but executed with varying values of epsilon \autocite{hutchison_density-based_2013}. Thus not one specific threshold is used to define the clusters, but instead clusters of varying densities are extracted based on their stability over epsilon \autocite{mcinnes_hdbscan_2017}. The version of \gls{HDBSCAN} used in this project is the accelerated implementation of \textcite{mcinnes_accelerated_2017} (\autoref{fig:Vectorization_Pipeline} \textsf{\textbf{E}}).
+
+\autocite{mcinnes_accelerated_2017}
+
 \autocite{malzer_hybrid_2020}
+
+
 
 The parameters used in this project with settings varying from the default are listed below. All available settings can be fount in the \href{https://hdbscan.readthedocs.io/en/latest/api.html}{API}.
 
@@ -17,7 +21,9 @@ The parameters used in this project with settings varying from the default are l
         
         cluster\_selection\_epsilon \> (default: 0.0)\\
         
-        alpha \> (default: 1.0)
+        gen\_min\_span\_tree \> (default: False)
+        
+        %alpha \> (default: 1.0)
     \end{nstabbing}
 \end{leftbar}
 
