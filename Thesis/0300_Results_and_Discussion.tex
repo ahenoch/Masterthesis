@@ -1,5 +1,32 @@
 \chapter{Results and Discussion} \label{chap:Results_and_Discussion}
 
+\begin{table}[!hbt]
+    \centering
+    \caption[Explained Variance by different PCA settings]{\textbf{Explained Variance by different PCA settings.}.}
+    \label{tab:PCA_Dimension}
+    \pgfplotstabletypeset[
+        every head row/.style={
+            before row={
+                \toprule
+            },
+            after row={
+                \midrule
+            },
+        },
+        every last row/.style={
+            after row={
+                \bottomrule
+            },
+        },
+        begin table=\begin{tabular*}{.5\textwidth},
+        end table=\end{tabular*},
+        columns={0,1},
+        columns/0/.style={int detect, multicolumn names=l,column name=\textbf{\#Components}, column type=@{\extracolsep{\fill}\hspace{6pt}}r},
+        columns/1/.style={multicolumn names=l,column name=\textbf{Explained Variance}, column type=r}
+    ]
+    {Graphics/PCA.csv}
+\end{table}
+
 \begin{figure}
     \centering
     %\begin{adjustbox}{minipage=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox}

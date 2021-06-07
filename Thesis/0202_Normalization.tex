@@ -49,7 +49,7 @@ Due to an open\footnote{last accessed 02/06/21} \href{https://github.com/scikit-
 Chord distance $d_{\text{chord}}$ can be calculated when having two vectors, here as an exmaple named as $\mathbf{x}'$ and $\mathbf{y}'$ with the same L2-norm equal to a radius $r'$ of a sphere  centered to the origin of the coordinate system and an angle of $\Theta'$ (\autoref{eq:chord} and \autoref{fig:L2_Normalisation_Background}). The euclidean distance $d_{\text{eucl}}$ is equal to the chord distance for the same vectors $\mathbf{x}'$ and $\mathbf{y}'$ with L2-norm of $r'$.
 
 \begin{empheq}{alignat = -1}
-    &\Vert\mathbf{x}'\Vert_2 = \Vert\mathbf{y}'\Vert_2 = r' &&\to d_{\text{chord}}(\mathbf{x}',\mathbf{y}') &&= 2 \cdot r' \sin \left(\frac{\Theta'}{2}\right) \label{eq:chord}\\
+    &\Vert\mathbf{x}'\Vert_2 = \Vert\mathbf{y}'\Vert_2 = r' &&\Rightarrow d_{\text{chord}}(\mathbf{x}',\mathbf{y}') &&= 2 \cdot r' \sin \left(\frac{\Theta'}{2}\right) \label{eq:chord}\\
     &&&&&= 2 \cdot \frac{d_{\text{eucl}}(\mathbf{x}',\mathbf{y}')}{2}\\
     &&&&&= d_{\text{eucl}}(\mathbf{x}',\mathbf{y}')\\
     &&&&&= \Vert\mathbf{x}' - \mathbf{y}'\Vert_2
@@ -58,14 +58,14 @@ Chord distance $d_{\text{chord}}$ can be calculated when having two vectors, her
 Thus in this project chord distance can be calculated with the euclidean distance metric, posterior to the normalization with the L2-norm, which scales the vectors to the unit sphere (\autoref{eq:chord_eucl_1} to \autoref{eq:chord_eucl_2} and \autoref{fig:L2_Normalisation_Background}).
 
 \begin{empheq}{alignat = -1}
-    &\Vert\mathbf{\hat{x}}\Vert_2 = \Vert\mathbf{\hat{y}}\Vert_2 = 1 &&\to d_{\text{chord}}(\mathbf{\hat{x}},\mathbf{\hat{y}}) &&= d_{\text{eucl}}(\mathbf{\hat{x}},\mathbf{\hat{y}})\label{eq:chord_eucl_1}\\
+    &\Vert\mathbf{\hat{x}}\Vert_2 = \Vert\mathbf{\hat{y}}\Vert_2 = 1 &&\Rightarrow d_{\text{chord}}(\mathbf{\hat{x}},\mathbf{\hat{y}}) &&= d_{\text{eucl}}(\mathbf{\hat{x}},\mathbf{\hat{y}})\label{eq:chord_eucl_1}\\
     &&&&&= \Vert\mathbf{\hat{x}} - \mathbf{\hat{y}}\Vert_2 \label{eq:chord_eucl_2}
 \end{empheq}
 
 The used chord distance is proportional with the initially intended to use cosine distance as shown in \autoref{eq:chord_cos_1} to \autoref{eq:chord_cos_7}. Dividing the squared chord distance by 2 results in the cosinus distance of the vectors.
 
 \begin{empheq}{alignat = -1}    
-    &\Vert\mathbf{\hat{x}}\Vert_2 = \Vert\mathbf{\hat{y}}\Vert_2 = 1 &&\to d_{\text{chord}}(\mathbf{\hat{x}},\mathbf{\hat{y}})^2 &&= \Vert\mathbf{\hat{x}} - \mathbf{\hat{y}}\Vert_2^2\label{eq:chord_cos_1}\\
+    &\Vert\mathbf{\hat{x}}\Vert_2 = \Vert\mathbf{\hat{y}}\Vert_2 = 1 &&\Rightarrow d_{\text{chord}}(\mathbf{\hat{x}},\mathbf{\hat{y}})^2 &&= \Vert\mathbf{\hat{x}} - \mathbf{\hat{y}}\Vert_2^2\label{eq:chord_cos_1}\\
     &&&&&= (\mathbf{\hat{x}} - \mathbf{\hat{y}})^\top (\mathbf{\hat{x}} - \mathbf{\hat{y}})\label{eq:chord_cos_2}\\
     &&&&&= \mathbf{\hat{x}}^\top \mathbf{\hat{x}} - 2 \mathbf{\hat{x}}^\top \mathbf{\hat{y}} + \mathbf{\hat{y}}^\top \mathbf{\hat{y}}\label{eq:chord_cos_3}\\
     &&&&&= 2 - 2\mathbf{\hat{x}}^\top \mathbf{\hat{y}}\label{eq:chord_cos_4}\\
