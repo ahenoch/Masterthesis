@@ -28,7 +28,7 @@ The parameters used in this project with settings varying from the default are l
     \end{nstabbing}
 \end{leftbar}
 
-Due to an open\footnote{last accessed 02/06/21} \href{https://github.com/scikit-learn-contrib/hdbscan/issues/69}{issue} in the GitHub Repository of \gls{HDBSCAN} row-wise normalization with \textbf{preprocessing.normalize} was again used with the \colorbox{backcolour}{norm='l2'} setting, right before clustering. (\autoref{eq:l2_norm} to \autoref{eq:l2_result} and \autoref{fig:Clustering_Pipeline} \textsf{\textbf{E}}). It was stated, normalization with L2-norm prior to clustering with euclidean metric setting, chord distance, which is also not directly available, can be used to approximate cosine distance.
+Due to an open \href{https://github.com/scikit-learn-contrib/hdbscan/issues/69}{issue}\footnote{last accessed 02/06/21} in the GitHub Repository of \gls{HDBSCAN} row-wise normalization with \textbf{preprocessing.normalize} was again used with the \colorbox{backcolour}{norm='l2'} setting, right before clustering. (\autoref{eq:l2_norm} to \autoref{eq:l2_result} and \autoref{fig:Clustering_Pipeline} \textsf{\textbf{E}}). It was stated, normalization with L2-norm prior to clustering with euclidean metric setting, chord distance, which is also not directly available, can be used to approximate cosine distance.
 
 \begin{figure}[!hbt]
     \centering

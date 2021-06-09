@@ -4,7 +4,7 @@
 
 Since there is, to my best knowledge, no submission using \gls{HDBSCAN} for a usecase similar to the one proposed in this project, most settings for \gls{HDBSCAN} were selected by parameter exploration, graphical comparisons and reasonable assumptions. For the selection of all settings the \href{https://hdbscan.readthedocs.io/en/latest/api.html}{API} was used as backup \autocite{mcinnes_hdbscan_2017}. 
 
-To capture, in the best case, even genomes with single \glspl{SNP} at rare appearing positions in their own clusters \colorbox{backcolour}{min\_cluster\_size=2} and \colorbox{backcolour}{min\_samples=1} setting was used as default in the project. These settings are in both cases the smallest values possible, to declare as least points as possible as noise. Setting the \gls{UMAP} parameters to focus on the global structure, while cluster as fine as possible might sound contradictory and is therefore discussed in \autoref{sec:Dimension_Reduction}. The default \colorbox{backcolour}{metric='euclidean'} setting was used to approximate the use of cosine distance metric as described in \autoref{sec:Normalization}. For calculation of the linkage matrix $\mathbf{L}$ standard \gls{HDBSCAN} without $\varepsilon$ was used.
+To capture, in the best case, even genomes with single \glspl{SNP} at rare appearing positions in their own clusters \colorbox{backcolour}{min\_cluster\_size=2} and \colorbox{backcolour}{min\_samples=1} setting was used as default in the project. These settings are in both cases the smallest values possible, to declare as least points as possible as noise. Setting the \gls{UMAP} parameters to focus on the global structure, while cluster as fine as possible might sound contradictory and is therefore discussed in \autoref{sec:Dimension_Reduction}. The default \colorbox{backcolour}{metric='euclidean'} setting was used for all following executions of \gls{HDBSCAN}, with an exception on the precalculated runs, to approximate the use of cosine distance metric as described in \autoref{sec:Normalization}. For calculation of the linkage matrix $\mathbf{L}$ standard \gls{HDBSCAN} without $\varepsilon$ was used.
 
 \autoref{eq:HDB} to \autoref{eq:HDB_link_X} demonstrate the use of \gls{HDBSCAN} to calculate the linkage matrix $\mathbf{L}$ with matrix $\mathbf{X}_{(30)}$ of \autoref{fig:Clustering_Pipeline} pathway \textsf{\textbf{1}} and was performed in the same way with $\mathbf{Y}$ of \autoref{fig:Clustering_Pipeline} pathway \textsf{\textbf{2}} \autocite{mcinnes_hdbscan_2017, gower_minimum_1969}.
 
@@ -51,8 +51,6 @@ The parameters used in this project with settings varying from the default are l
         %alpha \> (default: 1.0)
     \end{nstabbing}
 \end{leftbar}
-
-The colored trees were created by ETE3 with a newick file created with $N_{\text{PCA}}$ and $L_{\text{PCA}}$ and otherwise $N_{\text{UMAP}}$ and $L_{\text{UMAP}}$ \autocite{huerta-cepas_ete_2016}. The newick file was created with a feature request proposed for the \textbf{scipy} package version 1.6.0 as described in the \href{https://github.com/scipy/scipy/issues/8274}{issue} \autocite{scipy_10_contributors_scipy_2020}.
 
 %Clustering
 %DBCV mehr als 50dims abkacken bla
