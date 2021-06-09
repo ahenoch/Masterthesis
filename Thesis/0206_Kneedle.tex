@@ -1,16 +1,28 @@
 \section{Kneedle Algorithm} \label{sec:Kneedle}
 
-Calculation of $\varepsilon$ was executed by using the implementation of the Kneedle Algorithm proposed in the associated \href{https://github.com/arvkevi/kneed.git}{GitHub repository} \autocite{satopaa_finding_2011}.
+Calculation of $\varepsilon$ was executed by using the implementation of the Kneedle Algorithm, by the \textbf{kneed} package version 0.7.0 proposed in the associated \href{https://github.com/arvkevi/kneed.git}{GitHub repository} \autocite{satopaa_finding_2011}.
 
 Points where e.~g.~ the cost of tuning is no longer worth the loss in performance are called \glqq knees\grqq{} \autocite{satopaa_finding_2011}. These points are so to speak the balance of a given trade-off \autocite{satopaa_finding_2011}. Kneedle is an algorithm to find these point in a given system \autocite{satopaa_finding_2011}. A system could be the trade-off between cluster number and distance threshold in hierarchical clustering \autocite{gower_minimum_1969}. 
 
-With increasing cluster number, the distance threshold of hierarchical clustering decreases \autocite{gower_minimum_1969}. This describes a decreasing curve of convex type with distance threshold on the y- and cluster number on the x-axis. The knee is the number of clusters at the point in the polynomial representation of the curve with maximal acceleration. Polynomial representation was used to find the maximum acceleration of the smoothed curve, instead of a local maximum due to a single inaccuracy. Therefore the implementation Kneed was used with \colorbox{backcolour}{curve='concave'}, \colorbox{backcolour}{direction='increasing'} and \colorbox{backcolour}{interp\_method='interp1d'} settings \autoref{fig:Clustering_Pipeline} \textsf{\textbf{I}}).
+With increasing cluster number, the distance threshold of hierarchical clustering decreases \autocite{gower_minimum_1969}. This describes a decreasing curve of convex type with distance threshold on the y- and cluster number on the x-axis. The knee is the number of clusters at the point in the polynomial representation of the curve with maximal acceleration. Polynomial representation was used to find the maximum acceleration of the smoothed curve, instead of a local maximum due to a single inaccuracy. Therefore the implementation Kneed was used with \colorbox{backcolour}{curve='concave'}, \colorbox{backcolour}{direction='increasing'} and \colorbox{backcolour}{interp\_method='interp1d'} settings to find the optimal number of clusters $z$ (\autoref{fig:Clustering_Pipeline} \textsf{\textbf{I}} and \autoref{eq:linkage} to \autoref{eq:knee_z}). The calculation was done for $\mathbf{X}_{(30)}$ and $\mathbf{Y}$, with their linkage matrizes $\mathbf{L}_{\text{PCA}}$ and $\mathbf{L}_{\text{UMAP}}$ (\autoref{sec:HDBSCAN}).
 
 \begin{empheq}{alignat = -1}
-    &n &&= \text{KNEED}(\mathbf{L})
+    \mathbf{L}_{\text{PCA}} = [l_{i,j}]\label{eq:linkage}
 \end{empheq}
 
-Number of clusters $n$ was then converted in it's respective distance threshold $\varepsilon$ using the linkage matrix $\mathbf{L}$ again.
+\begin{empheq}{alignat = -1}
+    \mathbf{n} = \begin{bmatrix} n\\ n-1\\ \vdots\\ 1\end{bmatrix}\label{eq:vector_n}
+\end{empheq}
+
+\begin{empheq}{alignat = -1}
+    \mathbf{d} = \begin{bmatrix} l_{1,3}\\ l_{2,3}\\ \vdots\\ l_{i,3}\end{bmatrix}\label{eq:vector_d}
+\end{empheq}
+
+\begin{empheq}{alignat = -1}
+    z = \text{KNEED}(\mathbf{n}, \mathbf{d})\label{eq:knee_z}
+\end{empheq}
+
+Number of clusters $z$ was then converted in it's respective distance threshold $\varepsilon_{\text{Kneed}}$ using the entries of the linkage matrix $\mathbf{L}$ or respective the 3 column vector $\mathbf{d}$ again (\autoref{eq:knee_z}).
 
 The parameters used in this project with settings varying from the default are listed below. All available settings can be fount in the \href{https://kneed.readthedocs.io/en/stable/api.html}{API}.
 
@@ -19,17 +31,17 @@ The parameters used in this project with settings varying from the default are l
     \begin{nstabbing}
         \qquad\qquad\qquad\qquad\qquad\quad\=\kill
 
-        x \> \\
+        x \> [vector with values for x]\\
         
-        y \> \\
+        y \> [vector with values for y]\\
         
-        curve \> (default: 'concave')\\
+        curve \> [form of input data (default: 'concave')]\\
         
-        direction \> (default: 'increasing')\\
+        direction \> [direction of the curve (default: 'increasing')]\\
         
-        interp\_method \> (default: 'interp1d')\\
+        interp\_method \> [method to use for interpolation (default: 'interp1d')]\\
         
-        online \> (default: False)\\
+        online \> [searching for global maxima (default: False)]
         
         %S \> (default: 1.0)\\
         %polynomial\_degree \> (default: 7)

@@ -12,7 +12,7 @@ The YAML file containing the informations for installation like e.~g.~ the used 
 
 \begin{table}[!hbt]
     \centering
-    \caption[Package Version]{\textbf{Package Version.}.}
+    \caption[Package Version]{\textbf{Package Version.} The packages that need to be installed by Conda in a specific version for the pipeline to work as expected are listed in this table. Other related packages necessary for execution of the listed ones are meanwhile installed automatically by Conda.}
     \label{tab:Package_Version}
     \pgfplotstabletypeset[
         every head row/.style={
@@ -42,7 +42,7 @@ Since its file size exceeds the limits of GitHub, the FASTA file containing all 
 
 \begin{table}[!hbt]
     \centering
-    \caption[Search Parameter for FASTA file]{\textbf{Search Parameter for FASTA file.}.}
+    \caption[Search Parameter for FASTA file]{\textbf{Search Parameter for FASTA file.} The parameters to use on the nucleotide sequence search interface of the \href{https://www.fludb.org/brc/home.spg?decorator=influenza}{Influenza Research Database}. All paremeters have to be precisely as listed for a exact replication of the FASTA file used in this project.}
     \label{tab:Search}
     \pgfplotstabletypeset[
         every head row/.style={
@@ -92,14 +92,14 @@ conda activate Masterthesis
 jupyter lab
 \end{lstlisting}  
 
-The raw pipeline clusters \gls{IAV} genomes and saves the results as CSV files and colored clustertrees using the ETE 3 \autocite{huerta-cepas_ete_2016}. It is designed to function as a clustering tool, without the need of a running Jupyter Lab server and with easier modification and faster execution in mind (\autoref{fig:Vectorization_Pipeline} and \autoref{fig:Clustering_Pipeline}).
+The raw pipeline clusters \gls{IAV} genomes and saves the results as CSV files and colored \gls{HDBSCAN} clustertrees using ETE3 version 3.1.2 \autocite{huerta-cepas_ete_2016}. It is designed to function as a clustering tool, without the need of a running Jupyter Lab server and with easier modification and faster execution in mind (\autoref{fig:Vectorization_Pipeline} and \autoref{fig:Clustering_Pipeline}). 
 
 \begin{lstlisting}[language=sh]
 conda activate Masterthesis
 python3 Clustering.py -i A.fasta -o PCA_raw -p 50
 \end{lstlisting}  
 
-The tool takes around one hour to cluster all eight segments of \gls{IAV} and create the output in form of tables and clustertree graphics with the suggested settings. All settings available to the present day are listed below.
+All settings available to the present day are listed on the next page.
 
 \begin{leftbar}
     \textbf{Clustering.py}
@@ -135,16 +135,18 @@ The tool takes around one hour to cluster all eight segments of \gls{IAV} and cr
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/Vectorization.pdf}
-    \caption[Clustering Pipeline]{\textbf{Vectorization Pipeline.} .}
+    \caption[Clustering Pipeline]{\textbf{Vectorization Pipeline.} The vectorization pipeline of the proposed clustering tool. The FASTA file is translated to vectors containing the k-mer frequencies of the specific sequence (\autoref{sec:Frequency}). As shown in pathway \textsf{\textbf{1}}, by normalization with L1-norm and \gls{PCA} a low complexity representation of the vectors is obtained for clustering (\autoref{sec:Normalization} and \autoref{sec:PCA}). Pathway \textsf{\textbf{2}} describes additional execution of \gls{UMAP} that can be used after \gls{PCA} as intermediate instead of final step (\autoref{sec:UMAP}).}
     \label{fig:Vectorization_Pipeline}
 \end{figure}
 
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/Clustering.pdf}
-    \caption[Clustering Pipeline]{\textbf{Clustering Pipeline.} .}
+    \caption[Clustering Pipeline]{\textbf{Clustering Pipeline.} Following the vectorization pipeline (\autoref{fig:Vectorization_Pipeline}) normalization is used again with L2-norm as preparation for \gls{HDBSCAN} (\autoref{sec:Normalization} and \autoref{sec:HDBSCAN}) Final hybrid clustering (\autoref{sec:HDBSCAN}) is prepared either with the Kneedle Algorithm (pathway \textsf{\textbf{4}} and \autoref{sec:Kneedle}) or DBCV exploration (pathway \textsf{\textbf{3}} and \autoref{sec:HDBSCAN}).}
     \label{fig:Clustering_Pipeline}
 \end{figure}
+
+The tool takes around one hour to cluster all eight segments of \gls{IAV} and create the output in form of tables and clustertree graphics with the suggested settings. 
 
 \input{Thesis/0201_Frequency}
 
@@ -158,4 +160,4 @@ The tool takes around one hour to cluster all eight segments of \gls{IAV} and cr
 
 \input{Thesis/0206_Kneedle}
 
-\input{Thesis/0207_MAFFT}
+\input{Thesis/0207_Biopython}

@@ -1,0 +1,97 @@
+\section{Biopython} \label{sec:MAFFT}
+
+Materials named in this section are only used for the analyses in the \autoref{sec:Clustering_Anomalies} to \autoref{sec:Dimension_Reduction} and therefore not part of the proposed raw clustering tool.
+
+The Biopython implementation of MAFFT version 7.475 from the \textbf{biopython} package version 1.78 was used to build the alignments and guidetrees in \autoref{sec:Clustering_Anomalies} \autocite{katoh_mafft_2013, cock_biopython_2009}. The settings were mostly the default settings proposed in the \href{https://mafft.cbrc.jp/alignment/software/}{manual}. For faster execution \colorbox{backcolour}{thread=6} and for export of the guidetree \colorbox{backcolour}{treeout=True} setting was used \autocite{katoh_mafft_2013, cock_biopython_2009}. The guidetree was colored with ETE3 \autocite{huerta-cepas_ete_2016}. 
+
+The parameters used in this project with settings varying from the default are listed below. All available settings can be fount in the \href{https://mafft.cbrc.jp/alignment/software/}{manual}.
+
+\begin{leftbar}
+    %\textbf{mafft}
+    \textbf{Bio.Align.Applications.MafftCommandline}
+    \begin{nstabbing}
+        \qquad\qquad\qquad\qquad\qquad\quad\=\kill
+    
+        treeout \> [export guidetree used for alignment (default: off)]\\
+        
+        thread \> [number of used threads (default: 1)]\\
+        
+        input \> [input FASTA file]
+        
+        %-{}-{}6merpair \> (default: on)\\
+        %\> input\\
+        %> \> output
+    \end{nstabbing}
+\end{leftbar}
+
+The \textbf{Phylo.TreeConstruction.DistanceTreeConstructor} function also from the \textbf{biopyhton} package was used for calculation of precalculated UPGMA trees in \autoref{sec:K_mer_Representation}. Instead of the default neighbor joining setting, the bottom-up hierarchical clustering method \colorbox{backcolour}{method='upgma'} was used \autocite{gower_minimum_1969, cock_biopython_2009}. 
+
+\begin{leftbar}
+    \textbf{Bio.Phylo.TreeConstruction.DistanceTreeConstructor}
+    \begin{nstabbing}
+        \qquad\qquad\qquad\qquad\qquad\quad\=\kill
+    
+        method \> [construction method for the distance tree (default: 'nj')]
+        
+    \end{nstabbing}
+\end{leftbar}
+
+In \autoref{sec:Comparison_Clustering} five different cluster trees are compared to each other. The trees are based on the clustering with \gls{HDBSCAN}, without hybrid clustering ($\varepsilon=0$) \autocite{malzer_hybrid_2020}. For each clustering a different matrix was used as input. The trees of \gls{UMAP} and \gls{PCA} (\autoref{fig:Simple_Clustertree_PCA} and \autoref{fig:Simple_Clustertree_UMAP}) were created according to \autoref{fig:Vectorization_Pipeline} and \autoref{fig:Clustering_Pipeline} and as described in \autoref{sec:Frequency} to \autoref{sec:Kneedle} with a smaller FASTA subset $S_{\text{Sub}}$, consisting only of $o$ segment 4 sequences with subtypes H13 and H16 and a resulting smaller matrix $\mathbf{X}_{\text{Sub}}$. Therefore clustering for the trees of \gls{UMAP} and \gls{PCA} were executed with matrix $\mathbf{X}_{\text{Sub, (30)}}$ and $\mathbf{Y}_{\text{Sub}}$. Sub denotes the matrix variant with smaller subset (\autoref{eq:hdb_prime_x} and \autoref{eq:hdb_prime_y}).
+
+\begin{empheq}{alignat = -1}
+    &N_{\text{PCA, Sub}} &&= \text{HDBSCAN} (\mathbf{X}_{\text{Sub, (30)}}, 2, 1, 0)\label{eq:hdb_prime_x}\\
+    &N_{\text{UMAP, Sub}} &&= \text{HDBSCAN} (\mathbf{Y}_{\text{Sub}}, 2, 1, 0)\label{eq:hdb_prime_y}
+\end{empheq}
+
+\begin{leftbar}
+    \textbf{Bio.Phylo.TreeConstruction.DistanceCalculator}
+    \begin{nstabbing}
+        \qquad\qquad\qquad\qquad\qquad\quad\=\kill
+    
+        model \> [model for distance calculation (default: 'identity')]
+
+    \end{nstabbing}
+\end{leftbar}
+
+\begin{empheq}{alignat = -1}
+    &\mathbf{G}_{\text{Sub}} &&= [g_{i,j}]
+\end{empheq}
+
+The trees for the precalculated approaches were created using the \textbf{biopython} package again but with the \textbf{Phylo.TreeConstruction.DistanceMatrix} function. The distance of every row vector of matrix $\mathbf{X}_{\text{Sub}}$ to every other row vector 
+
+\begin{empheq}{alignat = -1}
+    &c_{i,j} &&= d_{\text{cos}}(\mathbf{x}_i, \mathbf{x}_j), \ i = 1, \ldots o, \ j = 1, \ldots o\\
+    &&&= 1 - \frac{\mathbf{x}_i^\top\mathbf{x}_j}{\Vert\mathbf{x}_i\Vert \cdot \Vert\mathbf{x}_j\Vert}
+\end{empheq}
+
+\begin{empheq}{alignat = -1}
+    &\mathbf{C}_{\text{Sub}} &&= [c_{i,j}] 
+\end{empheq}
+
+\begin{empheq}{alignat = -1}
+    &e_{i,j} &&= d_{\text{eucl}}(\mathbf{x}_i, \mathbf{x}_j), \ i = 1, \ldots o, \ j = 1, \ldots o\\
+    &&&= \Vert\mathbf{x}_i - \mathbf{x}_j\Vert_2
+\end{empheq}
+
+\begin{empheq}{alignat = -1}
+    &\mathbf{E}_{\text{Sub}} &&= [e_{i,j}] 
+\end{empheq}
+
+\begin{empheq}{alignat = -1}
+    &N_{\text{eucl, Sub}} &&= \text{HDBSCAN} (\mathbf{E}_{\text{Sub}}, 2, 1, 0)\label{hdb_prime_e}\\
+    &N_{\text{cos, Sub}} &&= \text{HDBSCAN} (\mathbf{C}_{\text{Sub}}, 2, 1, 0)\label{hdb_prime_c}\\
+    &N_{\text{MSA, Sub}} &&= \text{HDBSCAN} (\mathbf{G}_{\text{Sub}}, 2, 1, 0)\label{hdb_prime_g}
+\end{empheq}
+
+\begin{leftbar}
+    \textbf{Bio.Phylo.TreeConstruction.DistanceMatrix}
+    \begin{nstabbing}
+        \qquad\qquad\qquad\qquad\qquad\quad\=\kill
+    
+        names \> [export guidetree used for alignment (default: off)]\\
+        
+        matrix \> []
+    \end{nstabbing}
+\end{leftbar}
+
+

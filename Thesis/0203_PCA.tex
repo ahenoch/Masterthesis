@@ -2,7 +2,7 @@
 
 To handle the complexity of the datasets generated in the project, as well as to simplify them with the least loss of information as possible \gls{PCA} was used (\autoref{fig:Clustering_Pipeline} \textsf{\textbf{C}}) \autocite{pearson_liii_1901}.\gls{PCA} is a statistical technique, used to find a new presentation of the dataset with a lower complexity by variance maximizing, uncorrelated variables, the \glspl{PC}, which are linear functions of the previous ones \autocite{jolliffe_principal_2016}. 
 
-For the \gls{PCA} of matrix $\mathbf{X}$ the \textbf{decomposition.PCA} function from the \textbf{scikit-learn (sklearn)} package, with \colorbox{backcolour}{n\_components=30} setting was used \autocite{pedregosa_scikit-learn_2011}.
+For the \gls{PCA} of matrix $\mathbf{X}$ the \textbf{decomposition.PCA} function from the \textbf{scikit-learn (sklearn)} package version 0.24.1, with \colorbox{backcolour}{n\_components=30} setting was used \autocite{pedregosa_scikit-learn_2011}.
 
 The matrix of $\mathbf{X}$ for e.~g.~ segment 4 of \gls{IAV} is of size $56617 \times 4^7$ and the number of components to extract 30 of $4^7$ thereby $\approx 0.18\%$. The size limit of the \textbf{decomposition.PCA} function for calculation with default setting \colorbox{backcolour}{svd\_solver='auto'} is $500 \times 500$ and min. 80\% of the smallest dimension of components to extract. Thus \colorbox{backcolour}{svd\_solver='randomized'} setting of \textbf{decomposition.PCA} is used automatically \autocite{pedregosa_scikit-learn_2011}. Randomized truncated \gls{SVD} is calculated by \textbf{decomposition.PCA} as described in \textcite{halko_finding_2010}.
 

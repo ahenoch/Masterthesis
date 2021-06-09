@@ -1,6 +1,6 @@
 \section{Normalization} \label{sec:Normalization}
 
-The vectors $\mathbf{x}_i$ of matrix $\mathbf{X}$ were normalized with the L1-norm to align the k-mer frequency vectors located in the rows to an equal length of one (\autoref{fig:Vectorization_Pipeline} \textsf{\textbf{B}}) (\autoref{eq:l1_norm} to \autoref{eq:l1_result}). The \textbf{preprocessing.normalize} function from the \textbf{scikit-learn (sklearn)} package, with \colorbox{backcolour}{norm='l1'} setting was used for the normalization \autocite{pedregosa_scikit-learn_2011}.
+The row vectors $\mathbf{x}_i$ of matrix $\mathbf{X}$ were normalized with the L1-norm to align the k-mer frequency vectors located in the rows to an equal length of one (\autoref{fig:Vectorization_Pipeline} \textsf{\textbf{B}}) (\autoref{eq:l1_norm} to \autoref{eq:l1_result}). The \textbf{preprocessing.normalize} function from the \textbf{scikit-learn (sklearn)} package version 0.24.1, with \colorbox{backcolour}{norm='l1'} setting was used for the normalization \autocite{pedregosa_scikit-learn_2011}.
 
 %\begin{lstlisting}[language=python]
 %sklearn.preprocessing.normalize(M, norm='l1')

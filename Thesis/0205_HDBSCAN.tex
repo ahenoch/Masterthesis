@@ -1,6 +1,6 @@
 \section{HDBSCAN} \label{sec:HDBSCAN}
 
-\gls{HDBSCAN} is an clustering algorithm proposed by \textcite{campello_hierarchical_2015, hutchison_density-based_2013}. It is a novel version of \gls{DBSCAN} but executed with varying values of $\varepsilon$ \autocite{hutchison_density-based_2013}. Thus not one specific threshold is used to define the clusters, but instead clusters of varying densities are extracted based on their stability over epsilon \autocite{mcinnes_hdbscan_2017}. The version of \gls{HDBSCAN} used in this project is the accelerated implementation of \textcite{mcinnes_accelerated_2017} (\autoref{fig:Clustering_Pipeline} \textsf{\textbf{F}}).
+\gls{HDBSCAN} is an clustering algorithm proposed by \textcite{campello_hierarchical_2015, hutchison_density-based_2013}. It is a novel version of \gls{DBSCAN} but executed with varying values of $\varepsilon$ \autocite{hutchison_density-based_2013}. Thus not one specific threshold is used to define the clusters, but instead clusters of varying densities are extracted based on their stability over epsilon \autocite{mcinnes_hdbscan_2017}. The version of \gls{HDBSCAN} used in this project is the accelerated implementation by the \textbf{hdbscan} package version 0.8.26 of \textcite{mcinnes_accelerated_2017} (\autoref{fig:Clustering_Pipeline} \textsf{\textbf{F}}).
 
 Since there is, to my best knowledge, no submission using \gls{HDBSCAN} for a usecase similar to the one proposed in this project, most settings for \gls{HDBSCAN} were selected by parameter exploration, graphical comparisons and reasonable assumptions. For the selection of all settings the \href{https://hdbscan.readthedocs.io/en/latest/api.html}{API} was used as backup \autocite{mcinnes_hdbscan_2017}. 
 
@@ -9,26 +9,27 @@ To capture, in the best case, even genomes with single \glspl{SNP} at rare appea
 \autoref{eq:HDB} to \autoref{eq:HDB_link_X} demonstrate the use of \gls{HDBSCAN} to calculate the linkage matrix $\mathbf{L}$ with matrix $\mathbf{X}_{(30)}$ of \autoref{fig:Clustering_Pipeline} pathway \textsf{\textbf{1}} and was performed in the same way with $\mathbf{Y}$ of \autoref{fig:Clustering_Pipeline} pathway \textsf{\textbf{2}} \autocite{mcinnes_hdbscan_2017, gower_minimum_1969}.
 
 \begin{empheq}{alignat = -1}
-    &\mathbf{L} &&= \text{HDBSCAN}_{\text{Link}}(\mathbf{X}, \text{min\_cluster\_size}, \text{min\_samples})\label{eq:HDB}\\
+    &\mathbf{L}_{\text{PCA}} &&= \text{HDBSCAN}_{\text{Link}}(\mathbf{X}, \text{min\_cluster\_size}, \text{min\_samples})\label{eq:HDB}\\
     &&&= \text{HDBSCAN}_{\text{Link}}(\mathbf{X}_{(30)}, 2, 1) \label{eq:HDB_link_X}
 \end{empheq}
 
 By combining \gls{HDBSCAN} with \gls{DBSCAN} some of the disadvantages of using either of these methods can be overcome \autocite{mcinnes_hdbscan_2017, moulavi_density-based_2014}. Since \gls{DBSCAN} is a hierarchical clustering tool, it is dependent on a strict threshold for clustering. Points not included in this threshold value are omitted \autocite{ester_density-based_1996, schubert_dbscan_2017}. \gls{HDBSCAN} on the other hand tend to create micro-clusters in areas of high density \autocite{mcinnes_hdbscan_2017}. Using the hybrid approach proposed in \autocite{malzer_hybrid_2020} a threshold value $\varepsilon$ can be used to extract clusters but still use the method of \gls{HDBSCAN} instead of emitting other points. This method is useful when having a small cluster size value while still want to cluster high-density areas together \autocite{malzer_hybrid_2020}.
 
-To find an appropriate value for $\varepsilon$ two different methods were used and compared (\autoref{fig:Clustering_Pipeline} pathway \textsf{\textbf{3}} and \textsf{\textbf{4}}. Using the first method, the \gls{DBCV} exploration in \autoref{fig:Clustering_Pipeline} \textsf{\textbf{G}}, execution of \gls{HDBSCAN} was repeated with different settings for $\varepsilon$ and compared by the \gls{DBCV} to find $\varepsilon$ to maximize the \gls{DBCV} \autocite{moulavi_density-based_2014}. For these repeated executions of \gls{HDBSCAN}, \colorbox{backcolour}{gen\_min\_span\_tree=True} setting was also necessary, to be able to calculate the \gls{DBCV}, by the minimum spanning tree \autocite{moulavi_density-based_2014, gower_minimum_1969}.
+To find an appropriate value for $\varepsilon$ two different methods were used and compared (\autoref{fig:Clustering_Pipeline} pathway \textsf{\textbf{3}} and \textsf{\textbf{4}}. Using the first method, the \gls{DBCV} exploration in \autoref{fig:Clustering_Pipeline} \textsf{\textbf{G}}, execution of \gls{HDBSCAN} was repeated with different settings for $\varepsilon$ and compared by the \gls{DBCV} to find the value of $\varepsilon$ that maximizes the \gls{DBCV} \autocite{moulavi_density-based_2014}. For these repeated executions of \gls{HDBSCAN}, \colorbox{backcolour}{gen\_min\_span\_tree=True} setting was also necessary, to be able to calculate the \gls{DBCV}, by the minimum spanning tree (\autoref{eq:DBCV_X}) \autocite{moulavi_density-based_2014, gower_minimum_1969}. The exploration was executed for $\mathbf{X}_{(30)}$ and $\mathbf{Y}$ to find the optimal $\varepsilon_{\text{DBCV}}$ for each input matrix.
 
 \begin{empheq}{alignat = -1}
-    &\varepsilon : \max_{\substack{0 \leq \varepsilon}} \text{HDBSCAN}_{\text{DBCV}}(\mathbf{X}, 2, 1, \varepsilon)\label{eq:DBCV}
-    %&\varepsilon : \text{DBCV}_{\text{max}} &&= \text{HDBSCAN}_{\text{DBCV}}(\mathbf{X}, 2, 1, \varepsilon)\label{eq:DBCV}
+    &\max_{\substack{0 \leq \varepsilon}} \left(\text{HDBSCAN}_{\text{DBCV}}(\mathbf{X}_{(30)}, 2, 1, \varepsilon)\right) = \text{HDBSCAN}_{\text{DBCV}}(\mathbf{X}_{(30)}, 2, 1, \varepsilon_{\text{DBCV}}) \label{eq:DBCV_X}
 \end{empheq}
 
-Using the second method the optimal value for $\varepsilon$ was calculated using the Kneedle algorithm \autoref{sec:Kneedle} \autocite{halko_finding_2010}.
+Using the second method the optimal value for $\varepsilon$ was calculated using the Kneedle algorithm \autoref{sec:Kneedle} \autocite{halko_finding_2010}. The optimal value of $\varepsilon$ found by the \gls{DBCV} exploration is called $\varepsilon_{\text{DBCV}}$ and the one found with the Kneedle Algorithm $\varepsilon_{\text{Kneed}}$
 
-Repeating the execution of \gls{HDBSCAN} with the hybrid clustering using optimal values for $\varepsilon$ results in the mathematical sequence of cluster names $C$ matching the genomics sequences in $S$ (\autoref{fig:Clustering_Pipeline} \textsf{\textbf{H}}) \autocite{mcinnes_hdbscan_2017, malzer_hybrid_2020}.
+With the optimal values for $\varepsilon$ found by \gls{DBCV} exploration and the Kneedle Algorithm, as well as with the matrix for the \gls{UMAP} settings and the one for the \gls{PCA} settings, \gls{HDBSCAN} with the hybrid clustering setting was executed four times. Each execution results in the mathematical sequence of cluster names $N$ related to the sequence of genomic sequences $S$ (\autoref{eq:HDB_cluster_PK} to \autoref{eq:HDB_cluster_UD}) (\autoref{fig:Clustering_Pipeline} \textsf{\textbf{H}}) \autocite{mcinnes_hdbscan_2017, malzer_hybrid_2020}.
 
 \begin{empheq}{alignat = -1}
-    &C &&= \text{HDBSCAN}_{\text{Hybrid}}(\mathbf{X}, 2, 1, \varepsilon) \label{eq:HDB_cluster}\\
-    &&&= (0, 0, 0, 1, 2, 1, 4, 5, \ldots)
+    &N_{\text{PCA, Kneed}} &&= \text{HDBSCAN}_{\text{Hybrid}}(\mathbf{X}_{(30)}, 2, 1, \varepsilon_{\text{Kneed}}) \label{eq:HDB_cluster_PK}\\
+    &N_{\text{UMAP, Kneed}} &&= \text{HDBSCAN}_{\text{Hybrid}}(\mathbf{Y}, 2, 1, \varepsilon_{\text{Kneed}}) \label{eq:HDB_cluster_UK}\\
+    &N_{\text{PCA, DBCV}} &&= \text{HDBSCAN}_{\text{Hybrid}}(\mathbf{X}_{(30)}, 2, 1, \varepsilon_{\text{DBCV}}) \label{eq:HDB_cluster_PD}\\
+    &N_{\text{UMAP, DBCV}} &&= \text{HDBSCAN}_{\text{Hybrid}}(\mathbf{Y}, 2, 1, \varepsilon_{\text{DBCV}}) \label{eq:HDB_cluster_UD}
 \end{empheq}
 
 The parameters used in this project with settings varying from the default are listed below. All available settings can be fount in the \href{https://hdbscan.readthedocs.io/en/latest/api.html}{API}.
@@ -38,18 +39,20 @@ The parameters used in this project with settings varying from the default are l
     \begin{nstabbing}
         \qquad\qquad\qquad\qquad\qquad\quad\=\kill
 
-        min\_cluster\_size \> (default: 5)\\
+        min\_cluster\_size \> [min. size of a cluster (default: 5)]\\
         
-        min\_samples \> (default: None)\\
+        min\_samples \> [conservativeness of the clustering (default: None)]\\
         
-        cluster\_selection\_epsilon \> (default: 0.0)\\
+        cluster\_selection\_epsilon \> [merge clusters below the threshold (default: 0.0)]\\
         
-        gen\_min\_span\_tree \> (default: False)\\
+        gen\_min\_span\_tree \> [generate the minimum spanning tree (default: False)]\\
         
-        metric \> (default: euclidean)
+        metric \> [metric to use for clustering (default: euclidean)]
         %alpha \> (default: 1.0)
     \end{nstabbing}
 \end{leftbar}
+
+The colored trees were created by ETE3 with a newick file created with $N_{\text{PCA}}$ and $L_{\text{PCA}}$ and otherwise $N_{\text{UMAP}}$ and $L_{\text{UMAP}}$ \autocite{huerta-cepas_ete_2016}. The newick file was created with a feature request proposed for the \textbf{scipy} package version 1.6.0 as described in the \href{https://github.com/scipy/scipy/issues/8274}{issue} \autocite{scipy_10_contributors_scipy_2020}.
 
 %Clustering
 %DBCV mehr als 50dims abkacken bla
