@@ -149,11 +149,13 @@ All settings available to the present day are listed on the next page.
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/Tree.pdf}
-    \caption[Tree Building Pipeline]{\textbf{Tree Building Pipeline.} Following the clustering pipeline (\autoref{fig:Clustering_Pipeline}) the cluster-tree for visualization is build by ETE3 with the help of hierarchy function from the \textbf{scipy} package \autocite{huerta-cepas_ete_2016, scipy_10_contributors_scipy_2020}}
+    \caption[Tree Building Pipeline]{\textbf{Tree Building Pipeline.} Following the clustering pipeline (\autoref{fig:Clustering_Pipeline}) the cluster-tree for visualization is build by ETE3 with the help of \textbf{hierarchy} function from the \textbf{scipy} package \autocite{huerta-cepas_ete_2016, scipy_10_contributors_scipy_2020}. To determine the centroids, for every cluster the normalized frequency vector (\autoref{fig:Clustering_Pipeline}) with the smallest distance to the other cluster members is calculated with the \textbf{spatial.distance.cdist} function also from the \textbf{scipy} package \autocite{scipy_10_contributors_scipy_2020}.}
     \label{fig:Tree_Pipeline}
 \end{figure}
 
 The tool takes around one hour to cluster all eight segments of \gls{IAV} and create the output in form of tables and clustertree graphics with the suggested settings. 
+
+\nopagebreak[1]
 
 \input{Thesis/0201_Frequency}
 
