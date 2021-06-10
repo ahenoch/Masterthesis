@@ -1,6 +1,6 @@
 \chapter{Materials and Methods} \label{chap:Materials_and_Methods}
 
-The tools used in this project were installed with the Conda package distribution system version 2-2.4.0 \autocite{anaconda_software_distribution_anaconda_2020}. With Conda, Python packages containing e.~g.~ full software tools can be managed by local environments for simple access without the necessity of a complex system-wide installation. By creation of an environment similar to the one used in this project, with conda environment creation from YAML file, the results can be easily recreated on any modern UNIX-like operating system that has Conda installed. 
+The tools used in this project were installed with the Conda package distribution system version 2-2.4.0 \autocite{anaconda_software_distribution_anaconda_2020}. With Conda, Python packages containing e.~g.~ full software tools can be managed by local environments for simple access without the necessity of a complex system-wide installation \autocite{anaconda_software_distribution_anaconda_2020}. Creation of an environment similar to the one used in this project, is possible with the conda environment creation from YAML file function, the results can be easily recreated on any modern UNIX-like operating system that has Conda installed. 
 
 \begin{lstlisting}[language=sh]
 git clone https://github.com/ahenoch/Masterthesis.git
@@ -85,14 +85,43 @@ The FASTA file can be retrieved by navigating from \textit{SEARCH DATA} to \text
 % \end{enumerate}
 %or from the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository}. Using the manually retrieved updated version of the FASTA file might change the recreated results slightly.
 
-To access the Jupyter Notebooks holding the cluster and analysis pipeline, as well as recreate the results, the IPYNB Files in the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository} have to be opened and started in a Jupyter Lab server \autocite{kluyver_jupyter_2016}.
+\begin{table}[!hbt]
+    \centering
+    \caption[Used Methods in a Nutshell]{\textbf{Used Methods in a nutshell.} For easier separation the different settings were listed. Method \acrshort{PCA}/\acrshort{DBCV} and \acrshort{PCA}/Knee use \autoref{fig:Vectorization_Pipeline} pathway \textsf{\textbf{1}} followed by \autoref{fig:Clustering_Pipeline} pathway \textsf{\textbf{3}} for method \acrshort{PCA}/\acrshort{DBCV} and \textsf{\textbf{4}} for \acrshort{PCA}/Knee. Method \acrshort{UMAP}/\acrshort{DBCV} and \acrshort{UMAP}/Knee differ only by the first part using \autoref{fig:Vectorization_Pipeline} pathway \textsf{\textbf{2}} instead of \textsf{\textbf{1}}.}
+    \label{tab:methods}
+    \pgfplotstabletypeset[
+        every head row/.style={
+            before row={
+                \toprule
+            },
+            after row={
+                \midrule
+            },
+        },
+        every last row/.style={
+            after row={
+                \bottomrule
+            },
+        },
+        begin table=\begin{tabular*}{\textwidth},
+        end table=\end{tabular*},
+        columns={0,1,2,3},
+        columns/0/.style={string type,multicolumn names=l,column name=\textbf{Method}, column type=@{\extracolsep{\fill}\hspace{6pt}}l},
+        columns/1/.style={string type,multicolumn names=l,column name=\textbf{100 Components}, column type=l},
+        columns/2/.style={string type,multicolumn names=l,column name=\textbf{30 Components}, column type=l},
+        columns/3/.style={string type,multicolumn names=l,column name=\textbf{Exploration}, column type=l}
+    ]
+    {Graphics/methods.csv}
+\end{table}
+
+In this project four different ways to cluster the segments of \gls{IAV} are described and discussed in the following (\autoref{tab:methods}). For the methods involving \gls{UMAP}, as well as the methods without \gls{UMAP}, one Jupyter Notebook with the settings and results for each is available in the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository}. To access the Jupyter Notebooks holding the cluster and analysis pipeline, as well as recreate the results, the IPYNB Files in the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository} have to be opened and started in a Jupyter Lab server \autocite{kluyver_jupyter_2016}. All discussed results in this project are related to the two Jupyter Notebooks and the settings and tools used in it.
 
 \begin{lstlisting}[language=sh]
 conda activate Masterthesis
 jupyter lab
 \end{lstlisting}  
 
-The raw pipeline clusters \gls{IAV} genomes and saves the results as CSV files and colored \gls{HDBSCAN} clustertrees using ETE3 version 3.1.2 \autocite{huerta-cepas_ete_2016}. It is designed to function as a clustering tool, without the need of a running Jupyter Lab server and with easier modification and faster execution in mind (\autoref{fig:Vectorization_Pipeline} and \autoref{fig:Clustering_Pipeline}). 
+A raw clustering tool for \gls{IAV} genomes that saves the results as CSV files and colored \gls{HDBSCAN} clustertrees using ETE3 version 3.1.2 is also available in the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository} and is intended to be used in the future, with the best settings elaborated in this project \autocite{huerta-cepas_ete_2016}. It is designed to function as a clustering tool, without the need of a running Jupyter Lab server and with easier modification and faster execution in mind (\autoref{fig:Vectorization_Pipeline} and \autoref{fig:Clustering_Pipeline}). Many settings to be used to cluster \gls{IAV} are already included and other functions can be added with ease.
 
 \begin{lstlisting}[language=sh]
 conda activate Masterthesis

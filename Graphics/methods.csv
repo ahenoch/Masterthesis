@@ -1,0 +1,5 @@
+method, components_100, components_30, epsilon_explo
+PCA/DBCV, , PCA, DBCV
+PCA/Knee, , PCA, Kneedle Algorithm
+UMAP/DBCV, PCA, UMAP, DBCV
+UMAP/Knee, PCA, UMAP, Kneedle Algorithm
