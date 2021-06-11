@@ -4,18 +4,22 @@ Calculation of $\varepsilon$ was executed by using the implementation of the Kne
 
 Points where e.~g.~ the cost of tuning is no longer worth the loss in performance are called \glqq knees\grqq{} \autocite{satopaa_finding_2011}. These points are so to speak the balance of a given trade-off \autocite{satopaa_finding_2011}. Kneedle is an algorithm to find these point in a given system \autocite{satopaa_finding_2011}. A system could be the trade-off between cluster number and distance threshold in hierarchical clustering \autocite{gower_minimum_1969}. 
 
-With increasing cluster number, the distance threshold of hierarchical clustering decreases \autocite{gower_minimum_1969}. This describes a decreasing curve of convex type with distance threshold on the y- and cluster number on the x-axis. The knee is the number of clusters at the point in the polynomial representation of the curve with maximal acceleration. Polynomial representation was used to find the maximum acceleration of the smoothed curve, instead of a local maximum due to a single inaccuracy. Therefore the implementation Kneed was used with \colorbox{backcolour}{curve='concave'}, \colorbox{backcolour}{direction='increasing'} and \colorbox{backcolour}{interp\_method='interp1d'} settings to find the optimal number of clusters $z$ (\autoref{fig:Clustering_Pipeline} \textsf{\textbf{I}} and \autoref{eq:linkage} to \autoref{eq:knee_z}). The calculation was done with the linkage matrices $\mathbf{L}_{\text{PCA}}$ and $\mathbf{L}_{\text{UMAP}}$ (\autoref{sec:HDBSCAN}).
+With increasing cluster number, the distance threshold of hierarchical clustering decreases \autocite{gower_minimum_1969}. This describes a decreasing curve of convex type with distance threshold on the y- and cluster number on the x-axis. The knee is the number of clusters at the point in the polynomial representation of the curve with maximal acceleration. Polynomial representation was used to find the maximum acceleration of the smoothed curve, instead of a local maximum due to a single inaccuracy. Therefore the implementation Kneed was used with \colorbox{backcolour}{curve='concave'}, \colorbox{backcolour}{direction='increasing'} and \colorbox{backcolour}{interp\_method='interp1d'} settings to find the optimal number of clusters $z$ (\autoref{fig:Clustering_Pipeline} \textsf{\textbf{I}}).
+
+Because a polynomial curve was used the accuracy is dependent on the length of the curve. For a curve whose x-axis ranges from 1 to the full number on sequences e.~g.~ segment 4 $n=56617$ the optimal knee would be far from accurate. To find a good representation for the knee, the curve was restricted to a given area between one and a maximum $p$. The maximum $p$ was chosen to include the area with the highest expected differences. A value of $p=500$ was used. Despite the fact that the area was expected to range to mostly hundred, a higher value was used to prevent a bias that would have caused by forcing the number of clusters to be less than 100.
+
+The calculation was performed with the last $p$ values of the third column vector of linkage matrices $\mathbf{L}_{\text{PCA}}$ and $\mathbf{L}_{\text{UMAP}}$ holding the distance values (\autoref{eq:linkage} to \autoref{eq:knee_z}) (\autoref{sec:HDBSCAN}).
 
 \begin{empheq}{alignat = -1}
     \mathbf{L}_{\text{PCA}} = [l_{i,j}]\label{eq:linkage}
 \end{empheq}
 
 \begin{empheq}{alignat = -1}
-    \mathbf{n} = \begin{bmatrix} n\\ n-1\\ \vdots\\ 1\end{bmatrix}\label{eq:vector_n}
+    \mathbf{p} = \begin{bmatrix} 1\\ 2\\ 3\\ \vdots\\ p\end{bmatrix}\label{eq:vector_n}
 \end{empheq}
 
 \begin{empheq}{alignat = -1}
-    \mathbf{d} = \begin{bmatrix} l_{1,3}\\ l_{2,3}\\ \vdots\\ l_{i,3}\end{bmatrix}\label{eq:vector_d}
+    \mathbf{d} = \begin{bmatrix} l_{n,3}\\ l_{n-1,3}\\ l_{n-2,3}\\ \vdots\\ l_{n-p,3}\end{bmatrix}\label{eq:vector_d}
 \end{empheq}
 
 \begin{empheq}{alignat = -1}
@@ -26,7 +30,7 @@ With increasing cluster number, the distance threshold of hierarchical clusterin
     \varepsilon_{\text{PCA'}} = \mathbf{d}_z\label{eq:d_z}
 \end{empheq}
 
-Number of clusters $z$ was then converted in it's respective distance threshold $\varepsilon_{\text{PCA'}}$ using vector $\mathbf{d}$ again (\autoref{eq:knee_z}). The calculation was repeated with $\mathbf{L}_{\text{UMAP}}$ to calculate $\varepsilon_{\text{UMAP'}}$
+The final number of clusters $z$ was then converted in it's respective distance threshold $\varepsilon_{\text{PCA'}}$ using vector $\mathbf{d}$ again (\autoref{eq:knee_z}). The calculation was repeated with $\mathbf{L}_{\text{UMAP}}$ to calculate $\varepsilon_{\text{UMAP'}}$
 
 The parameters used in this project with settings varying from the default are listed below. All available settings can be fount in the \href{https://kneed.readthedocs.io/en/stable/api.html}{API}.
 
