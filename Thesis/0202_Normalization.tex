@@ -36,8 +36,17 @@ Due to an open \href{https://github.com/scikit-learn-contrib/hdbscan/issues/69}{
 
 \begin{figure}[!hbt]
     \centering
-    %\includegraphics[width=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox]{Graphics/L2_Euclidean.pdf}
-    \includegraphics[width=\textwidth]{Graphics/L2_Euclidean.pdf}
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Chord]{\textbf{Chord}}
+        \label{subfig:Euclidean}
+        \includegraphics[width=\textwidth]{Graphics/Chord.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[L2]{\textbf{L2}}
+        \label{subfig:Cosinus}            
+        \includegraphics[width=\textwidth]{Graphics/L2.pdf}
+    \end{subfigure}
     \caption[Graphical Background of L2 Normalisation]{\textbf{Graphical Background of L2 Normalisation.} blabla euclidean norm sphere.}
     \label{fig:L2_Normalisation_Background}
 \end{figure}
