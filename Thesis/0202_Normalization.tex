@@ -38,13 +38,13 @@ Due to an open \href{https://github.com/scikit-learn-contrib/hdbscan/issues/69}{
     \centering
     \begin{subfigure}[b]{0.475\textwidth}
         \caption[Chord]{\textbf{Chord}}
-        \label{subfig:Euclidean}
+        \label{subfig:Chord}
         \includegraphics[width=\textwidth]{Graphics/Chord.pdf}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.475\textwidth}
         \caption[L2]{\textbf{L2}}
-        \label{subfig:Cosinus}            
+        \label{subfig:L2}            
         \includegraphics[width=\textwidth]{Graphics/L2.pdf}
     \end{subfigure}
     \caption[Graphical Background of L2 Normalisation]{\textbf{Graphical Background of L2 Normalisation.} blabla euclidean norm sphere.}
@@ -59,10 +59,10 @@ Due to an open \href{https://github.com/scikit-learn-contrib/hdbscan/issues/69}{
     \Vert\mathbf{\hat{x}}_i\Vert_2 &= 1\label{eq:l2_result}
 \end{empheq}
 
-Chord distance $d_{\text{chord}}$ can be calculated when having two vectors, here as an exmaple named as $\mathbf{x}'$ and $\mathbf{y}'$ with the same L2-norm equal to a radius $r'$ of a sphere  centered to the origin of the coordinate system and an angle of $\Theta'$ (\autoref{eq:chord} and \autoref{fig:L2_Normalisation_Background}). The euclidean distance $d_{\text{eucl}}$ is equal to the chord distance for the same vectors $\mathbf{x}'$ and $\mathbf{y}'$ with L2-norm of $r'$.
+Chord distance $d_{\text{chord}}$ can be calculated when having two vectors, here as an exmaple named as $\mathbf{x}'$ and $\mathbf{y}'$ with the same L2-norm equal to a radius $r$ of a sphere  centered to the origin of the coordinate system and an angle of $\Theta'$ (\autoref{eq:chord} and \autoref{fig:L2_Normalisation_Background}). The euclidean distance $d_{\text{eucl}}$ is equal to the chord distance for the same vectors $\mathbf{x}'$ and $\mathbf{y}'$ with L2-norm of $r$.
 
 \begin{empheq}{alignat = -1}
-    &\Vert\mathbf{x}'\Vert_2 = \Vert\mathbf{y}'\Vert_2 = r' &&\Rightarrow d_{\text{chord}}(\mathbf{x}',\mathbf{y}') &&= 2 \cdot r' \sin \left(\frac{\Theta'}{2}\right) \label{eq:chord}\\
+    &\Vert\mathbf{x}'\Vert_2 = \Vert\mathbf{y}'\Vert_2 = r &&\Rightarrow d_{\text{chord}}(\mathbf{x}',\mathbf{y}') &&= 2 \cdot r \sin \left(\frac{\Theta'}{2}\right) \label{eq:chord}\\
     &&&&&= 2 \cdot \frac{d_{\text{eucl}}(\mathbf{x}',\mathbf{y}')}{2}\\
     &&&&&= d_{\text{eucl}}(\mathbf{x}',\mathbf{y}')\\
     &&&&&= \Vert\mathbf{x}' - \mathbf{y}'\Vert_2

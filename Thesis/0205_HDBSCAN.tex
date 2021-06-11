@@ -20,6 +20,20 @@ To capture, in the best case, even genomes with single \glspl{SNP} at rare appea
 
 By combining \gls{HDBSCAN} with \gls{DBSCAN} some of the disadvantages of using either of these methods can be overcome \autocite{mcinnes_hdbscan_2017, moulavi_density-based_2014}. Since \gls{DBSCAN} is a hierarchical clustering tool, it is dependent on a strict threshold for clustering. Points not included in this threshold value are omitted \autocite{ester_density-based_1996, schubert_dbscan_2017}. \gls{HDBSCAN} on the other hand tend to create micro-clusters in areas of high density \autocite{mcinnes_hdbscan_2017}. Using the hybrid approach proposed in \autocite{malzer_hybrid_2020} a threshold value $\varepsilon$ can be used to extract clusters but still use the method of \gls{HDBSCAN} instead of emitting other points. This method is useful when having a small cluster size value while still want to cluster high-density areas together \autocite{malzer_hybrid_2020}.
 
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Graphics/HDB.pdf}
+    \caption[]{\textbf{.}.}
+    \label{fig:HDB}
+\end{figure}
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Graphics/Hybrid.pdf}
+    \caption[]{\textbf{.}.}
+    \label{fig:Hybrid}
+\end{figure}
+
 To find an appropriate value for $\varepsilon$ two different methods were used and compared (\autoref{fig:Clustering_Pipeline} pathway \textsf{\textbf{3}} and \textsf{\textbf{4}}. Using the first method, the \gls{DBCV} exploration in \autoref{fig:Clustering_Pipeline} \textsf{\textbf{G}}, execution of \gls{HDBSCAN} was repeated with different settings for $\varepsilon$ and compared by the \gls{DBCV} to find the value of $\varepsilon$ that maximizes the \gls{DBCV} \autocite{moulavi_density-based_2014}. For these repeated executions of \gls{HDBSCAN}, \colorbox{backcolour}{gen\_min\_span\_tree=True} setting was also necessary, to be able to calculate the \gls{DBCV}, by the minimum spanning tree (\autoref{eq:DBCV_X}) \autocite{moulavi_density-based_2014, gower_minimum_1969}. The exploration was executed for $\mathbf{X}_{\text{L2}}$ and $\mathbf{Y}_{\text{L2}}$ to find the optimal $\varepsilon_{\text{PCA}}$ and $\varepsilon_{\text{UMAP}}$.
 
 \begin{empheq}{alignat = -1}

@@ -76,7 +76,7 @@ From each of the four different pipelines the execution results in a CSV file co
     {UMAP/information.csv}
 \end{table}
 
-Comparing the methods to the ones using the \gls{DBCV} for $\varepsilon$ exploration instead of the Kneedle Algorithm (\autoref{tab:PCA_Cluster_DBCV} and \autoref{tab:UMAP_Cluster_DBCV}) there doesn't seem to be much difference for \gls{UMAP} with \gls{DBCV} method. The overall $\varepsilon$ threshold found by the \gls{DBCV} is a little smaller and therefore the number of clusters a little higher compared to the results found with $\varepsilon$ by the Kneedle Algorithm.
+Comparing the methods to the ones using the \gls{DBCV} for $\varepsilon$ exploration instead of the Kneedle Algorithm (\autoref{tab:PCA_Cluster_DBCV} and \autoref{tab:UMAP_Cluster_DBCV}) there doesn't seem to be much difference for \gls{UMAP} with \gls{DBCV} method. The overall $\varepsilon$ threshold found by the \gls{DBCV} is a little smaller and therefore the number of clusters a little higher compared to the results found with $\varepsilon$ by the Kneedle Algorithm. Using \gls{DBCV} to find the optimal $\varepsilon$ with the \gls{PCA} pipeline on the other hand changes the results drastically. The number of final clusters is between 9000 and 12000 depending on the segment, with the exception of segment 4. The raw cluster number is equivalent to the total number of sequences for the given segment. Also the number of unclustered sequences is increased by a major amount to around 20\% for some segments. Only the clustering of segment 4 with \gls{DBCV} $\varepsilon$ exploration seems to be as stable as with the Kneedle Algorithm. The number of clusters is that high, because the \gls{DBCV} method is searching for the $\varepsilon$ value setting that results in the best \gls{DBCV}, which is for most segments a setting of zero. Hybrid clustering with a $\varepsilon$ value of zero is standard \gls{HDBSCAN} and as mentioned in \autoref{sec:HDBSCAN} not suited for \gls{IAV} clustering without the hybrid \gls{DBSCAN} component.   
 
 \begin{table}[!hbt]
     \centering
@@ -159,8 +159,7 @@ Comparing the methods to the ones using the \gls{DBCV} for $\varepsilon$ explora
     {UMAP/information_alt.csv}
 \end{table}
 
-
-Focusing on segment 4 for a deeper analysis of the approaches.....
+To chose the best combination of methods for clustering \gls{IAV} used parameters were visualized for better understanding and analysis. Since investigation of all segments would overfill this section only the four methods parameters for segment 4 were discussed in detail. Nevertheless all graphics for the other segments with every used method can be found in the \autoref{chap:Appendix}. 
 
 % Also the distribution of cluster sizes seems to be more balanced e.~g.~ segment 4 (\autoref{subfig:UMAP_Cluster_Knee_Distributione_4} and \autoref{subfig:UMAP_Cluster_Knee_Distribution_log_4}) than in the \gls{PCA} approach (\autoref{subfig:PCA_Cluster_Knee_Distributione_4} and \autoref{subfig:PCA_Cluster_Knee_Distribution_log_4}) which could also contribute to the hybrid clustering by \gls{DBSCAN} alone. With a more distributed number of sequences in the clusters, less very small and very big clusters exist and overall more points are collected in small groups which decreases the chance for single points unaffected by the $\varepsilon$ threshold. 
 
