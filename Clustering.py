@@ -25,6 +25,8 @@ import matplotlib.transforms as transforms
 import scipy.spatial.distance as ssd
 import seaborn as sns
 
+from Bio import Align
+from Bio.Seq import Seq
 from ete3 import PhyloTree, Tree, faces, AttrFace, CircleFace, TreeStyle, NodeStyle, TextFace, SequenceFace
 from matplotlib import colors 
 from scipy.cluster import hierarchy
@@ -264,7 +266,7 @@ def get_vectors(sequence, accession, metric, neigh, comp, pca):
 # In[6]:
 
 
-def get_elbow(dataframe, extra, accession, metric, min_clust, sample, area = (0,500)):
+def get_elbow(dataframe, extra, accession, metric, min_clust, sample, kneedle):
     
     #with some help from https://joernhees.de/blog/2015/08/26/scipy-hierarchical-clustering-and-dendrogram-tutorial/
     
@@ -292,10 +294,10 @@ def get_elbow(dataframe, extra, accession, metric, min_clust, sample, area = (0,
     dist = numpy_linkage[:, 2]
     dist_rev = dist[::-1]
     
-    if area[1] == -1:
-        dist_area = dist_rev[area[0]:n_cluster]
+    if kneedle == -1:
+        dist_area = dist_rev[0:n_cluster]
     else:
-        dist_area = dist_rev[area[0]:area[1]]
+        dist_area = dist_rev[0:kneedle]
     
     idxs = np.arange(1, len(dist_area) + 1)
 
@@ -391,7 +393,7 @@ def get_cluster(epsilon_best, dataframe, extra, accession, metric, min_clust, sa
 # In[8]:
 
 
-def plot_density(density, segments, outpath, accuracy, suffix = ''):
+def plot_density(density, segments, outpath, render, accuracy, suffix = ''):
 
     for seg in segments:
              
@@ -402,7 +404,7 @@ def plot_density(density, segments, outpath, accuracy, suffix = ''):
             plt.ylabel("#Cluster")
             plt.tight_layout()
             plt.close(fig)
-            fig.savefig(outpath + 'Cluster_Distribution_Segment_' + str(seg) + str(suffix) + '.pdf')
+            fig.savefig(outpath + 'Cluster_Distribution_Segment_' + str(seg) + str(suffix) + '.' + render)
     
         with sns.axes_style("darkgrid"):
             fig, ax = plt.subplots(figsize=(4,4))
@@ -411,12 +413,12 @@ def plot_density(density, segments, outpath, accuracy, suffix = ''):
             plt.ylabel("#Cluster")
             plt.tight_layout()
             plt.close(fig)
-            fig.savefig(outpath + 'Cluster_Distribution_Log_Segment_' + str(seg) + str(suffix) + '.pdf')
+            fig.savefig(outpath + 'Cluster_Distribution_Log_Segment_' + str(seg) + str(suffix) + '.' + render)
 
 # In[9]:
 
 
-def plot_elbow(elbow, information, segments, outfolder, suffix = ''):
+def plot_elbow(elbow, information, segments, outfolder, render, suffix = ''):
 
         
     for seg in segments:
@@ -447,7 +449,7 @@ def plot_elbow(elbow, information, segments, outfolder, suffix = ''):
             plt.legend()
             plt.tight_layout()
             plt.close(fig)
-            fig.savefig(outfolder + 'Cluster_Elbow_Knee_Segment_' + str(seg) + str(suffix) + '.pdf')
+            fig.savefig(outfolder + 'Cluster_Elbow_Knee_Segment_' + str(seg) + str(suffix) + '.' + render)
 
         
         with sns.axes_style("darkgrid"):
@@ -466,7 +468,7 @@ def plot_elbow(elbow, information, segments, outfolder, suffix = ''):
             plt.legend()
             plt.tight_layout()
             plt.close(fig)
-            fig.savefig(outfolder + 'Cluster_Knee_Segment_' + str(seg) + str(suffix) + '.pdf')
+            fig.savefig(outfolder + 'Cluster_Knee_Segment_' + str(seg) + str(suffix) + '.' + render)
 
 
 # In[10]:
@@ -745,10 +747,73 @@ def get_tree(cluster, upload, segment, prot, list_color_hex, list_prune = [], li
     return(tree, tree_style, tree_newick)
 
 
+def pairmsa(nuc1, nuc2):
+        
+    seq1 = Seq(nuc1.item())
+    seq2 = Seq(nuc2.item()) 
+
+    aligner = Align.PairwiseAligner()
+    alignments = aligner.align(seq1, seq2) 
+    
+    #alignments = pairwise2.align.globalmx(seq1, seq2, 1, -1) 
+    
+    return(alignments[0].score)
+
+def sample_difference(cluster, genome, segment, tree, threshold = -1, n = -1, index = []):
+    
+    if not index:
+        num = cluster['cluster'].max()+1
+        index = [i for i in range(num)]
+    else:
+        num = len(index)
+    
+    pair = np.empty([num, num])
+    
+    for x, j in enumerate(index):
+        for y, k in enumerate(index):
+            
+            if j != k:
+                dist = tree.get_distance(str(j), str(k))
+            else:
+                dist = 0.0
+            
+            if threshold == -1 or dist <= threshold:
+            
+                if n == -1:
+                    sample_x = cluster.query('segment == @segment & cluster == @j & centroid == True').join(genome)[['genome']]
+                    sample_y = cluster.query('segment == @segment & cluster == @k & centroid == True').join(genome)[['genome']]
+
+                else:
+                    query_x = cluster.query('segment == @segment & cluster == @j').join(genome)[['genome']]
+                    if len(query_x) >= n:
+                        sample_x = query_x.sample(n=n, random_state=42)
+                    else:
+                        sample_x = query_x
+
+                    query_y = cluster.query('segment == @segment & cluster == @k').join(genome)[['genome']]
+                    if len(query_y) >= n:
+                        sample_y = query_y.sample(n=n, random_state=42)
+                    else:
+                        sample_y = query_y
+
+                dist = ssd.cdist(sample_x, sample_y, metric = pairmsa)
+
+                dist_mean = pd.DataFrame(dist, dtype = 'float64').mean().mean()
+                len_mean = (sample_x['genome'].str.len().mean() + sample_y['genome'].str.len().mean())/2
+                
+                pair[x,y] = dist_mean/len_mean
+                
+            else:
+                pair[x,y] = 0.0
+            
+    dataframe_pair = pd.DataFrame(pair, index = index, columns = index)
+
+    return(dataframe_pair)
+
 # In[23]:
 
 
-def main(infile, outfolder, segments, custom, metric, min_clust, sample, umap_neigh, umap_comp, pca_comp):#, recreate):
+def main(infile, outfolder, segments, custom, metric, min_clust, sample, umap_neigh, umap_comp, pca_comp, kneedle, render, epsilon):#, recreate):
 
     Hs = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H10', 'H11', 'H12', 'H13', 'H14', 'H15', 'H16', 'H17', 'H18']
     Ns = ['N1', 'N2', 'N3', 'N4', 'N5', 'N6', 'N7', 'N8', 'N9', 'N10', 'N11']
@@ -820,7 +885,7 @@ def main(infile, outfolder, segments, custom, metric, min_clust, sample, umap_ne
             extra = subset[['H', 'N']].copy()
 
             dataframe_dict[segment], dataframe_pca_dict[segment], explained_var = get_vectors(sequence, accession, metric, umap_neigh, umap_comp, pca_comp)
-            linkage_dict[segment], elbow_dict[segment], epsilon_best, n_cluster_raw, n_cluster_norm = get_elbow(dataframe_dict[segment], extra, accession, metric, min_clust, sample)
+            linkage_dict[segment], elbow_dict[segment], epsilon_best, n_cluster_raw, n_cluster_norm = get_elbow(dataframe_dict[segment], extra, accession, metric, min_clust, sample, kneedle)
 
             cluster_dict[segment], n_cluster, unclustered, H_unmatch, N_unmatch = get_cluster(epsilon_best, dataframe_dict[segment], extra, accession, metric, min_clust, sample)
             information_dict[segment] = [n_cluster, n_cluster_raw, n_cluster_norm, unclustered, H_unmatch, N_unmatch, epsilon_best, explained_var]
@@ -887,17 +952,19 @@ def main(infile, outfolder, segments, custom, metric, min_clust, sample, umap_ne
 
         ########################################################################################################    
 
-    plot_elbow(elbow, information, segments, outfolder)
-    plot_density(density, segments, outfolder, 1)
+    plot_elbow(elbow, information, segments, outfolder, render)
+    plot_density(density, segments, outfolder, render, 1)
 
     anti_dict = {1:None, 2:None, 3:None, 4:'H', 5:None, 6:'N', 7:None, 8:None}
 
     for seg in segments:
 
         tree, ts, newick = get_tree(cluster, upload, seg, anti_dict[seg], tree_hex, linkage = linkage)
-        tree.render(outfolder + 'Clustertree_Segment_' + str(seg) + '.pdf', tree_style = ts)
+        tree.render(outfolder + 'Clustertree_Segment_' + str(seg) + '.' + render, tree_style = ts)
         with open(outfolder + 'Newick_Segment_' + str(seg) + '.txt', 'w') as f:
             f.write(newick)
+        proof = sample_difference(cluster, genome, seg, tree)
+        proof.to_csv(outfolder + 'Pairwise_Segment_' + str(seg) + '.csv', index=True, header=True, sep=',', mode='w')
 
     os.remove("fasta.csv") 
 	
@@ -916,6 +983,11 @@ if __name__ == "__main__":
     parser.add_argument('-n','--neighbors', type = int, default = 100)
     parser.add_argument('-u','--umap', type = int)
     parser.add_argument('-p','--pca', type = int)
+    parser.add_argument('-k','--max_kneedle', type = int, default = 500)
+    parser.add_argument('-r','--render', type = str, choices=['svg','pdf'], default = 'pdf')
+    parser.add_argument('-e','--epsilon', type = str, choices=['dbcv','kneedle'], default = 'kneedle')
+    
+    
     #parser.add_argument('-r','--recreate', type = bool, default = False)
     
     args = parser.parse_args()
@@ -952,4 +1024,7 @@ if __name__ == "__main__":
         umap_neigh = args.neighbors, 
         umap_comp = args.umap, 
         pca_comp = args.pca,
+        kneedle = args.max_kneedle, 
+        render = args.render, 
+        epsilon = args.epsilon,
     )
