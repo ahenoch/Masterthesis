@@ -93,7 +93,26 @@
 % \newenvironment {annotatedFigure}[1]{\centering\begin{tikzpicture}
 %     \node[anchor=south west,inner sep=0] (image) at (0,0) { #1};\begin{scope}[x={(image.south east)},y={(image.north west)}]}{\end{scope}\end{tikzpicture}}
 
-\tikzfading[name=arrowfading, top color=transparent!0, bottom color=transparent!95]
-\tikzset{arrowfill/.style={top color=Red!20, bottom color=Red, general shadow={fill=black!80, shadow yshift=-0.8ex, path fading=arrowfading}}}
-\tikzset{arrowstyle/.style={draw=FireBrick,arrowfill, single arrow,minimum height=#1, single arrow,
-single arrow head extend=.4cm,}}
+\tikzfading[%
+    name=arrowfading, 
+    top color=transparent!0, 
+    bottom color=transparent!95
+]
+\tikzset{arrowfill/.style={%
+    %top color=Red!20, 
+    top color=Red!80, 
+    bottom color=Red!80, 
+    general shadow={
+        fill=black!80, 
+        shadow yshift=-0.8ex, 
+        %path fading=arrowfading
+    }
+}}
+\tikzset{arrowstyle/.style={%
+    draw=FireBrick,
+    arrowfill, 
+    single arrow,
+    minimum height=#1, 
+    single arrow,
+    single arrow head extend=.4cm,
+}}
