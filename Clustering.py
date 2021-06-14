@@ -810,6 +810,18 @@ def sample_difference(cluster, genome, segment, tree, threshold = -1, n = -1, in
 
     return(dataframe_pair)
 
+
+def plot_difference(proof, segments, outpath, render):
+
+    with sns.axes_style("darkgrid"):
+        fig, ax = plt.subplots(figsize=(8,6))
+        ax = sns.heatmap(proof, linewidths=.5)
+        plt.xlabel("Cluster")
+        plt.ylabel("Cluster")
+        plt.tight_layout()
+        plt.close(fig)
+        fig.savefig(outpath + 'Cluster_Difference_Segment_' + str(segments) + '.' + render)
+
 # In[23]:
 
 
@@ -965,6 +977,7 @@ def main(infile, outfolder, segments, custom, metric, min_clust, sample, umap_ne
             f.write(newick)
         proof = sample_difference(cluster, genome, seg, tree)
         proof.to_csv(outfolder + 'Pairwise_Segment_' + str(seg) + '.csv', index=True, header=True, sep=',', mode='w')
+        plot_difference(proof, 4, outfolder, render)
 
     os.remove("fasta.csv") 
 	
