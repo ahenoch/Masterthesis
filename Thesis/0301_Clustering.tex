@@ -273,7 +273,38 @@ The cluster sized using \gls{UMAP} are spreaded more equally with no cluster of 
 
 % Also the distribution of cluster sizes seems to be more balanced e.~g.~ segment 4 (\autoref{subfig:UMAP_Cluster_Knee_Distributione_4} and \autoref{subfig:UMAP_Cluster_Knee_Distribution_log_4}) than in the \gls{PCA} approach (\autoref{subfig:PCA_Cluster_Knee_Distributione_4} and \autoref{subfig:PCA_Cluster_Knee_Distribution_log_4}) which could also contribute to the hybrid clustering by \gls{DBSCAN} alone. With a more distributed number of sequences in the clusters, less very small and very big clusters exist and overall more points are collected in small groups which decreases the chance for single points unaffected by the $\varepsilon$ threshold. 
 
-Clustering by the method using \gls{PCA} in combination with the Kneedle Algorithm results also in the cluster-tree \autoref{fig:PCA_Cluster_Knee_4}. Coloring of the tree is based on the \gls{HA} antibody subtype as shown in \autoref{fig:Frequency_4}. If a cluster only contains sequences of one subtype, plus possibly some not classified sequences, the not classified sequences are declared as the subtype to. That way a clear presentation of the subtype distribution was possible, since the not classified sequences are very likely to actually belong to an existing subtype. If they don't belong to a existing subtype a cluster only containing these not classified sequences would most likely have occurred, which is not the case. Furthermore the chance to eventually break the classification of subtypes by declaring not classified sequences to a existing subtype is not given as the clusters are not based on subtypes in any way and the visualization is only for guidance and not possible for any segments other than 4 and 6 anyway. If a cluster contains sequences of more than one subtype plus possibly some not classified sequences, no coloring was performed, since the cluster is not homogeneous for one subtype and a declaration of the unclassified isn't possible to. The prime example for this is the yellow colored cluster 0 of subtype H9 (\autoref{fig:PCA_Clusteree_Knee_4} \textbf{\textsf{A}}). While all sequences are accumulated in this single cluster, the cluster size of 1569 is bigger than the number of H9 sequences in \autoref{fig:Frequency_4} with 1454. This is justified by the presence of 115 not classified sequences in the cluster which are declared as H9 since only H9 and unclassified sequences are present in the cluster.
+Clustering by the method using \gls{PCA} in combination with the Kneedle Algorithm results also in the cluster-tree \autoref{fig:PCA_Cluster_Knee_4}. Coloring of the tree is based on the \gls{HA} antibody subtype as shown in \autoref{fig:Frequency_4}. If a cluster only contains sequences of one subtype, plus possibly some not classified sequences, the not classified sequences are declared as the subtype to. That way a clear presentation of the subtype distribution was possible, since the not classified sequences are very likely to actually belong to an existing subtype. If they don't belong to a existing subtype a cluster only containing these not classified sequences would most likely have occurred, which is not the case. Furthermore the chance to eventually break the classification of subtypes by declaring not classified sequences to a existing subtype is not given as the clusters are not based on subtypes in any way and the visualization is only for guidance and not possible for any segments other than 4 and 6 anyway. If a cluster contains sequences of more than one subtype plus possibly some not classified sequences, no coloring was performed, since the cluster is not homogeneous for one subtype and a declaration of the unclassified isn't possible to. 
+
+\begin{table}[!hbt]
+    \centering
+    \caption[Anomalies in Segment 4 Cluster 29 (\Acrshort{PCA})]{\textbf{Anomalies in Segment 4 Cluster 29 (\Acrshort{PCA}).}.}
+    \label{tab:PCA_Error_4_29}
+    \pgfplotstabletypeset[
+        every head row/.style={
+            before row={
+                \toprule
+            },
+            after row={
+                \midrule
+            },
+        },
+        every last row/.style={
+            after row={
+                ... & ... & ... \\
+                \bottomrule
+            },
+        },
+        begin table=\begin{tabular*}{0.75\textwidth},
+        end table=\end{tabular*},
+        columns={0,1,2},
+        columns/0/.style={string type,multicolumn names=l,column name=\textbf{Accession}, column type=@{\extracolsep{\fill}\hspace{6pt}}l},
+        columns/1/.style={multicolumn names=l,column name=\textbf{H9}, column type=l},
+        columns/2/.style={multicolumn names=l,column name=\textbf{unclassified}, column type=l},
+    ]
+    {PCA/error_segment_4_cluster_29_difference_head.csv}
+\end{table}
+
+The prime example for this is the yellow colored cluster 0 of subtype H9 (\autoref{fig:PCA_Clusteree_Knee_4} \textbf{\textsf{A}}). While all sequences are accumulated in this single cluster, the cluster size of 1569 is bigger than the number of H9 sequences in \autoref{fig:Frequency_4} with 1454. This is justified by the presence of 115 not classified sequences in the cluster which are declared as H9 since only H9 and unclassified sequences are present in the cluster. The declaration of the unclassified sequences as H9 to be the true subtype as should be annotated in the \gls{IRD} is also supported by the small evolutionary distance values for the unclassified sequences in comparison to a sample of H9 sequences from the same cluster (\autoref{tab:PCA_Error_4_29}).
 
 The number of clusters for a given subtype of \gls{HA} antibody seems to correspond roughly to the overview of sequences in \autoref{fig:Frequency_4}. While very low represented subtypes like H15 is only represented by one cluster, containing all the 14 sequences, are high represented subtypes like H1 and H3 spreaded over more clusters.
 
@@ -283,9 +314,9 @@ The number of clusters for a given subtype of \gls{HA} antibody seems to corresp
         \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\textwidth]{PCA/Clustertree_Segment_4_H_Knee.pdf}};
         \begin{scope}[x={(image.south east)},y={(image.north west)}]
             %\draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
-            \node at (0.15,0.16) [arrowstyle=1.5cm, anchor=east] {\textbf{\textsf{A}}};
-            \node at (0.5,0.09) [arrowstyle=1.5cm, anchor=east, rotate=135] {\rotatebox{225}{\textbf{\textsf{B}}}};
-            \node at (0.9,0.62) [arrowstyle=1.5cm, anchor=east, rotate=225] {\rotatebox{135}{\textbf{\textsf{C}}}};
+            \node at (0.16,0.18) [arrowstyle=1.5cm, anchor=east, rotate=45] {\rotatebox{315}{\textbf{\textsf{A}}}};
+            \node at (0.5,0.08) [arrowstyle=1.5cm, anchor=east, rotate=45] {\rotatebox{315}{\textbf{\textsf{B}}}};
+            \node at (0.89,0.62) [arrowstyle=1.5cm, anchor=east, rotate=180] {\rotatebox{180}{\textbf{\textsf{C}}}};
             \node at (0.7,0.9) [arrowstyle=1.5cm, anchor=east, rotate=180] {\rotatebox{180}{\textbf{\textsf{D}}}};
         \end{scope}
     \end{tikzpicture}
