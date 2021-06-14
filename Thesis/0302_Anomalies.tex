@@ -1,9 +1,5 @@
 \section{Database Annotation Errors} \label{sec:Clustering_Anomalies}
 
-\subsection{Clustering Errors}
-
-\blindtext
-
 \begin{table}[!hbt]
     \centering
     \caption[Anomalies in Segment 4 Cluster 2 (\Acrshort{PCA})]{\textbf{Anomalies in Segment 4 Cluster 2 (\Acrshort{PCA}).}.}
@@ -62,82 +58,11 @@
     {PCA/error_segment_4_cluster_48_difference_head.csv}
 \end{table}
 
-\begin{table}[!hbt]
-    \centering
-    \caption[Anomalies in Segment 4 Cluster 105 (\Acrshort{UMAP})]{\textbf{Anomalies in Segment 4 Cluster 105 (\Acrshort{UMAP}).}.}
-    \label{tab:UMAP_Error_4_105}
-    \pgfplotstabletypeset[
-        every head row/.style={
-            before row={
-                \toprule
-            },
-            after row={
-                \midrule
-            },
-        },
-        every last row/.style={
-            after row={
-                \bottomrule
-            },
-        },
-        begin table=\begin{tabular*}{0.75\textwidth},
-        end table=\end{tabular*},
-        columns={0,1,2},
-        columns/0/.style={string type,multicolumn names=l,column name=\textbf{Accession}, column type=@{\extracolsep{\fill}\hspace{6pt}}r},
-        columns/1/.style={multicolumn names=l,column name=\textbf{H1}, column type=r},
-        columns/2/.style={multicolumn names=l,column name=\textbf{H10}, column type=r},
-    ]
-    {UMAP/error_segment_4_cluster_105_difference_head.csv}
-\end{table}
-
-\begin{table}[!hbt]
-    \centering
-    \caption[Anomalies in Segment 4 Cluster 265 (\Acrshort{UMAP})]{\textbf{Anomalies in Segment 4 Cluster 265 (\Acrshort{UMAP}).}.}
-    \label{tab:UMAP_Error_4_265}
-    \pgfplotstabletypeset[
-        every head row/.style={
-            before row={
-                \toprule
-            },
-            after row={
-                \midrule
-            },
-        },
-        every last row/.style={
-            after row={
-                ... & ... & ... & ...\\
-                \bottomrule
-            },
-        },
-        begin table=\begin{tabular*}{0.75\textwidth},
-        end table=\end{tabular*},
-        columns={0,1,2,3},
-        columns/0/.style={string type,multicolumn names=l,column name=\textbf{Accession}, column type=@{\extracolsep{\fill}\hspace{6pt}}r},
-        columns/1/.style={multicolumn names=l,column name=\textbf{H7}, column type=r},
-        columns/2/.style={multicolumn names=l,column name=\textbf{H10}, column type=r},
-        columns/3/.style={multicolumn names=l,column name=\textbf{H12}, column type=r},
-    ]
-    {UMAP/error_segment_4_cluster_265_difference_head.csv}
-\end{table}
-
-\subsection{Centroid Guidetrees}
-
-\blindtext
-
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{PCA/Guidetree_segment_4_H_Centroid.pdf}
     \caption[Knee based Segment 4 Centroid Guidetree (\Acrshort{PCA})]{\textbf{Knee based Segment 4 Centroid Guidetree (\Acrshort{PCA}).} .}
     \label{fig:PCA_Guidetree_Centroid_4}
-\end{figure}
-
-\blindtext
-
-\begin{figure}[!hbt]
-    \centering
-    \includegraphics[width=\textwidth]{UMAP/Guidetree_segment_4_H_Centroid.pdf}
-    \caption[Knee based Segment 4 Centroid Guidetree (\Acrshort{UMAP})]{\textbf{Knee based Segment 4 Centroid Guidetree (\Acrshort{UMAP}).} .}
-    \label{fig:UMAP_Guidetree_Centroid_4}
 \end{figure}
 
 %Übergang zu cluster Comparison durch Centroid Alignment Tree -> H13/H16 Clustertree, Alignmenttree Vergleich -> Cluster H13/H16 Comparison

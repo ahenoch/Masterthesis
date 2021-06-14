@@ -159,11 +159,7 @@ Comparing the methods to the ones using the \gls{DBCV} for $\varepsilon$ explora
     {UMAP/information_alt.csv}
 \end{table}
 
-To finally determine the best combination of methods for clustering \gls{IAV}, the used parameters were visualized for better understanding and analysis. Since investigation of all segments would overfill this section, only the four methods parameters for segment 4 were discussed in detail. Nevertheless all graphics for the other segments with every used method can be found in the \autoref{chap:Appendix}. A big difference in the cluster size distribution stand out, when comparing the methods with \gls{PCA} to the ones with \gls{UMAP}. The sizes of \gls{PCA} clustering consist mostly of very small ones and one or two very big ones with more than 10000 sequences (\autoref{subfig:PCA_Cluster_DBCV_Distribution_4} and \autoref{subfig:PCA_Cluster_Knee_Distributione_4}). The cluster sized using \gls{UMAP} are spreaded more equally with no cluster of 3000 sequences or more. The only difference between the methods of \gls{PCA} and \gls{UMAP} ist the additional use of \gls{UMAP} after \gls{PCA} in the latter one (\autoref{sec:UMAP}). Therefore the difference in cluster size distribution must be caused by \gls{UMAP}. \gls{UMAP} not only reduces the dimension of the data but also changes the position of the points in the embedded dimension according to the used settings. The \colorbox{backcolour}{n\_neighbors=100} setting is most likely the cause of a change of this magnitude. By increasing the number of neighbors the points were more crowded in groups to support a bigger picture of the data in the embedded dimension and therefore build more clusters of equal sizes. Retrospective to the distribution of segment 4 sequences in the data in \autoref{fig:Frequency_4} it was expected, that a distribution of cluster sizes in segment 4 clustering would approximate the distribution of the sequences in the former one. Therefore a clustering with \gls{PCA} seems to give the expected results and appears as the best method for \gls{IAV} clustering. However this is only valid in combination with the use of the Kneedle Algorithm $\varepsilon$ exploration. The combination with the \gls{DBCV} is mostly irrelevant at this point, since as mentioned earlier, this results in only \gls{HDBSCAN} clustering without hybrid component for most segments and is therefore in any case not suitable for the proposed approach. 
-
-% Also the distribution of cluster sizes seems to be more balanced e.~g.~ segment 4 (\autoref{subfig:UMAP_Cluster_Knee_Distributione_4} and \autoref{subfig:UMAP_Cluster_Knee_Distribution_log_4}) than in the \gls{PCA} approach (\autoref{subfig:PCA_Cluster_Knee_Distributione_4} and \autoref{subfig:PCA_Cluster_Knee_Distribution_log_4}) which could also contribute to the hybrid clustering by \gls{DBSCAN} alone. With a more distributed number of sequences in the clusters, less very small and very big clusters exist and overall more points are collected in small groups which decreases the chance for single points unaffected by the $\varepsilon$ threshold. 
-
-\cleardoublepage
+To finally determine the best combination of methods for clustering \gls{IAV}, the used parameters were visualized for better understanding and analysis. Since investigation of all segments would overfill this section, only the four methods parameters for segment 4 were discussed in detail. Nevertheless all graphics for the other segments with every used method can be found in the \autoref{chap:Appendix}. A big difference in the cluster size distribution stand out, when comparing the methods with \gls{PCA} to the ones with \gls{UMAP}. The sizes of \gls{PCA} clustering consist mostly of very small ones and one or two very big ones with more than 10000 sequences (\autoref{subfig:PCA_Cluster_DBCV_Distribution_4} and \autoref{subfig:PCA_Cluster_Knee_Distributione_4}). 
 
 \begin{figure}[!hbt]
     \centering
@@ -273,10 +269,11 @@ To finally determine the best combination of methods for clustering \gls{IAV}, t
     \label{fig:UMAP_Cluster_DBCV_4}
 \end{figure}
 
+The cluster sized using \gls{UMAP} are spreaded more equally with no cluster of 3000 sequences or more. The only difference between the methods of \gls{PCA} and \gls{UMAP} ist the additional use of \gls{UMAP} after \gls{PCA} in the latter one (\autoref{sec:UMAP}). Therefore the difference in cluster size distribution must be caused by \gls{UMAP}. \gls{UMAP} not only reduces the dimension of the data but also changes the position of the points in the embedded dimension according to the used settings. The \colorbox{backcolour}{n\_neighbors=100} setting is most likely the cause of a change of this magnitude. By increasing the number of neighbors the points were more crowded in groups to support a bigger picture of the data in the embedded dimension and therefore build more clusters of equal sizes. Retrospective to the distribution of segment 4 sequences in the data in \autoref{fig:Frequency_4} it was expected, that a distribution of cluster sizes in segment 4 clustering would approximate the distribution of the sequences in the former one. Therefore a clustering with \gls{PCA} seems to give the expected results and appears as the best method for \gls{IAV} clustering. However this is only valid in combination with the use of the Kneedle Algorithm $\varepsilon$ exploration. The combination with the \gls{DBCV} is mostly irrelevant at this point, since as mentioned earlier, this results in only \gls{HDBSCAN} clustering without hybrid component for most segments and is therefore in any case not suitable for the proposed approach. 
 
+% Also the distribution of cluster sizes seems to be more balanced e.~g.~ segment 4 (\autoref{subfig:UMAP_Cluster_Knee_Distributione_4} and \autoref{subfig:UMAP_Cluster_Knee_Distribution_log_4}) than in the \gls{PCA} approach (\autoref{subfig:PCA_Cluster_Knee_Distributione_4} and \autoref{subfig:PCA_Cluster_Knee_Distribution_log_4}) which could also contribute to the hybrid clustering by \gls{DBSCAN} alone. With a more distributed number of sequences in the clusters, less very small and very big clusters exist and overall more points are collected in small groups which decreases the chance for single points unaffected by the $\varepsilon$ threshold. 
 
-
-\subsection{Clustertrees}
+Clustering by the method using \gls{PCA} in combination with the Kneedle Algorithm results also in the cluster-tree \autoref{fig:PCA_Cluster_Knee_4}. 
 
 \begin{figure}[!hbt]
     \centering
@@ -284,17 +281,12 @@ To finally determine the best combination of methods for clustering \gls{IAV}, t
         \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\textwidth]{PCA/Clustertree_Segment_4_H_Knee.pdf}};
         \begin{scope}[x={(image.south east)},y={(image.north west)}]
             %\draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
-            %\draw[black, thick,rounded corners] (7.5,5.3) rectangle (9.4,6.2);
+            \node at (0.5,0.09) [arrowstyle=1.5cm, anchor=east, rotate=135] {\rotatebox{225}{\textbf{\textsf{A}}}};
+            \node at (0.9,0.62) [arrowstyle=1.5cm, anchor=east, rotate=225] {\rotatebox{135}{\textbf{\textsf{B}}}};
+            \node at (0.7,0.9) [arrowstyle=1.5cm, anchor=east, rotate=180] {\rotatebox{180}{\textbf{\textsf{C}}}};
         \end{scope}
     \end{tikzpicture}
 
     \caption[Knee based Segment 4 Clustertree (\Acrshort{PCA})]{\textbf{Knee based Segment 4 Clustertree (\Acrshort{PCA}).} .}
     \label{fig:PCA_Clusteree_Knee_4}
-\end{figure}
-
-\begin{figure}[!hbt]
-    \centering
-    \includegraphics[width=\textwidth]{UMAP/Clustertree_Segment_4_H_Knee.pdf}
-    \caption[Knee based Segment 4 Clustertree (\Acrshort{UMAP})]{\textbf{Knee based Segment 4 Clustertree (\Acrshort{UMAP}).} .}
-    \label{fig:UMAP_Clusteree_Knee_4}
 \end{figure}
