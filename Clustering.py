@@ -717,20 +717,20 @@ def pairmsa2(nuc1, nuc2):
     return(alignments)
 
 
-def worker(x, y, j, k, n, cl):
+def worker(x, y, j, k, n, cl, gn):
            
     if n == -1:
-        sample_x = cl.query('cluster == @j & centroid == True').join(genome)[['genome']]
-        sample_y = cl.query('cluster == @k & centroid == True').join(genome)[['genome']]
+        sample_x = cl.query('cluster == @j & centroid == True').join(gn)[['genome']]
+        sample_y = cl.query('cluster == @k & centroid == True').join(gn)[['genome']]
 
     else:
-        query_x = cl.query('cluster == @j').join(genome)[['genome']]
+        query_x = cl.query('cluster == @j').join(gn)[['genome']]
         if len(query_x) >= n:
             sample_x = query_x.sample(n=n, random_state=42)
         else:
             sample_x = query_x
 
-        query_y = cl.query('cluster == @k').join(genome)[['genome']]
+        query_y = cl.query('cluster == @k').join(gn)[['genome']]
         if len(query_y) >= n:
             sample_y = query_y.sample(n=n, random_state=42)
         else:
@@ -745,6 +745,7 @@ def worker(x, y, j, k, n, cl):
 def sample_difference(cluster, genome, segment, proc = 8, n = -1):
 
     cl = cluster.query('segment == @segment') 
+    gn = genome.loc[cl.index.values.tolist()]
     names = list(set(cl['cluster']).difference({-1}))
     num = len(names)
         
@@ -753,13 +754,14 @@ def sample_difference(cluster, genome, segment, proc = 8, n = -1):
 
     for x, j in enumerate(names):
         for y, k in enumerate(names[:names.index(j)+1]):
-            params.append((x, y, j, k, n, cl))
+            params.append((x, y, j, k, n, cl, gn))
 
     with Pool(processes=proc) as pool:
         result = pool.starmap(worker, params)
 
     for x, y, dist in result:
         dist_matrix[x,y] = dist
+        dist_matrix[y,x] = dist
     
     dist_dataframe = pd.DataFrame(dist_matrix, index = names, columns = names)
     
