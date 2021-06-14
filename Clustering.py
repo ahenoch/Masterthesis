@@ -25,7 +25,7 @@ import matplotlib.transforms as transforms
 import scipy.spatial.distance as ssd
 import seaborn as sns
 
-from Bio import Align
+from Bio import Align, pairwise2
 from Bio.Seq import Seq
 from ete3 import PhyloTree, Tree, faces, AttrFace, CircleFace, TreeStyle, NodeStyle, TextFace, SequenceFace
 from matplotlib import colors 
@@ -35,9 +35,7 @@ from sklearn.decomposition import PCA
 from statistics import mean
 from scipy import stats
 from kneed import DataGenerator, KneeLocator
-
-
-# In[2]:
+from multiprocessing import Pool
 
 
 class frequency(object):
@@ -171,9 +169,6 @@ class frequency(object):
         return(self.matrix)
 
 
-# In[3]:
-
-
 def subsplit(subtype):
     if re.match('^[H][0-9]+N[0-9]+$', subtype): 
         H = re.search('[H][0-9]+', subtype).group(0)
@@ -182,9 +177,6 @@ def subsplit(subtype):
         H = ''#np.nan
         N = ''#np.nan
     return(H, N)
-
-
-# In[4]:
 
 
 def convert_fasta(infile, outfile):
@@ -209,9 +201,6 @@ def convert_fasta(infile, outfile):
     
         if block:
             f_output.write(new_line + ',' + "".join(block) + '\n')
-
-
-# In[5]:
 
 
 def get_vectors(sequence, accession, metric, neigh, comp, pca):
@@ -261,9 +250,6 @@ def get_vectors(sequence, accession, metric, neigh, comp, pca):
         dataframe = pd.concat([accession, pd.DataFrame(reduced)], axis=1, copy = False, ignore_index = False).set_index('accession')
     
     return(dataframe, dataframe_pca, explained_var)
-
-
-# In[6]:
 
 
 def get_elbow(dataframe, extra, accession, metric, min_clust, sample, kneedle):
@@ -323,9 +309,6 @@ def get_elbow(dataframe, extra, accession, metric, min_clust, sample, kneedle):
     linkage.set_index('parent', inplace = True)
     
     return(linkage, elbow, epsilon_best, n_cluster_raw, n_cluster_norm)
-
-
-# In[7]:
 
 
 def get_cluster(epsilon_best, dataframe, extra, accession, metric, min_clust, sample):
@@ -390,9 +373,6 @@ def get_cluster(epsilon_best, dataframe, extra, accession, metric, min_clust, sa
     return(cluster, n_cluster, unclustered, H_unmatch, N_unmatch)
 
 
-# In[8]:
-
-
 def plot_density(density, segments, outpath, render, accuracy, suffix = ''):
 
     for seg in segments:
@@ -414,8 +394,6 @@ def plot_density(density, segments, outpath, render, accuracy, suffix = ''):
             plt.tight_layout()
             plt.close(fig)
             fig.savefig(outpath + 'Cluster_Distribution_Log_Segment_' + str(seg) + str(suffix) + '.' + render)
-
-# In[9]:
 
 
 def plot_elbow(elbow, information, segments, outfolder, render, suffix = ''):
@@ -471,9 +449,6 @@ def plot_elbow(elbow, information, segments, outfolder, render, suffix = ''):
             fig.savefig(outfolder + 'Cluster_Knee_Segment_' + str(seg) + str(suffix) + '.' + render)
 
 
-# In[10]:
-
-
 #Modified Version of the code presented on https://github.com/scipy/scipy/issues/8274
 def getNewick(node, newick, parentdist, leaf_names):
     
@@ -496,9 +471,6 @@ def getNewick(node, newick, parentdist, leaf_names):
         return(newick)
 
 
-# In[11]:
-
-
 def alignment(fasta, threads, outfasta, outmsa, treeout):    
 
     fasta.to_csv(outfasta, header=None, index=True, sep='\n', mode='w')
@@ -512,9 +484,6 @@ def alignment(fasta, threads, outfasta, outmsa, treeout):
         handle.write(stdout)
     
     return(stdout)
-
-
-# In[12]:
 
 
 def fill_gaps(group, protein):
@@ -532,18 +501,12 @@ def fill_gaps(group, protein):
     return(group)
 
 
-# In[13]:
-
-
 def get_acc(dictionary_tree, list_value):
     list_accessions = []
     for key, value in dictionary_tree.items():
          if value in list_value:
             list_accessions.append(key)
     return(list_accessions)
-
-
-# In[14]:
 
 
 def layout(node):
@@ -554,9 +517,6 @@ def layout(node):
     
         M = AttrFace("size", fsize=10, text_prefix='|Size ', text_suffix='|')
         faces.add_face_to_node(M, node, 1, position="aligned")    
-
-
-# In[15]:
 
 
 def get_tree(cluster, upload, segment, prot, list_color_hex, list_prune = [], list_focus = [], collapse = True, path_phylo = '', msa_dict = co.defaultdict(str), area = [], linkage = pd.DataFrame()):
@@ -747,71 +707,66 @@ def get_tree(cluster, upload, segment, prot, list_color_hex, list_prune = [], li
     return(tree, tree_style, tree_newick)
 
 
-def pairmsa(nuc1, nuc2):
+def pairmsa2(nuc1, nuc2):
         
     seq1 = Seq(nuc1.item())
     seq2 = Seq(nuc2.item()) 
 
-    aligner = Align.PairwiseAligner()
-    alignments = aligner.align(seq1, seq2) 
+    alignments = pairwise2.align.globalxx(seq1, seq2, score_only = True) 
     
-    #alignments = pairwise2.align.globalmx(seq1, seq2, 1, -1) 
-    
-    return(alignments[0].score)
+    return(alignments)
 
-def sample_difference(cluster, genome, segment, tree, threshold = -1, n = -1, index = []):
-    
-    if not index:
-        num = cluster['cluster'].max()+1
-        index = [i for i in range(num)]
+
+def worker(x, y, j, k, n, cl):
+           
+    if n == -1:
+        sample_x = cl.query('cluster == @j & centroid == True').join(genome)[['genome']]
+        sample_y = cl.query('cluster == @k & centroid == True').join(genome)[['genome']]
+
     else:
-        num = len(index)
+        query_x = cl.query('cluster == @j').join(genome)[['genome']]
+        if len(query_x) >= n:
+            sample_x = query_x.sample(n=n, random_state=42)
+        else:
+            sample_x = query_x
+
+        query_y = cl.query('cluster == @k').join(genome)[['genome']]
+        if len(query_y) >= n:
+            sample_y = query_y.sample(n=n, random_state=42)
+        else:
+            sample_y = query_y
+
+    dist_mean = ssd.cdist(sample_x, sample_y, metric = pairmsa2).mean()
+    len_mean = (sample_x['genome'].str.len().mean() + sample_y['genome'].str.len().mean())/2
+
+    return((x,y,dist_mean/len_mean))
+
+
+def sample_difference(cluster, genome, segment, proc = 8, n = -1):
+
+    cl = cluster.query('segment == @segment') 
+    names = list(set(cl['cluster']).difference({-1}))
+    num = len(names)
+        
+    params = []
+    dist_matrix = np.zeros([num, num])
+
+    for x, j in enumerate(names):
+        for y, k in enumerate(names[:names.index(j)+1]):
+            params.append((x, y, j, k, n, cl))
+
+    with Pool(processes=proc) as pool:
+        result = pool.starmap(worker, params)
+
+    for x, y, dist in result:
+        dist_matrix[x,y] = dist
     
-    pair = np.empty([num, num])
+    dist_dataframe = pd.DataFrame(dist_matrix, index = names, columns = names)
     
-    for x, j in enumerate(index):
-        for y, k in enumerate(index):
-            
-            if j != k:
-                dist = tree.get_distance(str(j), str(k))
-            else:
-                dist = 0.0
-            
-            if threshold == -1 or dist <= threshold:
-            
-                if n == -1:
-                    sample_x = cluster.query('segment == @segment & cluster == @j & centroid == True').join(genome)[['genome']]
-                    sample_y = cluster.query('segment == @segment & cluster == @k & centroid == True').join(genome)[['genome']]
-
-                else:
-                    query_x = cluster.query('segment == @segment & cluster == @j').join(genome)[['genome']]
-                    if len(query_x) >= n:
-                        sample_x = query_x.sample(n=n, random_state=42)
-                    else:
-                        sample_x = query_x
-
-                    query_y = cluster.query('segment == @segment & cluster == @k').join(genome)[['genome']]
-                    if len(query_y) >= n:
-                        sample_y = query_y.sample(n=n, random_state=42)
-                    else:
-                        sample_y = query_y
-
-                dist = ssd.cdist(sample_x, sample_y, metric = pairmsa)
-
-                dist_mean = pd.DataFrame(dist, dtype = 'float64').mean().mean()
-                len_mean = (sample_x['genome'].str.len().mean() + sample_y['genome'].str.len().mean())/2
-                
-                pair[x,y] = dist_mean/len_mean
-                
-            else:
-                pair[x,y] = 0.0
-            
-    dataframe_pair = pd.DataFrame(pair, index = index, columns = index)
-
-    return(dataframe_pair)
+    return(dist_dataframe)
 
 
-def plot_difference(proof, segments, outpath, render):
+def plot_difference(proof, segment, outpath, render):
 
     with sns.axes_style("darkgrid"):
         fig, ax = plt.subplots(figsize=(8,6))
@@ -820,9 +775,7 @@ def plot_difference(proof, segments, outpath, render):
         plt.ylabel("Cluster")
         plt.tight_layout()
         plt.close(fig)
-        fig.savefig(outpath + 'Cluster_Difference_Segment_' + str(segments) + '.' + render)
-
-# In[23]:
+        fig.savefig(outpath + 'Cluster_Difference_Segment_' + str(segment) + '.' + render)
 
 
 def main(infile, outfolder, segments, custom, metric, min_clust, sample, umap_neigh, umap_comp, pca_comp, kneedle, render, epsilon):#, recreate):
@@ -975,13 +928,12 @@ def main(infile, outfolder, segments, custom, metric, min_clust, sample, umap_ne
         tree.render(outfolder + 'Clustertree_Segment_' + str(seg) + '.' + render, tree_style = ts)
         with open(outfolder + 'Newick_Segment_' + str(seg) + '.txt', 'w') as f:
             f.write(newick)
-        proof = sample_difference(cluster, genome, seg, tree)
-        proof.to_csv(outfolder + 'Pairwise_Segment_' + str(seg) + '.csv', index=True, header=True, sep=',', mode='w')
-        plot_difference(proof, 4, outfolder, render)
+        pair = sample_difference(cluster, genome, seg, proc = 12, n = 10)
+        pair.to_csv(outfolder + 'Pairwise_Segment_' + str(seg) + '.csv', index=True, header=True, sep=',', mode='w')
+        plot_difference(pair, seg, outfolder, render)
 
     os.remove("fasta.csv") 
-	
-# In[29]:
+
 
 if __name__ == "__main__":
     
