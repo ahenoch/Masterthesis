@@ -778,7 +778,7 @@ def plot_difference(proof, segment, outpath, render):
         fig.savefig(outpath + 'Cluster_Difference_Segment_' + str(segment) + '.' + render)
 
 
-def main(infile, outfolder, segments, custom, metric, min_clust, sample, umap_neigh, umap_comp, pca_comp, kneedle, render, epsilon):#, recreate):
+def main(infile, outfolder, segments, custom, metric, min_clust, sample, umap_neigh, umap_comp, pca_comp, kneedle, render, epsilon, threads):
 
     Hs = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H10', 'H11', 'H12', 'H13', 'H14', 'H15', 'H16', 'H17', 'H18']
     Ns = ['N1', 'N2', 'N3', 'N4', 'N5', 'N6', 'N7', 'N8', 'N9', 'N10', 'N11']
@@ -928,7 +928,7 @@ def main(infile, outfolder, segments, custom, metric, min_clust, sample, umap_ne
         tree.render(outfolder + 'Clustertree_Segment_' + str(seg) + '.' + render, tree_style = ts)
         with open(outfolder + 'Newick_Segment_' + str(seg) + '.txt', 'w') as f:
             f.write(newick)
-        pair = sample_difference(cluster, genome, seg, proc = 12, n = 10)
+        pair = sample_difference(cluster, genome, seg, proc = threads, n = 10)
         pair.to_csv(outfolder + 'Pairwise_Segment_' + str(seg) + '.csv', index=True, header=True, sep=',', mode='w')
         plot_difference(pair, seg, outfolder, render)
 
@@ -951,10 +951,9 @@ if __name__ == "__main__":
     parser.add_argument('-k','--max_kneedle', type = int, default = 500)
     parser.add_argument('-r','--render', type = str, choices=['svg','pdf'], default = 'pdf')
     parser.add_argument('-e','--epsilon', type = str, choices=['dbcv','kneedle'], default = 'kneedle')
+    parser.add_argument('-t','--threads', type = int, default = 12)
     
-    
-    #parser.add_argument('-r','--recreate', type = bool, default = False)
-    
+   
     args = parser.parse_args()
     
     if not set(['genome', 'subtype', 'segment', 'curation']).issubset(args.custom_header):
@@ -992,4 +991,5 @@ if __name__ == "__main__":
         kneedle = args.max_kneedle, 
         render = args.render, 
         epsilon = args.epsilon,
+        threads = args.threads,
     )
