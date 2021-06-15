@@ -1,5 +1,7 @@
 \section{The K-mer Representation Quality} \label{sec:K_mer_Representation}
 
+Investigation on the anomalies resulted in two persistent clustering errors \autoref{fig:PCA_Cluster_Knee_4} \textbf{\textsf{B}} and \textbf{\textsf{D}}. To evaluate if the method is suitable for the clustering of \gls{IAV} possible error sources are discussed.
+
 % \begin{figure}[!hbt]
 %     \includegraphics[width=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox]{PCA/Clustertree_Segment_4_H_Knee_Zoom.pdf}
 %     \caption[H13/H16 Simple Clustering Example with \Acrshort{PCA}]{\textbf{H13/H16 Simple Clustering Example with \Acrshort{PCA}.} .}
@@ -20,16 +22,11 @@
 
 \begin{figure}[!hbt]
     \centering
-    \includegraphics[width=\textwidth]{UMAP/Precalculated_Segment_4_H_Cosine.pdf}
+    \includegraphics[width=\textwidth]{PCA/Precalculated_Segment_4_H_Cosine.pdf}
     \caption[H13/H16 Precalculated \Acrshort{UPGMA} Tree (cosine)]{\textbf{H13/H16 Precalculated \Acrshort{UPGMA} Tree (cosine).} .}
     \label{fig:Precalculated_Cosine}
 \end{figure}
 
-\begin{figure}[!hbt]
-    \centering
-    \includegraphics[width=\textwidth]{UMAP/Precalculated_Segment_4_H_Euclidean.pdf}
-    \caption[H13/H16 Precalculated \Acrshort{UPGMA} Tree (euclidean)]{\textbf{H13/H16 Precalculated \Acrshort{UPGMA} Tree (euclidean).} .}
-    \label{fig:Precalculated_Euclid}
-\end{figure}
+By building a \gls{UPGMA} tree on the non reduced segment 4 k-mer frequency vectors of the H13 and H16 subtypes the unbiased relation of sequences from these subtypes can be analyzed (\autoref{sec:MAFFT}). Also the fundamental use of k-mer frequencies can be validated or rejected. 
 
 %frage is hier welche Methode die bessere representation ausstrahlt, sprich UMAP vgl. precalc ja/nein? dann PCA vgl precalc passt? ja/nein?
