@@ -712,9 +712,19 @@ def pairmsa2(nuc1, nuc2):
     seq1 = Seq(nuc1.item())
     seq2 = Seq(nuc2.item()) 
 
-    alignments = pairwise2.align.globalxx(seq1, seq2, score_only = True) 
+    aligner = Align.PairwiseAligner()
+    #aligner.open_gap_score = -0.5
+    #aligner.extend_gap_score = -0.1
+    #aligner.target_end_gap_score = 0.0
+    #aligner.query_end_gap_score = 0.0
+    aligner.mode = 'global'
     
-    return(alignments)
+    alignment = aligner.align(seq1, seq2)[0]
+    score = alignment.score/len(str(alignment).split('\n')[0])
+
+    #alignments = pairwise2.align.globalxx(seq1, seq2, score_only = True) 
+    
+    return(score)
 
 
 def worker(x, y, j, k, n, cl, gn):
@@ -737,8 +747,9 @@ def worker(x, y, j, k, n, cl, gn):
             sample_y = query_y
 
     dist_mean = ssd.cdist(sample_x, sample_y, metric = pairmsa2).mean()
-    len_mean = (sample_x['genome'].str.len().mean() + sample_y['genome'].str.len().mean())/2
+    #len_mean = (sample_x['genome'].str.len().mean() + sample_y['genome'].str.len().mean())/2
 
+    #return((x,y,dist_mean/len_mean))
     return((x,y,dist_mean/len_mean))
 
 
