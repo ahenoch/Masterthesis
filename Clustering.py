@@ -329,10 +329,12 @@ def get_cluster(epsilon_best, dataframe, extra, accession, metric, min_clust, sa
     label_list = label.tolist()
     
     unclustered = label_list.count(-1)
-    if -1 in label_list:
-        label_list.remove(-1)
+    label_set = set(label_list)
     
-    n_cluster = len(set(label_list))
+    if -1 in label_set:
+        label_set.remove(-1)
+    
+    n_cluster = len(label_set)
     
     cluster = pd.concat([pd.DataFrame(label, columns = ['cluster']), extra, accession], axis=1, copy = False).set_index('accession')
     #linkage = clusterer_best.single_linkage_tree_.to_pandas()
@@ -379,7 +381,7 @@ def plot_density(density, segments, outpath, render, accuracy, suffix = ''):
              
         with sns.axes_style("darkgrid"):
             fig, ax = plt.subplots(figsize=(4,4))
-            sns.histplot(data = density.query('segment == 4'), x = "size", kde=False, log_scale=False, element="step", fill = True, bins = round(density.query('segment == 4')['size'].max()*accuracy), ax = ax)
+            sns.histplot(data = density.query('segment == @seg'), x = "size", kde=False, log_scale=False, element="step", fill = True, bins = round(density.query('segment == @seg')['size'].max()*accuracy), ax = ax)
             plt.xlabel("log(Count)")
             plt.ylabel("#Cluster")
             plt.tight_layout()
@@ -388,7 +390,7 @@ def plot_density(density, segments, outpath, render, accuracy, suffix = ''):
     
         with sns.axes_style("darkgrid"):
             fig, ax = plt.subplots(figsize=(4,4))
-            sns.histplot(data = density.query('segment == 4'), x = "size", kde=False, log_scale=True, element="step", fill = True, bins = round(density.query('segment == 4')['size'].max()*accuracy), ax = ax)
+            sns.histplot(data = density.query('segment == @seg'), x = "size", kde=False, log_scale=True, element="step", fill = True, bins = round(density.query('segment == @seg')['size'].max()*accuracy), ax = ax)
             plt.xlabel("log(Count)")
             plt.ylabel("#Cluster")
             plt.tight_layout()
@@ -707,7 +709,7 @@ def get_tree(cluster, upload, segment, prot, list_color_hex, list_prune = [], li
     return(tree, tree_style, tree_newick)
 
 
-def pairmsa2(nuc1, nuc2):
+def pairmsa(nuc1, nuc2):
         
     seq1 = Seq(nuc1.item())
     seq2 = Seq(nuc2.item()) 
@@ -736,21 +738,21 @@ def worker(x, y, j, k, n, cl, gn):
     else:
         query_x = cl.query('cluster == @j').join(gn)[['genome']]
         if len(query_x) >= n:
-            sample_x = query_x.sample(n=n, random_state=42)
+            sample_x = query_x.sample(n=n)
         else:
             sample_x = query_x
 
         query_y = cl.query('cluster == @k').join(gn)[['genome']]
         if len(query_y) >= n:
-            sample_y = query_y.sample(n=n, random_state=42)
+            sample_y = query_y.sample(n=n)
         else:
             sample_y = query_y
 
-    dist_mean = ssd.cdist(sample_x, sample_y, metric = pairmsa2).mean()
+    dist_mean = ssd.cdist(sample_x, sample_y, metric = pairmsa).mean()
     #len_mean = (sample_x['genome'].str.len().mean() + sample_y['genome'].str.len().mean())/2
 
     #return((x,y,dist_mean/len_mean))
-    return((x,y,dist_mean/len_mean))
+    return(x,y,dist_mean)
 
 
 def sample_difference(cluster, genome, segment, proc = 8, n = -1):
@@ -761,7 +763,8 @@ def sample_difference(cluster, genome, segment, proc = 8, n = -1):
     num = len(names)
         
     params = []
-    dist_matrix = np.zeros([num, num])
+    dist_matrix = np.empty([num, num])
+    dist_matrix[:] = np.nan
 
     for x, j in enumerate(names):
         for y, k in enumerate(names[:names.index(j)+1]):
@@ -772,18 +775,18 @@ def sample_difference(cluster, genome, segment, proc = 8, n = -1):
 
     for x, y, dist in result:
         dist_matrix[x,y] = dist
-        dist_matrix[y,x] = dist
+        #dist_matrix[y,x] = dist
     
     dist_dataframe = pd.DataFrame(dist_matrix, index = names, columns = names)
     
     return(dist_dataframe)
 
 
-def plot_difference(proof, segment, outpath, render):
+def plot_difference(pair, segment, outpath, render):
 
     with sns.axes_style("darkgrid"):
         fig, ax = plt.subplots(figsize=(8,6))
-        ax = sns.heatmap(proof, linewidths=.5)
+        ax = sns.heatmap(pair, linewidths=.5, vmin = 0, vmax = 1, center = 0.5,cmap="coolwarm")
         plt.xlabel("Cluster")
         plt.ylabel("Cluster")
         plt.tight_layout()
