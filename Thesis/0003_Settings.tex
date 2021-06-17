@@ -98,7 +98,7 @@
     top color=transparent!0, 
     bottom color=transparent!95
 ]
-\tikzset{arrowfill/.style={%
+\tikzset{arrowfillR/.style={%
     %top color=Red!20, 
     top color=Red!80, 
     bottom color=Red!80, 
@@ -108,10 +108,19 @@
     %    path fading=arrowfading
     %}
 }}
+\tikzset{arrowfillG/.style={%
+    %top color=Red!20, 
+    top color=Green!80, 
+    bottom color=Green!80, 
+    %general shadow={
+    %    fill=black!80, 
+    %    shadow yshift=-0.8ex, 
+    %    path fading=arrowfading
+    %}
+}}
 \tikzset{arrowstyle/.style={%
     draw=black,
     thick,
-    arrowfill, 
     single arrow,
     minimum height=#1, 
     single arrow,
