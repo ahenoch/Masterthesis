@@ -1,0 +1,2 @@
+segment,n_cluster,n_cluster_raw,n_cluster_norm,unclustered,H_unmatch,N_unmatch,epsilon,explained_var
+4,57,78,0.15430861723446893,11,1,44,0.25108026837631375,0.7925271232079981

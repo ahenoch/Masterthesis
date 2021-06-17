@@ -711,51 +711,57 @@ def get_tree(cluster, upload, segment, prot, list_color_hex, list_prune = [], li
 
 def pairmsa(nuc1, nuc2):
         
-    seq1 = Seq(nuc1.item())
-    seq2 = Seq(nuc2.item()) 
+    if nuc1[0] == nuc2[0]:
+        
+        return(np.nan)
+        
+    else:    
+        
+        seq1 = Seq(nuc1[1])
+        seq2 = Seq(nuc2[1]) 
 
-    aligner = Align.PairwiseAligner()
-    #aligner.open_gap_score = -0.5
-    #aligner.extend_gap_score = -0.1
-    #aligner.target_end_gap_score = 0.0
-    #aligner.query_end_gap_score = 0.0
-    aligner.mode = 'global'
-    
-    alignment = aligner.align(seq1, seq2)[0]
-    score = alignment.score/len(str(alignment).split('\n')[0])
+        aligner = Align.PairwiseAligner()
+        #aligner.open_gap_score = -0.5
+        #aligner.extend_gap_score = -0.1
+        #aligner.target_end_gap_score = 0.0
+        #aligner.query_end_gap_score = 0.0
+        aligner.mode = 'global'
 
-    #alignments = pairwise2.align.globalxx(seq1, seq2, score_only = True) 
-    
-    return(score)
+        alignment = aligner.align(seq1, seq2)[0]
+        score = alignment.score/len(str(alignment).split('\n')[0])
+
+        #alignments = pairwise2.align.globalxx(seq1, seq2, score_only = True) 
+
+        return(score)
 
 
 def worker(x, y, j, k, n, cl, gn):
            
     if n == -1:
-        sample_x = cl.query('cluster == @j & centroid == True').join(gn)[['genome']]
-        sample_y = cl.query('cluster == @k & centroid == True').join(gn)[['genome']]
+        sample_x = cl.query('cluster == @j & centroid == True').join(gn)[['genome']].reset_index()
+        sample_y = cl.query('cluster == @k & centroid == True').join(gn)[['genome']].reset_index()
 
     else:
         query_x = cl.query('cluster == @j').join(gn)[['genome']]
         if len(query_x) >= n:
-            sample_x = query_x.sample(n=n)
+            sample_x = query_x.sample(n=n).reset_index()
         else:
-            sample_x = query_x
+            sample_x = query_x.reset_index()
 
         query_y = cl.query('cluster == @k').join(gn)[['genome']]
         if len(query_y) >= n:
-            sample_y = query_y.sample(n=n)
+            sample_y = query_y.sample(n=n).reset_index()
         else:
-            sample_y = query_y
+            sample_y = query_y.reset_index()
 
-    dist_mean = ssd.cdist(sample_x, sample_y, metric = pairmsa).mean()
+    dist_mean = np.nanmean(ssd.cdist(sample_x, sample_y, metric = pairmsa))#.mean()
     #len_mean = (sample_x['genome'].str.len().mean() + sample_y['genome'].str.len().mean())/2
 
     #return((x,y,dist_mean/len_mean))
     return(x,y,dist_mean)
 
 
-def sample_difference(cluster, genome, segment, proc = 8, n = -1):
+def sample_difference(cluster, genome, segment, proc = 8, n = 10):
 
     cl = cluster.query('segment == @segment') 
     gn = genome.loc[cl.index.values.tolist()]
