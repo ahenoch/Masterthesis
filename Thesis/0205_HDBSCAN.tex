@@ -1,12 +1,10 @@
 \section{HDBSCAN} \label{sec:HDBSCAN}
 
-\textbf{HIER NOCH MEHR ZU DEM ABSTANDSMAß VON HDB}
-
 \gls{HDBSCAN} is an clustering algorithm proposed by \textcite{campello_hierarchical_2015, hutchison_density-based_2013}. It is a novel version of \gls{DBSCAN} but executed with varying values of $\varepsilon$ \autocite{hutchison_density-based_2013}. Thus not one specific threshold is used to define the clusters, but instead clusters of varying densities are extracted based on their stability over epsilon \autocite{mcinnes_hdbscan_2017}. The version of \gls{HDBSCAN} used in this project is the accelerated implementation by the \textbf{hdbscan} package version 0.8.26 of \textcite{mcinnes_accelerated_2017} (\autoref{fig:Clustering_Pipeline} \textsf{\textbf{F}}).
 
 Since there is, to my best knowledge, no submission using \gls{HDBSCAN} for a usecase similar to the one proposed in this project, most settings for \gls{HDBSCAN} were selected by parameter exploration, graphical comparisons and reasonable assumptions. For the selection of all settings the \href{https://hdbscan.readthedocs.io/en/latest/api.html}{API} was used as backup \autocite{mcinnes_hdbscan_2017}. 
 
-To capture, in the best case, even genomes with single \glspl{SNP} at rare appearing positions in their own clusters \colorbox{backcolour}{min\_cluster\_size=2} and \colorbox{backcolour}{min\_samples=1} setting was used as default in the project. These settings are in both cases the smallest values possible, to declare as least points as possible as noise. Setting the \gls{UMAP} parameters to focus on the global structure, while cluster as fine as possible might sound contradictory and is therefore discussed in \autoref{sec:Dimension_Reduction}. The default \colorbox{backcolour}{metric='euclidean'} setting was used for all following executions of \gls{HDBSCAN}, with an exception on the precalculated runs, to approximate the use of cosine distance metric as described in \autoref{sec:Normalization}. Therefore matrix $\mathbf{X}_{\text{PCA}}$ and $\mathbf{Y}_{\text{UMAP}}$ have to be L2-normalized as described in \autoref{sec:Normalization} (\autoref{eq:l2_func_x} and \autoref{eq:l2_func_y}). For calculation of the linkage matrix $\mathbf{L}$ standard \gls{HDBSCAN} without $\varepsilon$ was used.
+To capture, in the best case, even genomes with single \glspl{SNP} at rare appearing positions in their own clusters \colorbox{backcolour}{min\_cluster\_size=2} and \colorbox{backcolour}{min\_samples=1} setting was used as default in the project. These settings are in both cases the smallest values possible, to declare as least points as possible as noise. The default \colorbox{backcolour}{metric='euclidean'} setting was used for all following executions of \gls{HDBSCAN}, with an exception on the precalculated runs, to approximate the use of cosine distance metric as described in \autoref{sec:Normalization}. Therefore matrix $\mathbf{X}_{\text{PCA}}$ and $\mathbf{Y}_{\text{UMAP}}$ have to be L2-normalized as described in \autoref{sec:Normalization} (\autoref{eq:l2_func_x} and \autoref{eq:l2_func_y}). For calculation of the linkage matrix $\mathbf{L}$ standard \gls{HDBSCAN} without $\varepsilon$ was used.
 
 \autoref{eq:HDB} to \autoref{eq:HDB_link_X} demonstrate the use of \gls{HDBSCAN} to calculate the linkage matrix $\mathbf{L}_{\text{PCA}}$ with matrix $\mathbf{X}_{\text{L2}}$ of \autoref{fig:Clustering_Pipeline} pathway \textsf{\textbf{1}} and was performed in the same way for $\mathbf{L}_{\text{UMAP}}$ with $\mathbf{Y}_{\text{L2}}$ of \autoref{fig:Clustering_Pipeline} pathway \textsf{\textbf{2}} \autocite{mcinnes_hdbscan_2017, gower_minimum_1969}.
 
@@ -20,19 +18,25 @@ To capture, in the best case, even genomes with single \glspl{SNP} at rare appea
     &&&= \text{HDBSCAN}_{\text{Link}}(\mathbf{X}_{\text{L2}}, 2, 1) \label{eq:HDB_link_X}
 \end{empheq}
 
-By combining \gls{HDBSCAN} with \gls{DBSCAN} some of the disadvantages of using either of these methods can be overcome \autocite{mcinnes_hdbscan_2017, moulavi_density-based_2014}. Since \gls{DBSCAN} is a hierarchical clustering tool, it is dependent on a strict threshold for clustering. Points not included in this threshold value are omitted \autocite{ester_density-based_1996, schubert_dbscan_2017}. \gls{HDBSCAN} on the other hand tend to create micro-clusters in areas of high density \autocite{mcinnes_hdbscan_2017}. Using the hybrid approach proposed in \autocite{malzer_hybrid_2020} a threshold value $\varepsilon$ can be used to extract clusters but still use the method of \gls{HDBSCAN} instead of emitting other points. This method is useful when having a small cluster size value while still want to cluster high-density areas together \autocite{malzer_hybrid_2020}.
+The mutual reachability distance is thereby the degree of difference of two vectors used by \gls{HDBSCAN}. The \colorbox{backcolour}{metric='euclidean'} setting mentioned above is part of it's calculation and the overall result when the core distance is lower (\autoref{eq:reach}). The core distance is the minimum radius necessary to include $k$ other points. The standard setting of $k$ is five \autocite{mcinnes_hdbscan_2017}. 
+
+\begin{empheq}{alignat = -1}
+    &d_{\text{mreach}-k}(\mathbf{x},\mathbf{y}) &&= \max \{ \text{core}_k(\mathbf{x}), \text{core}_k(\mathbf{y}), d_{\text{eucl}}(\mathbf{x},\mathbf{y}) \} \label{eq:reach}
+\end{empheq}
 
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/HDB.pdf}
-    \caption[]{\textbf{.} low dimension representation of hdbscan manual blabla.}
+    \caption[Mutual Reachability Calculation]{\textbf{Mutual Reachability Calculation.} A low dimension representation of the calculation \gls{HDBSCAN} performed in this project. To calculate the mutual reachability distance a radius is measured necessary to include the next five points, as example for vector $\mathbf{x}$ in blue and $\mathbf{y}$ in red. The euclidean distance between these vectors is then caluclated and compared to the radii. The maximum of both radii and the euclidean distance is the mutual reachability distance (\autoref{eq:reach}).}
     \label{fig:HDB}
 \end{figure}
+
+By combining \gls{HDBSCAN} with \gls{DBSCAN} some of the disadvantages of using either of these methods can be overcome \autocite{mcinnes_hdbscan_2017, moulavi_density-based_2014}. Since \gls{DBSCAN} is a hierarchical clustering tool, it is dependent on a strict threshold for clustering. Points not included in this threshold value are omitted \autocite{ester_density-based_1996, schubert_dbscan_2017}. \gls{HDBSCAN} on the other hand tend to create micro-clusters in areas of high density \autocite{mcinnes_hdbscan_2017}. Using the hybrid approach proposed in \autocite{malzer_hybrid_2020} a threshold value $\varepsilon$ can be used to extract clusters with \gls{DBSCAN} but still use the method of \gls{HDBSCAN} for the otherwise omittd points (\autoref{fig:Hybrid}). This method is useful when having a small cluster size value while still want to cluster high-density areas together exactly suitable for the proposed clustering, since specific strains of \gls{IAV} are sequenced a lot more thereby probably creating high-density areas, while the small cluster size is used to find rare sequenced variants with possibly important mutations \autocite{malzer_hybrid_2020}.
 
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/Hybrid.pdf}
-    \caption[]{\textbf{.} low dimensional representation of hybrid hdbscan blabla.}
+    \caption[Hybrid Clustering Threshold]{\textbf{Hybrid Clustering Threshold.} The hybrid clustering differentiate between clusters where points are connected by distances smaller and higher than $\varepsilon$. When the distance is smaller, the \gls{DBSCAN} algorithm is used and clusters are calculated based on this threshold value $\varepsilon$ by combining points with less distance. For single points, having no point in reachable distance and therefore impossible to be clustered by \gls{DBSCAN}, other than single sequence cluster, \gls{HDBSCAN} is used to builds cluster with higher threshold if appropriate. The graphic is based on \glqq Combining HDBSCAN* with DBSCAN\grqq{} in the \href{https://hdbscan.readthedocs.io/en/latest/api.html}{API} adapted to the calculations in this project, as two dimensional example.}
     \label{fig:Hybrid}
 \end{figure}
 

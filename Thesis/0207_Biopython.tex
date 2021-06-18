@@ -18,19 +18,37 @@ For chosing all the clusters centroid sequences $C$ which are a subset of all th
     &\min \left( \text{CDIST}_{\text{eucl}}(\mathbf{X}_{\text{Clst}}, \mathbf{X}_{\text{Clst}}) \right) &&= \sum^k_{j=1} d_{\text{eucl}}(\mathbf{x}_i, \mathbf{x}_j ) \Rightarrow C_o = S_i\label{eq:centroid}
 \end{empheq}
 
+For the pairwise alignments in \autoref{sec:Serotype_Classification} from the \textbf{biopython (Bio)} package version 1.78 the \textbf{Align.PairwiseAligner} function was used with standard settings \autocite{cock_biopython_2009}. 
+
+\begin{leftbar}
+    %\textbf{mafft}
+    \textbf{Bio.Align.PairwiseAligner}
+    \begin{nstabbing}
+        \qquad\qquad\qquad\qquad\qquad\quad\=\kill
+    
+         seqA \> [Input sequence A]\\ 
+         
+         seqB \> [Input sequence B]
+        
+        %-{}-{}6merpair \> (default: on)\\
+        %\> input\\
+        %> \> output
+    \end{nstabbing}
+\end{leftbar}
+
 The materials named in the following are only used for the analyses in the \autoref{sec:Clustering_Anomalies} to \autoref{sec:Dimension_Reduction} and therefore not part of the proposed raw clustering tool (\autoref{fig:Alignment_Pipeline} and \autoref{fig:Precalc_Pipeline}).
 
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/Alignment.pdf}
-    \caption[Alignment Pipeline]{\textbf{Alignment Pipeline.} }
+    \caption[Alignment Pipeline]{\textbf{Alignment Pipeline.} The analysis steps involving \glspl{MSA} are performed as pictured. The sequences related to the centroids were aligned using MAFFT resulting in the output as guide-tree visualized by ETE3. The small subset for comparison was also aligned by MAFFT prior to evolutionary distance caluclation and clustering by \gls{HDBSCAN}.}
     \label{fig:Alignment_Pipeline}
 \end{figure}
 
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/Precalculated.pdf}
-    \caption[Precalculation Pipeline]{\textbf{precalculation Pipeline.} }
+    \caption[Precalculation Pipeline]{\textbf{precalculation Pipeline.} For the precalcuated trees the L1-normalized k-mer vectors were compared by cosine distance prior to clustering by \gls{HDBSCAN} and on the other hand processing with \textbf{biopython (Bio)} package \gls{UPGMA} calculation and visualization by ETE3.}
     \label{fig:Precalc_Pipeline}
 \end{figure}
 
@@ -89,6 +107,8 @@ The two trees based the clustering with precalculation (\autoref{fig:Simple_Clus
 
     \end{nstabbing}
 \end{leftbar}
+
+The \textbf{spatial.distance.cdist} function is also used for a fast pairwise alignment using the mentioned \textbf{Align.PairwiseAligner} above. Therefore a small python definition containing the \textbf{Align.PairwiseAligner} function was inserted as metric setting into \textbf{spatial.distance.cdist}. 
 
 The last of the five trees is based on MAFFT with the \textbf{biopython} package. The alignment was done on the subset $S$. On the alignment the distance matrix was calculated by the \textbf{Phylo.TreeConstruction.DistanceCalculator} function from the \textbf{biopython (Bio)} package. The standard settings for nucleotide sequences was used for the calculation \colorbox{backcolour}{model='identity'} \autocite{cock_biopython_2009}.
 

@@ -1,7 +1,5 @@
 \chapter{Materials and Methods} \label{chap:Materials_and_Methods}
 
-\textbf{WARUM NOCHMAL GENAU COSINUS?}
-
 The tools used in this project were installed with the Conda package distribution system version 2-2.4.0 \autocite{anaconda_software_distribution_anaconda_2020}. With Conda, Python packages containing e.~g.~ full software tools can be managed by local environments for simple access without the necessity of a complex system-wide installation \autocite{anaconda_software_distribution_anaconda_2020}. Creation of an environment similar to the one used in this project, is possible with the conda environment creation from YAML file function, the results can be easily recreated on any modern UNIX-like operating system that has Conda installed. 
 
 \begin{lstlisting}[language=sh]
@@ -172,7 +170,7 @@ All settings available to the present day are listed on the next page.
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/Vectorization.pdf}
-    \caption[Clustering Pipeline]{\textbf{Vectorization Pipeline.} The vectorization pipeline of the proposed clustering tool. The FASTA file is translated to vectors containing the k-mer frequencies of the specific sequence (\autoref{sec:Frequency}). As shown in pathway \textsf{\textbf{1}}, by normalization with L1-norm and \gls{PCA} a low complexity representation of the vectors is obtained for clustering (\autoref{sec:Normalization} and \autoref{sec:PCA}). Pathway \textsf{\textbf{2}} describes additional execution of \gls{UMAP} that can be used after \gls{PCA} as intermediate instead of final step (\autoref{sec:UMAP}).}
+    \caption[Preprocessing Pipeline]{\textbf{Preprocessing Pipeline.} To create vectors high-quality vectors representing the sequences, the FASTA file was translated to vectors containing the k-mer frequencies of the specific sequence (\autoref{sec:Frequency}). As shown in pathway \textsf{\textbf{1}}, by normalization with L1-norm and \gls{PCA} a low complexity representation of the vectors is obtained for clustering (\autoref{sec:Normalization} and \autoref{sec:PCA}). Pathway \textsf{\textbf{2}} describes additional execution of \gls{UMAP} that can be used after \gls{PCA} as intermediate instead of final step (\autoref{sec:UMAP}).}
     \label{fig:Vectorization_Pipeline}
 \end{figure}
 
@@ -186,11 +184,13 @@ All settings available to the present day are listed on the next page.
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/Tree.pdf}
-    \caption[Tree Building Pipeline]{\textbf{Tree Building Pipeline.} Following the clustering pipeline (\autoref{fig:Clustering_Pipeline}) the cluster-tree for visualization is build by ETE3 with the help of \textbf{hierarchy} function from the \textbf{scipy} package \autocite{huerta-cepas_ete_2016, scipy_10_contributors_scipy_2020}. To determine the centroids, for every cluster the normalized frequency vector (\autoref{fig:Clustering_Pipeline}) with the smallest distance to the other cluster members is calculated with the \textbf{spatial.distance.cdist} function also from the \textbf{scipy} package \autocite{scipy_10_contributors_scipy_2020}.}
+    \caption[Postprocessing Pipeline]{\textbf{Postprocessing Pipeline.} Following the clustering pipeline (\autoref{fig:Clustering_Pipeline}) the cluster-tree for visualization is build by ETE3 with the help of \textbf{hierarchy} function from the \textbf{scipy} package \autocite{huerta-cepas_ete_2016, scipy_10_contributors_scipy_2020}. To determine the centroids, for every cluster the normalized frequency vector (\autoref{fig:Clustering_Pipeline}) with the smallest distance to the other cluster members is calculated with the \textbf{spatial.distance.cdist} function also from the \textbf{scipy} package \autocite{scipy_10_contributors_scipy_2020}.}
     \label{fig:Tree_Pipeline}
 \end{figure}
 
-The tool takes around one hour to cluster all eight segments of \gls{IAV} and create the output in form of tables and clustertree graphics with the suggested settings. 
+The tool takes around one hour to cluster all eight segments of \gls{IAV} and create the output in form of tables and cluster-tree graphics with the suggested settings. 
+
+The method is based on the method proposed by \autocite{viehweger_addressing_2019}. Instead of using nanotext as proposed in \autocite{viehweger_encoding_2019}, a simple kmer-frequency calculation was implemented ans used as described in the following. As described in \autocite{viehweger_addressing_2019} the calculated vectors were clustered using \gls{HDBSCAN} with custom settings also described in the following sections. Since nanotext wasn't used in this project different types of dimension reduction were performed which were described and discussed in detail. To my best knowledge there is no other publication to the present day that used the same method proposed or created similar results.
 
 \nopagebreak[1]
 
