@@ -4,7 +4,7 @@ To evaluate the anomalies in \autoref{fig:PCA_Cluster_Knee_4} \textbf{\textsf{B}
 
 \begin{table}[!hbt]
     \centering
-    \caption[Anomalies in Segment 4 Cluster 2 (\Acrshort{PCA})]{\textbf{Anomalies in Segment 4 Cluster 2 (\Acrshort{PCA}).}.}
+    \caption[Anomalies in Segment 4 Cluster 2 (\Acrshort{PCA})]{\textbf{Anomalies in Segment 4 Cluster 2 (\Acrshort{PCA}).} The \glspl{MSA} mean distance of the given sequences in comparison to a sample of H1 sequences of the same cluster and a sample of H10 sequences present in other clusters.}
     \label{tab:PCA_Error_4_2}
     \pgfplotstabletypeset[
         every head row/.style={
@@ -35,7 +35,7 @@ In case of \autoref{fig:PCA_Cluster_Knee_4} \textbf{\textsf{C}} a single sequenc
 
 \begin{table}[!hbt]
     \centering
-    \caption[Anomalies in Segment 4 Cluster 48 (\Acrshort{PCA})]{\textbf{Anomalies in Segment 4 Cluster 48 (\Acrshort{PCA}).}.}
+    \caption[Anomalies in Segment 4 Cluster 48 (\Acrshort{PCA})]{\textbf{Anomalies in Segment 4 Cluster 48 (\Acrshort{PCA}).} The \glspl{MSA} mean distance of the given sequences in comparison to a sample of H16 sequences of the same cluster and a sample of H13 sequences present in another cluster. Only the first 20 columns are presented here, the full table can be found in the \href{https://github.com/ahenoch/Masterthesis.git}{Projects GitHub Repository}.}
     \label{tab:PCA_Error_4_48}
     \pgfplotstabletypeset[
         every head row/.style={
@@ -62,16 +62,16 @@ In case of \autoref{fig:PCA_Cluster_Knee_4} \textbf{\textsf{C}} a single sequenc
     {PCA/error_segment_4_cluster_48_difference_head.csv}
 \end{table}
 
-When comparing the distances for \autoref{fig:PCA_Cluster_Knee_4} \textbf{\textsf{C}} in \autoref{tab:PCA_Error_4_48} no decision for misannotation can be made. The dominant subtype in the cluster 48 is H16 but the sequences of subtype H13 that seem to be misplaced in the cluster have a smaller distance to the sample of sequences from subtype H13. The difference in distance to sample sequences of H13 as well as for sequences for H16 gave indeed no clear finding, since both results are quite similar and the misclustered sequences seem to share much sequence similarity with both subtypes. Therefore the sequences seem have more degrees of similarity than two represented by the known subtypes. Maybe the misclustered sequences in cluster 48 point to a more complex classification. Cluster 48 is a inconclusive cluster with many sequences from subytype H13 and H16 and therefore treated as clustering error. Subtype H13 and H16 are the focus of investigations of the clustering behaivior in the following sections to reveal possible subdivisions.
+When comparing the distances for \autoref{fig:PCA_Cluster_Knee_4} \textbf{\textsf{C}} in \autoref{tab:PCA_Error_4_48} no decision for misannotation can be made. The dominant subtype in the cluster 48 is H16 but the sequences of subtype H13 that seem to be misplaced in the cluster have a smaller distance to the sample of sequences from subtype H13. The difference in distance to sample sequences of H13 as well as for sequences for H16 gave indeed no clear finding, since both results are quite similar and the misclustered sequences seem to share much sequence similarity with both subtypes. Therefore the sequences seem have more degrees of similarity than two represented by the known subtypes. Maybe the misclustered sequences in cluster 48 point to a more complex classification. Cluster 48 is a inconclusive cluster with many sequences from subtype H13 and H16 and therefore treated as clustering error. Subtype H13 and H16 are the focus of investigations of the clustering behavior in the following sections to reveal possible subdivisions.
 
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{PCA/Guidetree_segment_4_H_Centroid.pdf}
-    \caption[Knee based Segment 4 Centroid Guidetree (\Acrshort{PCA})]{\textbf{Knee based Segment 4 Centroid Guidetree (\Acrshort{PCA}).} .}
+    \caption[Knee based Segment 4 Centroid Guidetree (\Acrshort{PCA})]{\textbf{Knee based Segment 4 Centroid Guidetree (\Acrshort{PCA}).} The guide tree was created by building a \gls{MSA} on the centroid sequences of clusters resulting from the \gls{PCA} and Kneedle Algorithm pipeline. }
     \label{fig:PCA_Guidetree_Centroid_4}
 \end{figure}
 
-The anomalie involving cluster 4 that is split off the other clusters homogeneous for H3 sequences \autoref{fig:PCA_Cluster_Knee_4} \textbf{\textsf{D}} is evaluated by comparison to a guide-tree from the centroid sequences. Every of the 55 clusters have a sequence that should represent the whole cluster, the centroid sequence, calculated as described in \autoref{sec:MAFFT}. By building an alignment over these 55 centroid sequences a guide-tree was created (\autoref{fig:PCA_Guidetree_Centroid_4}). When using the guide-tree as comparison the uniform color distribution stand out. Even cluster 4 is arranged in a line with all cluster homogeneous for subtype H3. Therefore cluster 4 and 48 (\autoref{fig:PCA_Cluster_Knee_4} \textbf{\textsf{C}} and \textbf{\textsf{D}}) are treated as clustering mistakes and are further examined in the following.
+The anomaly involving cluster 4 that is split off the other clusters homogeneous for H3 sequences \autoref{fig:PCA_Cluster_Knee_4} \textbf{\textsf{D}} is evaluated by comparison to a guide-tree from the centroid sequences. Every of the 55 clusters have a sequence that should represent the whole cluster, the centroid sequence, calculated as described in \autoref{sec:MAFFT}. By building an alignment over these 55 centroid sequences a guide-tree was created (\autoref{fig:PCA_Guidetree_Centroid_4}). When using the guide-tree as comparison the uniform color distribution stand out. Even cluster 4 is arranged in a line with all cluster homogeneous for subtype H3. Therefore cluster 4 and 48 (\autoref{fig:PCA_Cluster_Knee_4} \textbf{\textsf{C}} and \textbf{\textsf{D}}) are treated as clustering mistakes and are further examined in the following.
 
 %Übergang zu cluster Comparison durch Centroid Alignment Tree -> H13/H16 Clustertree, Alignmenttree Vergleich -> Cluster H13/H16 Comparison
 %fehler im clustering oder fehler in der DAtenbank

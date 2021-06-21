@@ -1,6 +1,6 @@
 \section{Biopython \& Scipy} \label{sec:MAFFT}
 
-The colored trees were created by ETE3 with a newick file created with $N_{\text{PCA}}$ or $N_{\text{PCA'}}$ and $\mathbf{L}_{\text{PCA}}$ and otherwise $N_{\text{UMAP}}$ or $N_{\text{UMAP'}}$ and $\mathbf{L}_{\text{UMAP}}$ (\autoref{fig:PCA_Clusteree_Knee_4}, \autoref{fig:UMAP_Clusteree_Knee_4}) \autocite{huerta-cepas_ete_2016}. The newick file was created with a feature request proposed for the \textbf{scipy} package version 1.6.0 involving the \textbf{cluster.hierarchy.to\_tree} function as described in the \href{https://github.com/scipy/scipy/issues/8274}{issue}\footnote{last accessed 02/06/21} (\autoref{fig:Tree_Pipeline} \textsf{\textbf{J}}) \autocite{scipy_10_contributors_scipy_2020}.
+The colored trees were created by \textbf{ETE3} with a newick file created with $N_{\text{PCA}}$ or $N_{\text{PCA'}}$ and $\mathbf{L}_{\text{PCA}}$ and otherwise $N_{\text{UMAP}}$ or $N_{\text{UMAP'}}$ and $\mathbf{L}_{\text{UMAP}}$ (\autoref{fig:PCA_Clusteree_Knee_4}, \autoref{fig:UMAP_Clusteree_Knee_4}) \autocite{huerta-cepas_ete_2016}. The newick file was created with a feature request proposed for the \textbf{scipy} package version 1.6.0 involving the \textbf{cluster.hierarchy.to\_tree} function as described in the \href{https://github.com/scipy/scipy/issues/8274}{issue}\footnote{last accessed 02/06/21} (\autoref{fig:Tree_Pipeline} \textsf{\textbf{J}}) \autocite{scipy_10_contributors_scipy_2020}.
 
 \begin{leftbar}
     %\textbf{mafft}
@@ -12,13 +12,15 @@ The colored trees were created by ETE3 with a newick file created with $N_{\text
     \end{nstabbing}
 \end{leftbar}
 
-For chosing all the clusters centroid sequences $C$ which are a subset of all the genomic sequences $S$, the \textbf{spatial.distance.cdist} function also from the \textbf{scipy} package was used (\autoref{fig:Tree_Pipeline} \textsf{\textbf{K}}) \autocite{scipy_10_contributors_scipy_2020}. Let $S_{\text{Clst}}$ be the subset of $S$ matching the sequences belonging to cluster $o$ in $N$ and $\mathbf{X}_{\text{Clst}}$ the L2-norm normalized matrix of $S_{\text{Clst}}$ and therefore a portion of $\mathbf{X}_{\text{L2}}$. The centroid sequence $C_o$ of the cluster $o$ is the sequence $S_i$ of $S_{\text{Clst}}$ where sum of the cosine distance of vector representation $\mathbf{x}_i$ to all the other $k$ vectors of $\mathbf{X}_{\text{Clst}}$ is equal the minimum of the \textbf{spatial.distance.cdist} function with the normalized matrix $\mathbf{X}_{\text{Clst}}$ of $S_{\text{Clst}}$ and \colorbox{backcolour}{metric='euclidean'} \autoref{eq:centroid}.
+For choosing all the clusters centroid sequences $C$ which are a subset of all the genomic sequences $S$, the \textbf{spatial.distance.cdist} function also from the \textbf{scipy} package was used (\autoref{fig:Tree_Pipeline} \textsf{\textbf{K}}) \autocite{scipy_10_contributors_scipy_2020}. Let $S_{\text{Clst}}$ be the subset of $S$ matching the sequences belonging to cluster $o$ in $N$ and $\mathbf{X}_{\text{Clst}}$ the L2-norm normalized matrix of $S_{\text{Clst}}$ and therefore a portion of $\mathbf{X}_{\text{L2}}$. The centroid sequence $C_o$ of the cluster $o$ is the sequence $S_i$ of $S_{\text{Clst}}$ where sum of the cosine distance of vector representation $\mathbf{x}_i$ to all the other $k$ vectors of $\mathbf{X}_{\text{Clst}}$ is equal the minimum of the \textbf{spatial.distance.cdist} function with the normalized matrix $\mathbf{X}_{\text{Clst}}$ of $S_{\text{Clst}}$ and \colorbox{backcolour}{metric='euclidean'} \autoref{eq:centroid}.
 
 \begin{empheq}{alignat = -1}
     &\min \left( \text{CDIST}_{\text{eucl}}(\mathbf{X}_{\text{Clst}}, \mathbf{X}_{\text{Clst}}) \right) &&= \sum^k_{j=1} d_{\text{eucl}}(\mathbf{x}_i, \mathbf{x}_j ) \Rightarrow C_o = S_i\label{eq:centroid}
 \end{empheq}
 
 For the pairwise alignments in \autoref{sec:Serotype_Classification} from the \textbf{biopython (Bio)} package version 1.78 the \textbf{Align.PairwiseAligner} function was used with standard settings \autocite{cock_biopython_2009}. 
+
+Important parameters used in this project including settings varying from the default are listed below. All available settings can be fount in the \href{https://biopython.org/docs/1.75/api/Bio.Align.html}{API}.
 
 \begin{leftbar}
     %\textbf{mafft}
@@ -41,20 +43,20 @@ The materials named in the following are only used for the analyses in the \auto
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/Alignment.pdf}
-    \caption[Alignment Pipeline]{\textbf{Alignment Pipeline.} The analysis steps involving \glspl{MSA} are performed as pictured. The sequences related to the centroids were aligned using MAFFT resulting in the output as guide-tree visualized by ETE3. The small subset for comparison was also aligned by MAFFT prior to evolutionary distance caluclation and clustering by \gls{HDBSCAN}.}
+    \caption[Alignment Pipeline]{\textbf{Alignment Pipeline.} The analysis steps involving \glspl{MSA} are performed as pictured. The sequences related to the centroids were aligned using MAFFT resulting in the output as guide-tree visualized by \textbf{ETE3}. The small subset for comparison was also aligned by MAFFT prior to evolutionary distance calculation and clustering by \gls{HDBSCAN}.}
     \label{fig:Alignment_Pipeline}
 \end{figure}
 
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/Precalculated.pdf}
-    \caption[Precalculation Pipeline]{\textbf{precalculation Pipeline.} For the precalcuated trees the L1-normalized k-mer vectors were compared by cosine distance prior to clustering by \gls{HDBSCAN} and on the other hand processing with \textbf{biopython (Bio)} package \gls{UPGMA} calculation and visualization by ETE3.}
+    \caption[Precalculation Pipeline]{\textbf{Precalculation Pipeline.} For the precalculated trees the L1-normalized k-mer vectors were compared by cosine distance prior to clustering by \gls{HDBSCAN} and on the other hand processing with \textbf{biopython (Bio)} package \gls{UPGMA} calculation and visualization by \textbf{ETE3}.}
     \label{fig:Precalc_Pipeline}
 \end{figure}
 
-The Biopython implementation of MAFFT version 7.475 from the \textbf{biopython (Bio)} package version 1.78 was used to build the guidetrees in \autoref{sec:Clustering_Anomalies} according to \autoref{fig:Alignment_Pipeline} pathway \textsf{\textbf{5}} with the genomic sequences of the centroids $C$ \autocite{katoh_mafft_2013, cock_biopython_2009} (\autoref{fig:Alignment_Pipeline}. The settings were mostly the default settings proposed in the \href{https://mafft.cbrc.jp/alignment/software/}{manual}. For faster execution \colorbox{backcolour}{thread=6} and for export of the guidetree \colorbox{backcolour}{treeout=True} setting was used \autocite{katoh_mafft_2013, cock_biopython_2009}. The guide-tree was colored with ETE3 (\autoref{fig:Alignment_Pipeline} \textsf{\textbf{K}}) \autocite{huerta-cepas_ete_2016}.
+The Biopython implementation of MAFFT version 7.475 from the \textbf{biopython (Bio)} package version 1.78 was used to build the guide trees in \autoref{sec:Clustering_Anomalies} according to \autoref{fig:Alignment_Pipeline} pathway \textsf{\textbf{5}} with the genomic sequences of the centroids $C$ \autocite{katoh_mafft_2013, cock_biopython_2009} (\autoref{fig:Alignment_Pipeline}. The settings were mostly the default settings proposed in the \href{https://mafft.cbrc.jp/alignment/software/}{manual}. For faster execution \colorbox{backcolour}{thread=6} and for export of the guide tree \colorbox{backcolour}{treeout=True} setting was used \autocite{katoh_mafft_2013, cock_biopython_2009}. The guide-tree was colored with \textbf{ETE3} (\autoref{fig:Alignment_Pipeline} \textsf{\textbf{K}}) \autocite{huerta-cepas_ete_2016}.
 
-The parameters used in this project with settings varying from the default are listed below. All available settings can be fount in the \href{https://mafft.cbrc.jp/alignment/software/}{manual}.
+Important parameters used in this project including settings varying from the default are listed below. All available settings can be fount in the \href{https://mafft.cbrc.jp/alignment/software/}{manual}.
 
 \begin{leftbar}
     %\textbf{mafft}
@@ -62,7 +64,7 @@ The parameters used in this project with settings varying from the default are l
     \begin{nstabbing}
         \qquad\qquad\qquad\qquad\qquad\quad\=\kill
     
-        treeout \> [export guidetree used for alignment (default: off)]\\
+        treeout \> [export guide tree used for alignment (default: off)]\\
         
         thread \> [number of used threads (default: 1)]\\
         
@@ -81,7 +83,7 @@ In \autoref{sec:Comparison_Clustering} five different cluster trees are compared
     &N_{\text{PCA}} &&= \text{HDBSCAN} (\mathbf{Y}_{\text{L2}}, 2, 1, 0)\label{eq:hdb_prime_y}
 \end{empheq}
 
-The two trees based the clustering with precalculation (\autoref{fig:Simple_Clustertree_Cosine} and \autoref{fig:Simple_Clustertree_Euclid}) were created by distance calculation on the L1-norm normalized matrix $\mathbf{X}_{\text{L1}}$ of the smaller $S$. For the calculation of the distance the \textbf{scipy} package version 1.6.0 was used with the \textbf{spatial.distance.cdist} function (\autoref{fig:Precalc_Pipeline} \textsf{\textbf{N}}) \autocite{scipy_10_contributors_scipy_2020}. For calculation of the cosine distance \colorbox{backcolour}{matric='cosine'} and for euclidean distance \colorbox{backcolour}{metric='euclidean'} setting was used (\autoref{eq:c_calc_matrix} to \autoref{eq:e_calc_matrix}). The resulting distance matrizes $\mathbf{C}$ and $\mathbf{E}$ were clustered with \gls{HDBSCAN} and \colorbox{backcolour}{metric='precalculated'} setting (\autoref{fig:Precalc_Pipeline} \textsf{\textbf{F}} and \autoref{eq:hdb_prime_e} to \autoref{eq:hdb_prime_c}) \autocite{mcinnes_hdbscan_2017}.
+The two trees based the clustering with precalculation (\autoref{fig:Simple_Clustertree_Cosine} and \autoref{fig:Simple_Clustertree_Euclid}) were created by distance calculation on the L1-norm normalized matrix $\mathbf{X}_{\text{L1}}$ of the smaller $S$. For the calculation of the distance the \textbf{scipy} package version 1.6.0 was used with the \textbf{spatial.distance.cdist} function (\autoref{fig:Precalc_Pipeline} \textsf{\textbf{N}}) \autocite{scipy_10_contributors_scipy_2020}. For calculation of the cosine distance \colorbox{backcolour}{metric='cosine'} and for euclidean distance \colorbox{backcolour}{metric='euclidean'} setting was used (\autoref{eq:c_calc_matrix} to \autoref{eq:e_calc_matrix}). The resulting distance matrices $\mathbf{C}$ and $\mathbf{E}$ were clustered with \gls{HDBSCAN} and \colorbox{backcolour}{metric='precalculated'} setting (\autoref{fig:Precalc_Pipeline} \textsf{\textbf{F}} and \autoref{eq:hdb_prime_e} to \autoref{eq:hdb_prime_c}) \autocite{mcinnes_hdbscan_2017}.
 
 % \begin{empheq}{alignat = -1}
 %     &c_{i,j} &&= d_{\text{cos}}(\mathbf{x}_i, \mathbf{x}_j), \ i = 1, \ldots o, \ j = 1, \ldots o\label{eq:c_calc_1}\\
@@ -97,6 +99,8 @@ The two trees based the clustering with precalculation (\autoref{fig:Simple_Clus
     &N_{\text{eucl}} &&= \text{HDBSCAN} (\mathbf{E}, 2, 1, 0)\label{eq:hdb_prime_e}\\
     &N_{\text{cos}} &&= \text{HDBSCAN} (\mathbf{C}, 2, 1, 0)\label{eq:hdb_prime_c}
 \end{empheq}
+
+Important parameters used in this project including settings varying from the default are listed below. All available settings can be fount in the \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cdist.html}{API}.
 
 \begin{leftbar}
     \textbf{scipy.spatial.distance.cdist}
@@ -120,6 +124,8 @@ The last of the five trees is based on MAFFT with the \textbf{biopython} package
     &N_{\text{msa}} &&= \text{HDBSCAN} (\mathbf{G}, 2, 1, 0)\label{eq:hdb_prime_g}\\
 \end{empheq}
 
+Important parameters used in this project including settings varying from the default are listed below. All available settings can be fount in the \href{https://biopython.org/docs/latest/api/Bio.Phylo.TreeConstruction.html}{API}.
+
 \begin{leftbar}
     \textbf{Bio.Phylo.TreeConstruction.DistanceCalculator}
     \begin{nstabbing}
@@ -130,7 +136,9 @@ The last of the five trees is based on MAFFT with the \textbf{biopython} package
     \end{nstabbing}
 \end{leftbar}
 
-The \textbf{Phylo.TreeConstruction.DistanceMatrix} and \textbf{DistanceTreeConstructor} function also from the \textbf{biopyhton} package was used for calculation of precalculated UPGMA trees in \autoref{sec:K_mer_Representation}. Instead of the default neighbor joining setting, the bottom-up hierarchical clustering method \colorbox{backcolour}{method='upgma'} was used (\autoref{fig:Alignment_Pipeline} \textsf{\textbf{O}} and \textsf{\textbf{P}}) \autocite{gower_minimum_1969, cock_biopython_2009}. The matrices calculated in \autoref{eq:c_calc_matrix} and \autoref{eq:e_calc_matrix} were used as input for the calculation of the UPGMA-trees \autocite{sokal_statistical_1958}.
+The \textbf{Phylo.TreeConstruction.DistanceMatrix} and \textbf{DistanceTreeConstructor} function also from the \textbf{biopython} package was used for calculation of precalculated UPGMA trees in \autoref{sec:K_mer_Representation}. Instead of the default neighbor joining setting, the bottom-up hierarchical clustering method \colorbox{backcolour}{method='upgma'} was used (\autoref{fig:Alignment_Pipeline} \textsf{\textbf{O}} and \textsf{\textbf{P}}) \autocite{gower_minimum_1969, cock_biopython_2009}. The matrices calculated in \autoref{eq:c_calc_matrix} and \autoref{eq:e_calc_matrix} were used as input for the calculation of the UPGMA-trees \autocite{sokal_statistical_1958}.
+
+Important parameters of both tools used in this project including settings varying from the default are listed below. All available settings can be fount in the same \href{https://biopython.org/docs/latest/api/Bio.Phylo.TreeConstruction.html}{API} of \textbf{Bio.Phylo.TreeConstruction}.
 
 \begin{leftbar}
     \textbf{Bio.Phylo.TreeConstruction.DistanceMatrix}

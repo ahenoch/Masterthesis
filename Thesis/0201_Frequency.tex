@@ -1,4 +1,4 @@
-\section{K-Mer Frequency} \label{sec:Frequency}
+\section{K-mer Frequency} \label{sec:Frequency}
 
 The FASTA file containing the to be clustered genomes of \gls{IAV} were translated to vectors for clustering in high dimension by counting their 7-mer frequency (\autoref{fig:Vectorization_Pipeline} \textsf{\textbf{A}}). Let $A$ be a mathematical sequence of all permutations with repetition of the set $\{A,C,G,T\}$ to the magnitude of seven, thus $m = 4^7$ elements (\autoref{eq:alphabet}) and $S$ a mathematical sequence of all $n$ genome sequences of one segment of \gls{IAV} in the FASTA file (\autoref{eq:alphabet}).
 
@@ -24,6 +24,6 @@ This calculation was repeated for all of the $4^7$ elements of $A$, as well as f
     \end{bmatrix}\label{eq:full_matrix}
 \end{empheq}
 
-The entries in the $j$ columns represent the number of occurencences of 7-mer $A_j$ in a genome sequence $S_i$. The rows represent the $i$ genome sequences from $S$ with it's frequency numbers. In summary e.~g.~ $x_{1,1}$ represents the number of occurences of the first 7-mer $A_1$ in the first genome sequence $S_1$.
+The entries in the $j$ columns represent the number of occurrences of 7-mer $A_j$ in a genome sequence $S_i$. The rows represent the $i$ genome sequences from $S$ with it's frequency numbers. In summary e.~g.~, $x_{1,1}$ represents the number of occurrences of the first 7-mer $A_1$ in the first genome sequence $S_1$.
 
-A k-mer length of seven was used to make the method usable on machines with at least 32Gb of RAM while still being as accurate as possible. With 7-mers, $4^7$ possible combinations can occure, which has a lower chance of accidental matching combinations by e.~g.~ \glspl{SNP} then using 6-mers with only $4^6$ different possible constellations. Using 8-mers on the other hand increases the necessary RAM drastically, by building a matrix e.~g.~ for segment 4, $\mathbf{X}$ of size $56617 \times 4^8$ of 64 bit float numbers making $\approx$ 29.684Gb. Adding the necessary space for dimension reduction methods and other calculations 32Gb would be exceeded by far. 
+A k-mer length of seven was used to make the method usable on machines with at least 32 Gb of RAM while still being as accurate as possible. With 7-mers, $4^7$ possible combinations can occur, which has a lower chance of accidental matching combinations by e.~g.~, \glspl{SNP} then using 6-mers with only $4^6$ different possible constellations. Using 8-mers on the other hand increases the necessary RAM drastically, by building a matrix e.~g.~, for segment 4, $\mathbf{X}$ of size $56617 \times 4^8$ of 64 bit float numbers making $\approx$ 29.684 Gb. Adding the necessary space for dimension reduction methods and other calculations 32 Gb would be exceeded by far. 
