@@ -105,11 +105,12 @@ The FASTA file was retrieved by navigating from \textit{SEARCH DATA} to \textit{
         },
         begin table=\begin{tabular*}{\textwidth},
         end table=\end{tabular*},
-        columns={0,1,2,3},
-        columns/0/.style={string type,multicolumn names=l,column name=\textbf{Method}, column type=@{\extracolsep{\fill}\hspace{6pt}}l},
-        columns/1/.style={string type,multicolumn names=l,column name=\textbf{100 Components}, column type=l},
-        columns/2/.style={string type,multicolumn names=l,column name=\textbf{30 Components}, column type=l},
-        columns/3/.style={string type,multicolumn names=l,column name=\textbf{Exploration}, column type=l}
+        columns={0,1,2,3,4},
+        columns/0/.style={string type,multicolumn names=l,column name=\textbf{Abbreviation}, column type=@{\extracolsep{\fill}\hspace{6pt}}l},
+        columns/1/.style={string type,multicolumn names=l,column name=\textbf{Method}, column type=l},
+        columns/2/.style={string type,multicolumn names=l,column name=\textbf{100 Components}, column type=l},
+        columns/3/.style={string type,multicolumn names=l,column name=\textbf{30 Components}, column type=l},
+        columns/4/.style={string type,multicolumn names=l,column name=\textbf{Exploration}, column type=l}
     ]
     {Graphics/methods.csv}
 \end{table}
@@ -190,7 +191,7 @@ All settings available to the present day are listed on the next page.
 
 The tool takes around one and a half hours to cluster all eight segments of \gls{IAV} and create the output. The output consists of database ready CSV files holding the cluster assignment of every sequence, analysis graphics and a colored cluster tree of each used segment.
 
-The method is based on the method proposed by \autocite{viehweger_addressing_2019}. Instead of using the tool \textbf{nanotext} as proposed in \autocite{viehweger_encoding_2019}, a simple k-mer frequency calculation was implemented ans used as described in \autoref{sec:Frequency}. As described in \autocite{viehweger_addressing_2019} the calculated vectors were clustered using \gls{HDBSCAN} with custom settings also described in the \autoref{sec:HDBSCAN}. Since \textbf{nanotext} was not used in this project, different types of dimension reduction were performed, which were described in \autoref{sec:PCA} and \autoref{sec:UMAP} and discussed in \autoref{sec:Clustering}. To my best knowledge there is no other publication to the present day that used the same method proposed or created similar results.
+The method is based on the method proposed by \autocite{viehweger_addressing_2019}. Instead of using the tool \textbf{nanotext} as proposed in \autocite{viehweger_encoding_2019}, a simple k-mer frequency calculation was implemented ans used as described in \autoref{sec:Frequency}. As described in \textcite{viehweger_addressing_2019}, the calculated vectors were clustered using \gls{HDBSCAN} with custom settings also described in the \autoref{sec:HDBSCAN}. Since \textbf{nanotext} was not used in this project, different types of dimension reduction were performed, which were described in \autoref{sec:PCA} and \autoref{sec:UMAP} and discussed in \autoref{sec:Clustering}.%To my best knowledge there is no other publication to the present day that used the same method proposed or created similar results.
 
 \nopagebreak[1]
 

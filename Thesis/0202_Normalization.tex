@@ -18,7 +18,7 @@ The row vectors $\mathbf{x}_i$ of matrix $\mathbf{X}$ were normalized with the L
     \mathbf{X}_{\text{L1}} = \text{NORMALIZE}_{\text{L1}}(\mathbf{X})\label{eq:l1_func}
 \end{empheq}
 
-Important parameters used in this project including settings varying from the default are listed below. All available settings can be fount in the \href{https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.normalize.html}{API} \autocite{pedregosa_scikit-learn_2011}.
+Important parameters used in this project, including settings varying from the default, are listed below. All available settings with explanation are listed in the \href{https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.normalize.html}{API} \autocite{pedregosa_scikit-learn_2011}.
 
 \begin{leftbar}
     \textbf{sklearn.preprocessing.normalize}
@@ -32,7 +32,7 @@ Important parameters used in this project including settings varying from the de
     \end{nstabbing}
 \end{leftbar}
 
-Due to an open \href{https://github.com/scikit-learn-contrib/hdbscan/issues/69}{issue}\footnote{last accessed 02/06/21} in the GitHub Repository of \gls{HDBSCAN} row-wise normalization with \textbf{preprocessing.normalize} was again used with the \colorbox{backcolour}{norm='l2'} setting, right before clustering. (\autoref{eq:l2_norm} to \autoref{eq:l2_result} and \autoref{fig:Clustering_Pipeline} \textsf{\textbf{E}}). It was stated, normalization with L2-norm prior to clustering with euclidean metric setting, chord distance, which is also not directly available, can be used to approximate cosine distance.
+Due to an open \href{https://github.com/scikit-learn-contrib/hdbscan/issues/69}{issue}\footnote{last accessed 02/06/21} in the GitHub Repository of \gls{HDBSCAN}, row-wise normalization with \textbf{preprocessing.normalize} was again used with the \colorbox{backcolour}{norm='l2'} setting, right before clustering (\autoref{eq:l2_norm} to \autoref{eq:l2_result} and \autoref{fig:Clustering_Pipeline} \textsf{\textbf{E}}). The inability to use cosine distance metric with \gls{HDBSCAN} and the approximation of it by chord distance metric, was described there. Given that chord distance metric is also not available firsthand, it was also mentioned, that it can be used by normalization of the dataset with L2-norm, prior to clustering with euclidean metric setting.
 
 \begin{figure}[!hbt]
     \centering
@@ -47,7 +47,7 @@ Due to an open \href{https://github.com/scikit-learn-contrib/hdbscan/issues/69}{
         \label{subfig:L2}            
         \includegraphics[width=\textwidth]{Graphics/L2.pdf}
     \end{subfigure}
-    \caption[Chord Calculation Background]{\textbf{Chord Calculation Background.} The chord can be calculated with the radius similar for both vectors and the information of the angle of two vectors to the origin of the coordinate system. Since this information is not always available like in this proposed project or sometimes hard to calculate for a high number of vectors, the euclidean distance can instead be used with a L2-norm of both vectors equal to $r$ for similar results. To approximate cosine distance, the same calculation of euclidean distance is used with L2-norm equal to $r = 1$. To always obtain similar values of L2-norm equal to 1, L2-norm normalization is used on every vector.}
+    \caption[Chord Calculation Background]{\textbf{Chord Calculation Background.} The chord can be calculated with the radius similar for both vectors and the information of the angle of two vectors to the origin of the coordinate system. Since this information is not always available or sometimes expensive to calculate for a high number of vectors, the euclidean distance can be used with a L2-norm of both vectors equal to $r$ for similar results instead. To approximate cosine distance, the same calculation of euclidean distance is used with L2-norm equal to $r = 1$. To always obtain similar values of L2-norm equal to 1, L2-norm normalization is used on every vector.}
     \label{fig:L2_Normalisation_Background}
 \end{figure}
 
@@ -59,7 +59,7 @@ Due to an open \href{https://github.com/scikit-learn-contrib/hdbscan/issues/69}{
     \Vert\mathbf{\hat{x}}_i\Vert_2 &= 1\label{eq:l2_result}
 \end{empheq}
 
-Chord distance $d_{\text{chord}}$ can be calculated when having two vectors, here as an example named as $\mathbf{x}'$ and $\mathbf{y}'$ with the same L2-norm equal to a radius $r$ of a sphere  centered to the origin of the coordinate system and an angle of $\Theta'$ (\autoref{eq:chord} and \autoref{fig:L2_Normalisation_Background}). The euclidean distance $d_{\text{eucl}}$ is equal to the chord distance for the same vectors $\mathbf{x}'$ and $\mathbf{y}'$ with L2-norm of $r$.
+Calculation of chord distance $d_{\text{chord}}$ is possible when having two vectors, here as an example named as $\mathbf{x}'$ and $\mathbf{y}'$ with the same L2-norm equal to a radius $r$ of a sphere centered to the origin of the coordinate system and an angle of $\Theta'$ (\autoref{eq:chord} and \autoref{fig:L2_Normalisation_Background}). The euclidean distance $d_{\text{eucl}}$ is equal to the chord distance for the same vectors $\mathbf{x}'$ and $\mathbf{y}'$ with L2-norm of $r$.
 
 \begin{empheq}{alignat = -1}
     &\Vert\mathbf{x}'\Vert_2 = \Vert\mathbf{y}'\Vert_2 = r &&\Rightarrow d_{\text{chord}}(\mathbf{x}',\mathbf{y}') &&= 2 \cdot r \sin \left(\frac{\Theta'}{2}\right) \label{eq:chord}\\
@@ -68,7 +68,7 @@ Chord distance $d_{\text{chord}}$ can be calculated when having two vectors, her
     &&&&&= \Vert\mathbf{x}' - \mathbf{y}'\Vert_2
 \end{empheq}
 
-Thus in this project chord distance can be calculated with the euclidean distance metric, posterior to the normalization with the L2-norm, which scales the vectors to the unit sphere (\autoref{eq:chord_eucl_1} to \autoref{eq:chord_eucl_2} and \autoref{fig:L2_Normalisation_Background}).
+Thus, in this project, chord distance can be calculated with the euclidean distance metric, posterior to the normalization with the L2-norm, which scales the vectors to the unit sphere (\autoref{eq:chord_eucl_1} to \autoref{eq:chord_eucl_2} and \autoref{fig:L2_Normalisation_Background}).
 
 \begin{empheq}{alignat = -1}
     &\Vert\mathbf{\hat{x}}\Vert_2 = \Vert\mathbf{\hat{y}}\Vert_2 = 1 &&\Rightarrow d_{\text{chord}}(\mathbf{\hat{x}},\mathbf{\hat{y}}) &&= d_{\text{eucl}}(\mathbf{\hat{x}},\mathbf{\hat{y}})\label{eq:chord_eucl_1}\\
@@ -87,4 +87,4 @@ The used chord distance is proportional with the initially intended to use cosin
     &&&&&= 2 \cdot d_{\text{cos}}(\mathbf{x},\mathbf{y})\label{eq:chord_cos_7}
 \end{empheq}
 
- Approximation of cosine distance by normalization with L2-norm followed by euclidean distance calculation is thus a possible and in this project used workaround, to overcome the impossibility to use cosine distance.
+ Approximation of cosine distance by normalization with L2-norm followed by euclidean distance calculation is, thus, a possible and in this project used workaround, to overcome the impossibility to use cosine distance.
