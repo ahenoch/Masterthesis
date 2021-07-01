@@ -1,39 +1,41 @@
 \section{Uniform Manifold Approximation and Projection} \label{sec:UMAP}
 
-\gls{UMAP} is a method for dimension reduction, while aiming to preserve the global structure of the data \autocite{mcinnes_umap_2020}. In it's core, it is similar to \gls{t-SNE} with better run time performance and better structure preservation in the lower dimension and no restrictions for embedding \autocite{maaten_visualizing_2008, mcinnes_umap_2020}. Embedding is, hereby, the presentation of the used dataset in the lower dimension.
+\gls{UMAP} was used for dimension reduction similar to PCA, while aiming to preserve the global structure of the data \autocite{mcinnes_umap_2020}. In it's core, it is similar to \gls{t-SNE} with better run time performance and better structure preservation in the lower dimension and no restrictions for embedding \autocite{maaten_visualizing_2008, mcinnes_umap_2020}. Embedding is, hereby, the presentation of the used dataset in the lower dimension.
 
-The parameters of \gls{UMAP} from the \textbf{umap-learn} package version 0.4.6 used as standard settings in the proposed tool for \gls{IAV} clustering, match most of the parameters listed in the \href{https://umap-learn.readthedocs.io/en/latest/api.html}{API} under section \glqq \gls{UMAP} enhanced clustering\grqq{} \autoref{fig:Vectorization_Pipeline} \textsf{\textbf{D}}. The settings are proposed to be used with \gls{UMAP} prior to \gls{HDBSCAN} clustering. Thus, unchanged setting \colorbox{backcolour}{min\_dist=0.0} was used, to have better cluster separations and \colorbox{backcolour}{random\_state=42} as a fixed seed value, to be able to reproduce the results. The other proposed settings were used with some reasonable adjustments, described in the following. Regardless of the proposed settings, a higher dimension to embed the data in \colorbox{backcolour}{n\_components=30} was chosen to preserve more information. Instead of visualization in two dimensions, 30 were used because the goal was clustering, not plotting (\autoref{sec:PCA}). The neighbors number was also changed. It is recommended to be set in a range of 1 to 100. Based on the size of the sequences represented by $\mathbf{X}$ e.~g.~, 56617 with segment 4, which exceeds the examples in \glqq Basic UMAP Parameters\grqq{} in the \href{https://umap-learn.readthedocs.io/en/latest/api.html}{API} by far, the highest recommended setting \colorbox{backcolour}{n\_neighbors=100} was used to preserve the global picture of the data. A small value would make \gls{UMAP} focus on small changes but loose the overall structure which is important when using this magnitude of data points. Also based on the input matrix size \colorbox{backcolour}{n\_epochs=200} setting was used automatically. However, in \autoref{sec:Dimension_Reduction} different settings of neighbors were compared for the best suited one to use.
+The parameters of \gls{UMAP} used match most of the parameters listed in the API under section \glqq \gls{UMAP} enhanced clustering\grqq{}\footnote{\url{https://umap-learn.readthedocs.io/en/latest/clustering.html (last accessed 01/07/2020)}} \autoref{fig:Vectorization_Pipeline} \textsf{\textbf{D}}. The settings are proposed to be used with \gls{UMAP} prior to \gls{HDBSCAN} clustering. Still, a higher dimension to embed the data in \texttt{n\_components=30} was chosen to preserve more information. Instead of visualization in two dimensions, 30 were used because the goal was clustering, not plotting (\autoref{sec:PCA}). The neighbors number was also changed. It is recommended to be set in a range of 1 to 100. Based on the number of sequences used e.~g.~, 56617 for segment 4, the highest recommended setting \texttt{n\_neighbors=100} was used to better preserve the global picture of the data. A small value would make \gls{UMAP} focus on small changes but loose the overall structure which is important when using this magnitude of data points. Also based on the input size \texttt{n\_epochs=200} setting was used automatically.
 
-\autoref{eq:PCA_100} to \autoref{eq:UMAP_100} denote the use of the \gls{PCA} as shown in \autoref{fig:Vectorization_Pipeline} pathway \textsf{\textbf{2}} and the default setting for Jupyter results with the use of \gls{UMAP} \autocite{pedregosa_scikit-learn_2011, jolliffe_principal_2016, kluyver_jupyter_2016, mcinnes_umap_2020}.
+% \autoref{eq:PCA_100} to \autoref{eq:UMAP_100} denote the use of the \gls{PCA} as shown in \autoref{fig:Vectorization_Pipeline} pathway \textsf{\textbf{2}} and the default setting for Jupyter results with the use of \gls{UMAP} \autocite{pedregosa_scikit-learn_2011, jolliffe_principal_2016, kluyver_jupyter_2016, mcinnes_umap_2020}.
 
-\begin{empheq}{alignat = -1}
-    &\mathbf{X}_{\text{UMAP}} &&= \text{PCA}(\mathbf{X}_{\text{L1}}, 100)\label{eq:PCA_100}
-\end{empheq}
+% \begin{empheq}{alignat = -1}
+%     &\mathbf{X}_{\text{UMAP}} &&= \text{PCA}(\mathbf{X}_{\text{L1}}, 100)\label{eq:PCA_100}
+% \end{empheq}
 
-The dimension of the dataset was therefore first reduced by the mentioned \gls{PCA} and the simplified result then processed by \gls{UMAP} as described above.
+% The dimension of the dataset was therefore first reduced by the mentioned \gls{PCA} and the simplified result then processed by \gls{UMAP} as described above.
 
-\begin{empheq}{alignat = -1}
-    &\mathbf{Y}_{\text{UMAP}} &&= \text{UMAP}(\mathbf{X}_{\text{UMAP}}, \text{n\_neighbors}, \text{n\_components}, \text{min\_dist}, \text{n\_epochs})\label{eq:UMAP_d}\\
-    &&&= \text{UMAP}(\mathbf{X}_{\text{UMAP}}, 100, 30, 0.0, 200)\label{eq:UMAP_100}
-\end{empheq}
+% \begin{empheq}{alignat = -1}
+%     &\mathbf{Y}_{\text{UMAP}} &&= \text{UMAP}(\mathbf{X}_{\text{UMAP}}, \text{n\_neighbors}, \text{n\_components}, \text{min\_dist}, \text{n\_epochs})\label{eq:UMAP_d}\\
+%     &&&= \text{UMAP}(\mathbf{X}_{\text{UMAP}}, 100, 30, 0.0, 200)\label{eq:UMAP_100}
+% \end{empheq}
 
-Important parameters used in this project, including settings varying from the default, are listed below. All available settings with explanation are listed in the \href{https://umap-learn.readthedocs.io/en/latest/api.html}{API}.
+% Important parameters used in this project, including settings varying from the default, are listed below. All available settings with explanation are listed in the \href{https://umap-learn.readthedocs.io/en/latest/api.html}{API}.
 
-\begin{leftbar}
-    \textbf{umap.UMAP}
-    \begin{nstabbing}
-        \qquad\qquad\qquad\qquad\qquad\quad\=\kill
+% \begin{leftbar}
+%     \textbf{umap.UMAP}
+%     \begin{nstabbing}
+%         \qquad\qquad\qquad\qquad\qquad\quad\=\kill
 
-        n\_neighbors \> [number of neighbors (default: 15)]\\
+%         n\_neighbors \> [number of neighbors (default: 15)]\\
         
-        min\_dist \> [min. package distance of points (default: 0.1)]\\
+%         min\_dist \> [min. package distance of points (default: 0.1)]\\
         
-        n\_components \> [dimension to embed in (default: 2)]\\
+%         n\_components \> [dimension to embed in (default: 2)]\\
         
-        n\_epochs \> [number of epochs for training (default: None)]\\
+%         n\_epochs \> [number of epochs for training (default: None)]\\
         
-        metric \> [metric to use (default: 'euclidean')]
-    \end{nstabbing}
-\end{leftbar}
+%         metric \> [metric to use (default: 'euclidean')]
+%     \end{nstabbing}
+% \end{leftbar}
 
-\gls{UMAP} was used posterior to dimension reduction with \gls{PCA}, because of the similarity to \gls{t-SNE}. As explained in the \href{https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html}{API} of \gls{t-SNE}, the dimension should be reduced to a reasonable amount prior to execution to reduce noise. In the \href{https://umap-learn.readthedocs.io/en/latest/api.html}{API} of \gls{UMAP} in section \glqq What is the difference between PCA / UMAP / VAEs?\grqq{} a pipeline is proposed, to reduce from high dimension with \gls{PCA}, continue with reduction by \gls{UMAP} and cluster with \gls{HDBSCAN} and is, therefore, used as reference. Furthermore \gls{UMAP} with 30 components posterior to \gls{PCA} with 100 components provided a comfortable balancing of computational effort of both methods, while preserving $\approx 85\%$ explained variance with \gls{PCA} \autocite{mcinnes_umap_2020}. Since the final dimensionality of the resulting matrix $\mathbf{Y}_{\text{UMAP}}$ either way was $<50$, a reduction with \gls{PCA} to $>50$ could be used while still preserving the usability of Spanning Tree calculation with \gls{HDBSCAN} \autocite{mcinnes_hdbscan_2017}. However, it is indeed also possible to use \gls{UMAP} without prior \gls{PCA}, since there is no limit for input date dimensionality \autocite{mcinnes_umap_2020}. 
+\gls{UMAP} was used posterior to dimension reduction with \gls{PCA}, because of the similarity to \gls{t-SNE}. As explained in the API of \gls{t-SNE}\footnote{\url{https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html}}, the dimension should be reduced to a reasonable amount prior to execution to reduce noise. In in section \glqq What is the difference between PCA / UMAP / VAEs?\grqq{} of the \gls{UMAP} API\footnote{\url{https://umap-learn.readthedocs.io/en/latest/faq.html}} a pipeline is proposed, to reduce from high dimension with \gls{PCA}, continue with reduction by \gls{UMAP} and cluster with \gls{HDBSCAN} and is, therefore, used as reference. Reduction with \gls{UMAP} to 30 components posterior to \gls{PCA} with 100 components also provided a comfortable balancing of computational effort of both methods, while preserving $\approx 85\%$ explained variance with \gls{PCA} \autocite{mcinnes_umap_2020}. 
+
+%Since the final dimensionality of the resulting matrix $\mathbf{Y}_{\text{UMAP}}$ either way was $<50$, a reduction with \gls{PCA} to $>50$ could be used while still preserving the usability of Spanning Tree calculation with \gls{HDBSCAN} \autocite{mcinnes_hdbscan_2017}. However, it is indeed also possible to use \gls{UMAP} without prior \gls{PCA}, since there is no limit for input date dimensionality \autocite{mcinnes_umap_2020}. 
