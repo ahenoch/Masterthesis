@@ -22,6 +22,7 @@ Investigation on the anomalies resulted in two persistent clustering errors (\au
 
 \begin{figure}[!hbt]
     \centering
+    \footnotesize
     \begin{tikzpicture}
         \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\textwidth]{PCA/Precalculated_Segment_4_H_Cosine.pdf}};
         \begin{scope}[x={(image.south east)},y={(image.north west)}]
@@ -32,23 +33,23 @@ Investigation on the anomalies resulted in two persistent clustering errors (\au
             \node at (0.754, 0.505) [fill=Red!80,thick,shape=circle,draw=black,inner sep=2pt] {\textbf{\textsf{C}}};
             %\draw[draw = black, thick, fill = black, fill opacity=0.2] (0.344, 0.603) rectangle (0.589,0.358);
             %\node at (0.344, 0.358) [fill=Red!80,thick,shape=circle,draw=black,inner sep=2pt] {\textbf{\textsf{A}}};
-            \node at (0.425,0.525) [arrowstyle=1.5cm, arrowfillR, anchor=east, rotate=270] {\textbf{\textsf{A}}};
-            \node at (0.55,0.525) [arrowstyle=1.5cm, arrowfillR, anchor=east, rotate=270] {\textbf{\textsf{B}}};
+            \node at (0.425,0.525) [arrowstyle=1.0cm, arrowfillR, anchor=east, rotate=270] {\textbf{\textsf{A}}};
+            \node at (0.55,0.525) [arrowstyle=1.0cm, arrowfillR, anchor=east, rotate=270] {\textbf{\textsf{B}}};
             %\draw[|-|] (0.975,0.5035) arc[start angle=0,end angle=170,radius=0.475, thick] node[midway,fill=Red!80,thick,shape=circle,draw=black,inner sep=2pt] {\textbf{\textsf{D}}};
             %\node at (0.5,0.505) [shape = circle,inner sep=140pt, fill = black] {};
-            \node at (0.31,0.595) [arrowfillG, arrowstyle=1.5cm, anchor=east, rotate=315] {46};
-            \node at (0.305,0.51) [arrowfillG, arrowstyle=1.5cm, anchor=east, rotate=45] {45};
-            \node at (0.6,0.5) [arrowfillG, arrowstyle=1.5cm, anchor=east, rotate=225] {\rotatebox{180}{47}};
-            \node at (0.35,0.455) [arrowfillG, arrowstyle=1.5cm, anchor=east, rotate=90] {48};
-            \node at (0.425,0.42) [arrowfillG, arrowstyle=1.5cm, anchor=east, rotate=90] {48};
-            \node at (0.54,0.435) [arrowfillG, arrowstyle=1.5cm, anchor=east, rotate=135] {\rotatebox{180}{48}};
+            \node at (0.31,0.595) [arrowfillG, arrowstyle=1.0cm, anchor=east, rotate=315] {46};
+            \node at (0.305,0.51) [arrowfillG, arrowstyle=1.0cm, anchor=east, rotate=45] {45};
+            \node at (0.6,0.5) [arrowfillG, arrowstyle=1.0cm, anchor=east, rotate=225] {\rotatebox{180}{47}};
+            \node at (0.35,0.455) [arrowfillG, arrowstyle=1.0cm, anchor=east, rotate=90] {48};
+            \node at (0.425,0.42) [arrowfillG, arrowstyle=1.0cm, anchor=east, rotate=90] {48};
+            \node at (0.54,0.435) [arrowfillG, arrowstyle=1.0cm, anchor=east, rotate=135] {\rotatebox{180}{48}};
         \end{scope}
     \end{tikzpicture}
-    \caption[H13/H16 precalculated cosine distance \Acrshort{UPGMA} tree]{\textbf{H13/H16 precalculated cosine distance \Acrshort{UPGMA} tree.} Calculated cosine distance between the k-mer frequency vectors of sequences related to subtype H13 and H16 clusters in \autoref{fig:PCA_Clusteree_Knee_4} were used to build a \gls{UPGMA} tree. The same coloring of the previous tree was used to clarify the difference between H13 and H16 sequences. Uncolored sequences are unclassified ones from the inconclusive cluster 48 and, thereby, not assigned to a single subtype. The numbers in the green arrows indicate the cluster number of the sub trees sequences in \autoref{fig:PCA_Clusteree_Knee_4}. The red arrows are used in the following to point to the trees division into H13 \textbf{\textsf{A}} and H16 \textbf{\textsf{B}}. \autoref{fig:focus} is a enlarged view on the highlighted square at \textbf{\textsf{C}}.}
+    \caption[UPGMA tree of H13/H16 with cosine distance]{\textbf{UPGMA tree of H13/H16 with cosine distance.} Calculated cosine distance between the k-mer frequency vectors of sequences related to subtype H13 and H16 clusters in \autoref{fig:PCA_Clusteree_Knee_4} were used to build a \gls{UPGMA} tree. The same coloring of the previous tree was used to clarify the difference between H13 and H16 sequences. Uncolored sequences are unclassified ones from the mixed cluster 48 and, thereby, not assigned to a single subtype. The numbers in the green arrows indicate the cluster number of the sub trees sequences in \autoref{fig:PCA_Clusteree_Knee_4}. The red arrows are used in the following to point to the trees division into H13 \textbf{\textsf{A}} and H16 \textbf{\textsf{B}}. \autoref{fig:focus} is a enlarged view on the highlighted square at \textbf{\textsf{C}}.}
     \label{fig:Precalculated_Cosine}
 \end{figure}
 
-By building a \gls{UPGMA} tree on the non-reduced segment 4 k-mer frequency vectors of the H13 and H16 clusters 45, 46, 47 and 48, the unbiased relation of sequences from these subtypes were analyzed (\autoref{sec:MAFFT}). That way the fundamental use of k-mer frequencies was also validated. Not colored sequences are unclassified sequences (\autoref{fig:Frequency_4}) that also could not be assigned to a subtype, since they were clustered in a inconclusive cluster consisting of H13 and H16. Therefore, these sequences are unclassified sequences from cluster 48 (\autoref{fig:PCA_Clusteree_Knee_4} \textbf{\textsf{B}}).
+By building a \gls{UPGMA} tree on the non-reduced segment 4 k-mer frequency vectors of the H13 and H16 clusters 45, 46, 47 and 48, the unbiased relation of sequences from these subtypes were analyzed (\autoref{sec:MAFFT}). That way the fundamental use of k-mer frequencies was also validated. Not labeled sequences are unclassified sequences that also could not be assigned to a subtype, since they were clustered in a mixed cluster consisting of H13 and H16. Therefore, these sequences are unclassified sequences from cluster 48 (\autoref{fig:PCA_Clusteree_Knee_4} \textbf{\textsf{B}}).
 
 \begin{figure}[!hbt]
     \centering

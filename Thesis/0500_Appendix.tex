@@ -2,7 +2,7 @@
 
 \begin{table}[!hbt]
     \centering
-    \caption[Cluster Database (\texttt{PCA})]{\textbf{Cluster Database (\texttt{PCA}).}.}
+    \caption[Cluster database with PK]{\textbf{Cluster database with PK.}.}
     \label{tab:PCA_Cluster_Database}
     \pgfplotstabletypeset[
         every head row/.style={
@@ -23,8 +23,8 @@
         end table=\end{tabular*},
         columns={0,1,2,3,4,5,6},
         columns/0/.style={string type,multicolumn names=l,column name=\textbf{Accession}, column type=@{\extracolsep{\fill}\hspace{6pt}}r},
-        columns/1/.style={multicolumn names=l,column name=\textbf{Segment}, column type=r},
-        columns/2/.style={multicolumn names=l,column name=\textbf{Cluster}, column type=r},
+        columns/1/.style={int detect, multicolumn names=l,column name=\textbf{Segment}, column type=r},
+        columns/2/.style={int detect, multicolumn names=l,column name=\textbf{Cluster}, column type=r},
         columns/3/.style={string type,multicolumn names=l,column name=\textbf{H}, column type=r},
         columns/4/.style={string type,multicolumn names=l,column name=\textbf{Centroid}, column type=r},
         columns/5/.style={string type,multicolumn names=l,column name=\textbf{N}, column type=r},
@@ -33,9 +33,11 @@
     {PCA/cluster_head.csv}
 \end{table}
 
+\newpage
+
 \begin{table}[!hbt]
     \centering
-    \caption[Cluster Database (\texttt{UMAP})]{\textbf{Cluster Database (\texttt{UMAP}).}.}
+    \caption[Cluster database with UK]{\textbf{Cluster database with UK.}.}
     \label{tab:UMAP_Cluster_Database}
     \pgfplotstabletypeset[
         every head row/.style={
@@ -56,8 +58,8 @@
         end table=\end{tabular*},
         columns={0,1,2,3,4,5,6},
         columns/0/.style={string type,multicolumn names=l,column name=\textbf{Accession}, column type=@{\extracolsep{\fill}\hspace{6pt}}r},
-        columns/1/.style={multicolumn names=l,column name=\textbf{Segment}, column type=r},
-        columns/2/.style={multicolumn names=l,column name=\textbf{Cluster}, column type=r},
+        columns/1/.style={int detect, multicolumn names=l,column name=\textbf{Segment}, column type=r},
+        columns/2/.style={int detect, multicolumn names=l,column name=\textbf{Cluster}, column type=r},
         columns/3/.style={string type,multicolumn names=l,column name=\textbf{H}, column type=r},
         columns/4/.style={string type,multicolumn names=l,column name=\textbf{Centroid}, column type=r},
         columns/5/.style={string type,multicolumn names=l,column name=\textbf{N}, column type=r},
@@ -66,16 +68,107 @@
     {UMAP/cluster_head.csv}
 \end{table}
 
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    %\begin{adjustbox}{minipage=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox}
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[DBCV exploration]{\textbf{DBCV exploration}}
+        \label{subfig:PCA_Cluster_DBCV_Explo_4}            \includegraphics[width=\textwidth]{PCA/Cluster_DBCV_Segment_4.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[DBCV knee]{\textbf{DBCV knee}}
+        \label{subfig:PCA_Cluster_DBCV_Elbow_4}            \includegraphics[width=\textwidth]{PCA/Cluster_Elbow_DBCV_Segment_4.pdf}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Cluster distribution]{\textbf{Cluster distribution}}
+        \label{subfig:PCA_Cluster_DBCV_Distribution_4}            \includegraphics[width=\textwidth]{PCA/Cluster_Distribution_Segment_4_alternative.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Logarithmic distribution]{\textbf{Logarithmic distribution}}
+        \label{subfig:PCA_Cluster_DBCV_Distribution_log_4}            \includegraphics[width=\textwidth]{PCA/Cluster_Distribution_Log_Segment_4_alternative.pdf}
+    \end{subfigure}
+    %\end{adjustbox}
+    \caption[Clustering of segment 4 with PD]{\textbf{Clustering of segment 4 with PD.} }
+    \label{fig:PCA_Cluster_DBCV_4}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    %\begin{adjustbox}{minipage=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox}
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[DBCV exploration]{\textbf{DBCV exploration}}
+        \label{subfig:UMAP_Cluster_DBCV_Explo_4}            \includegraphics[width=\textwidth]{UMAP/Cluster_DBCV_Segment_4.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[DBCV knee]{\textbf{DBCV knee}}
+        \label{subfig:UMAP_Cluster_DBCV_Elbow_4}            \includegraphics[width=\textwidth]{UMAP/Cluster_Elbow_DBCV_Segment_4.pdf}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Cluster distribution]{\textbf{Cluster distribution}}
+        \label{subfig:UMAP_Cluster_DBCV_Distribution_4}            \includegraphics[width=\textwidth]{UMAP/Cluster_Distribution_Segment_4_alternative.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Logarithmic distribution]{\textbf{Logarithmic distribution}}
+        \label{subfig:UMAP_Cluster_DBCV_Distribution_log_4}            \includegraphics[width=\textwidth]{UMAP/Cluster_Distribution_Log_Segment_4_alternative.pdf}
+    \end{subfigure}
+    %\end{adjustbox}
+    \caption[Clustering of segment 4 with UD]{\textbf{Clustering of segment 4 with UD.} }
+    \label{fig:UMAP_Cluster_DBCV_4}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    %\begin{adjustbox}{minipage=\dimexpr\textwidth-2\fboxsep-2\fboxrule,fbox}
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Kneedle Algorithm]{\textbf{Kneedle Algorithm}}
+        \label{subfig:UMAP_Cluster_Knee_Kneedle_4}            \includegraphics[width=\textwidth]{UMAP/Cluster_Knee_Segment_4.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Knee Point]{\textbf{Knee Point}}
+        \label{subfig:UMAP_Cluster_Knee_Elbow_4}            \includegraphics[width=\textwidth]{UMAP/Cluster_Elbow_Knee_Segment_4.pdf}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Cluster distribution]{\textbf{Cluster distribution}}
+        \label{subfig:UMAP_Cluster_Knee_Distributione_4}            \includegraphics[width=\textwidth]{UMAP/Cluster_Distribution_Segment_4.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Logarithmic distribution]{\textbf{Logarithmic distribution}}
+        \label{subfig:UMAP_Cluster_Knee_Distribution_log_4}            \includegraphics[width=\textwidth]{UMAP/Cluster_Distribution_Log_Segment_4.pdf}
+    \end{subfigure}
+    %\end{adjustbox}
+    \caption[Clustering of segment 4 with UK]{\textbf{Clustering of segment 4 with UK.} }
+    \label{fig:UMAP_Cluster_Knee_4}
+\end{figure}
+
+\newpage
+
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{UMAP/Clustertree_Segment_4_H_Knee.pdf}
-    \caption[Knee based Segment 4 Clustertree (\texttt{UMAP})]{\textbf{Knee based Segment 4 Clustertree (\texttt{UMAP}).} .}
+    \caption[Clustering tree of segment 4 with UK]{\textbf{Clustering tree of segment 4 with UK.} }
     \label{fig:UMAP_Clusteree_Knee_4}
 \end{figure}
 
+\newpage
+
 \begin{table}[!hbt]
     \centering
-    \caption[Anomalies in Segment 4 Cluster 105 (\texttt{UMAP})]{\textbf{Anomalies in Segment 4 Cluster 105 (\texttt{UMAP}).}.}
+    \caption[Anomalies in segment 4 cluster 105 with UK]{\textbf{Anomalies in segment 4 cluster 105 with UK.}.}
     \label{tab:UMAP_Error_4_105}
     \pgfplotstabletypeset[
         every head row/.style={
@@ -103,7 +196,7 @@
 
 \begin{table}[!hbt]
     \centering
-    \caption[Anomalies in Segment 4 Cluster 265 (\texttt{UMAP})]{\textbf{Anomalies in Segment 4 Cluster 265 (\texttt{UMAP}).}.}
+    \caption[Anomalies in segment 4 cluster 265 with UK]{\textbf{Anomalies in segment 4 cluster 265 with UK.}.}
     \label{tab:UMAP_Error_4_265}
     \pgfplotstabletypeset[
         every head row/.style={
@@ -131,30 +224,452 @@
     {UMAP/error_segment_4_cluster_265_difference_head.csv}
 \end{table}
 
+\newpage
+
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{UMAP/Guidetree_segment_4_H_Centroid.pdf}
-    \caption[Knee based Segment 4 Centroid Guidetree (\texttt{UMAP})]{\textbf{Knee based Segment 4 Centroid Guidetree (\texttt{UMAP}).} .}
+    \caption[Centroid guidetree of segment 4 with UK]{\textbf{Centroid guidetree of segment 4 with UK.} }
     \label{fig:UMAP_Guidetree_Centroid_4}
 \end{figure}
+
+\newpage
 
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{UMAP/Precalculated_Segment_4_H_Euclidean.pdf}
-    \caption[H13/H16 Precalculated \Acrshort{UPGMA} Tree (euclidean)]{\textbf{H13/H16 Precalculated \Acrshort{UPGMA} Tree (euclidean).} .}
+    \caption[UPGMA tree of H13/H16 with euclidean distance]{\textbf{UPGMA tree of H13/H16 with euclidean distance.} .}
     \label{fig:Precalculated_Euclid}
 \end{figure}
+
+\newpage
 
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{PCA/Clustertree_Segment_4_H_Euclidean.pdf}
-    \caption[H13/H16 Simple Clustering Example with Precalculated (euclidean)]{\textbf{H13/H16 Simple Clustering Example with Precalculated (euclidean).} .}
+    \caption[Simple clustering tree of H13/H16 with euclidean distance]{\textbf{Simple clustering tree of H13/H16 with euclidean distance.} .}
     \label{fig:Simple_Clustertree_Euclid}
 \end{figure}
+
+\newpage
 
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{UMAP/Clustertree_Segment_4_H_Simple.pdf}
-    \caption[H13/H16 Simple Clustering Example (\texttt{UMAP})]{\textbf{H13/H16 Simple Clustering Example (\texttt{UMAP}).} .}
+    \caption[Simple clustering tree of H13/H16 with UMAP]{\textbf{Simple clustering tree of H13/H16 with UMAP.} .}
     \label{fig:Simple_Clustertree_UMAP}
+\end{figure}
+
+\newpage
+
+\begin{table}[!hbt]
+    \centering
+    \caption[Clustering results]{\textbf{Clustering results.} }
+    \label{tab:Result_Cluster}
+    \pgfplotstabletypeset[
+        every head row/.style={
+            before row={
+                \toprule
+                & \multicolumn{3}{l}{\textbf{\#Cluster}} & \multicolumn{2}{l}{\textbf{\#Mixed}} & &\\
+                \cmidrule(lr){2-4}\cmidrule(lr){5-6}
+            },
+            after row={
+                \midrule
+            },
+        },
+        every last row/.style={
+            after row={
+                %... & ... & ... & ... & ... & ... & ... & ...\\
+                \bottomrule
+            },
+        },
+        begin table=\begin{tabular*}{\textwidth},
+        end table=\end{tabular*},
+        columns={0,1,2,3,5,6,4,7,8},
+        columns/0/.style={int detect, multicolumn names=l,column name=\textbf{Segment}, column type=@{\extracolsep{\fill}\hspace{6pt}}r},
+        columns/1/.style={int detect, multicolumn names=l,column name=\textbf{Final}, column type=r},
+        columns/2/.style={int detect, multicolumn names=l,column name=\textbf{Raw}, column type=r},
+        columns/3/.style={multicolumn names=l,column name=\textbf{Normalized}, column type=r},
+        columns/4/.style={int detect, multicolumn names=l,column name=\textbf{\#Unclustered}, column type=r},
+        columns/5/.style={int detect, multicolumn names=l,column name=\textbf{H}, column type=r},
+        columns/6/.style={int detect, multicolumn names=l,column name=\textbf{N}, column type=r},
+        columns/7/.style={multicolumn names=l,column name=\textbf{$\varepsilon$}, column type=r},
+        columns/8/.style={multicolumn names=l,column name=\textbf{$\text{Var}(X)$}, column type=r},
+    ]
+    {Results/information.csv}
+\end{table}
+
+\begin{table}[!hbt]
+    \centering
+    \caption[Cluster database]{\textbf{Cluster database.}.}
+    \label{tab:Result_Database}
+    \pgfplotstabletypeset[
+        every head row/.style={
+            before row={
+                \toprule
+            },
+            after row={
+                \midrule
+            },
+        },
+        every last row/.style={
+            after row={
+                ... & ... & ... & ... & ... & ... & ... \\
+                \bottomrule
+            },
+        },
+        begin table=\begin{tabular*}{\textwidth},
+        end table=\end{tabular*},
+        columns={0,1,2,3,4,5,6},
+        columns/0/.style={string type,multicolumn names=l,column name=\textbf{Accession}, column type=@{\extracolsep{\fill}\hspace{6pt}}r},
+        columns/1/.style={int detect, multicolumn names=l,column name=\textbf{Segment}, column type=r},
+        columns/2/.style={int detect, multicolumn names=l,column name=\textbf{Cluster}, column type=r},
+        columns/3/.style={string type,multicolumn names=l,column name=\textbf{H}, column type=r},
+        columns/4/.style={string type,multicolumn names=l,column name=\textbf{Centroid}, column type=r},
+        columns/5/.style={string type,multicolumn names=l,column name=\textbf{N}, column type=r},
+        columns/6/.style={string type,multicolumn names=l,column name=\textbf{Strain}, column type=r},
+    ]
+    {Graphics/cluster_head.csv}
+\end{table}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Kneedle Algorithm]{\textbf{Kneedle Algorithm}}
+        \label{subfig:Result_Cluster_Knee_Kneedle_1}            \includegraphics[width=\textwidth]{Results/Cluster_Knee_Segment_1.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Kneedle point]{\textbf{Knee Point}}
+        \label{subfig:Result_Cluster_Knee_Elbow_1}            \includegraphics[width=\textwidth]{Results/Cluster_Elbow_Knee_Segment_1.pdf}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Cluster distribution]{\textbf{Cluster distribution}}
+        \label{subfig:Result_Cluster_Knee_Distributione_1}            \includegraphics[width=\textwidth]{Results/Cluster_Distribution_Segment_1.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Logarithmic distribution]{\textbf{Logarithmic distribution}}
+        \label{subfig:Result_Cluster_Knee_Distribution_log_1}            \includegraphics[width=\textwidth]{Results/Cluster_Distribution_Log_Segment_1.pdf}
+    \end{subfigure}
+    \caption[Clustering of segment 1]{\textbf{Clustering of segment 1.} }
+    \label{fig:Result_Cluster_Knee_1}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Results/Clustertree_Segment_1.pdf}
+    \caption[Clustering tree of segment 1]{\textbf{Clustering tree of segment 1.} }
+    \label{fig:Result_Clustertree_Segment_1}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Results/Cluster_Difference_Segment_1.pdf}
+    \caption[Similarity matrix of segment 1 clusters]{\textbf{Similarity matrix of segment 1 clusters.} }
+    \label{fig:Proof_Clustertree_Segment_1}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Kneedle Algorithm]{\textbf{Kneedle Algorithm}}
+        \label{subfig:Result_Cluster_Knee_Kneedle_2}            \includegraphics[width=\textwidth]{Results/Cluster_Knee_Segment_2.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Kneedle point]{\textbf{Knee point}}
+        \label{subfig:Result_Cluster_Knee_Elbow_2}            \includegraphics[width=\textwidth]{Results/Cluster_Elbow_Knee_Segment_2.pdf}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Cluster distribution]{\textbf{Cluster distribution}}
+        \label{subfig:Result_Cluster_Knee_Distributione_2}            \includegraphics[width=\textwidth]{Results/Cluster_Distribution_Segment_2.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Logarithmic distribution]{\textbf{Logarithmic distribution}}
+        \label{subfig:Result_Cluster_Knee_Distribution_log_2}            \includegraphics[width=\textwidth]{Results/Cluster_Distribution_Log_Segment_2.pdf}
+    \end{subfigure}
+    \caption[Clustering of segment 2]{\textbf{Clustering of segment 2.} }
+    \label{fig:Result_Cluster_Knee_2}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Results/Clustertree_Segment_2.pdf}
+    \caption[Clustering tree of segment 2]{\textbf{Clustering tree of segment 2.} }
+    \label{fig:Result_Clustertree_Segment_2}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Results/Cluster_Difference_Segment_2.pdf}
+    \caption[Similarity matrix of segment 2 clusters]{\textbf{Similarity matrix of segment 2 clusters.} }
+    \label{fig:Proof_Clustertree_Segment_2}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Kneedle Algorithm]{\textbf{Kneedle Algorithm}}
+        \label{subfig:Result_Cluster_Knee_Kneedle_3}            \includegraphics[width=\textwidth]{Results/Cluster_Knee_Segment_3.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Kneedle point]{\textbf{Knee point}}
+        \label{subfig:Result_Cluster_Knee_Elbow_3}            \includegraphics[width=\textwidth]{Results/Cluster_Elbow_Knee_Segment_3.pdf}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Cluster distribution]{\textbf{Cluster distribution}}
+        \label{subfig:Result_Cluster_Knee_Distributione_3}            \includegraphics[width=\textwidth]{Results/Cluster_Distribution_Segment_3.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Logarithmic distribution]{\textbf{Logarithmic distribution}}
+        \label{subfig:Result_Cluster_Knee_Distribution_log_3}            \includegraphics[width=\textwidth]{Results/Cluster_Distribution_Log_Segment_3.pdf}
+    \end{subfigure}
+    \caption[Clustering of segment 3]{\textbf{Clustering of segment 3.} }
+    \label{fig:Result_Cluster_Knee_3}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Results/Clustertree_Segment_3.pdf}
+    \caption[Clustering tree of segment 3]{\textbf{Clustering tree of segment 3.} }
+    \label{fig:Result_Clustertree_Segment_3}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Results/Cluster_Difference_Segment_3.pdf}
+    \caption[Similarity matrix of segment 3 clusters]{\textbf{Similarity matrix of segment 3 clusters.} }
+    \label{fig:Proof_Clustertree_Segment_3}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Kneedle Algorithm]{\textbf{Kneedle Algorithm}}
+        \label{subfig:Result_Cluster_Knee_Kneedle_4}            \includegraphics[width=\textwidth]{Results/Cluster_Knee_Segment_4.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Kneedle point]{\textbf{Knee Point}}
+        \label{subfig:Result_Cluster_Knee_Elbow_4}            \includegraphics[width=\textwidth]{Results/Cluster_Elbow_Knee_Segment_4.pdf}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Cluster distribution]{\textbf{Cluster distribution}}
+        \label{subfig:Result_Cluster_Knee_Distributione_4}            \includegraphics[width=\textwidth]{Results/Cluster_Distribution_Segment_4.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Logarithmic distribution]{\textbf{Logarithmic distribution}}
+        \label{subfig:Result_Cluster_Knee_Distribution_log_4}            \includegraphics[width=\textwidth]{Results/Cluster_Distribution_Log_Segment_4.pdf}
+    \end{subfigure}
+    \caption[Clustering of segment 4]{\textbf{Clustering of segment 4.} }
+    \label{fig:Result_Cluster_Knee_4}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Kneedle Algorithm]{\textbf{Kneedle Algorithm}}
+        \label{subfig:Result_Cluster_Knee_Kneedle_5}            \includegraphics[width=\textwidth]{Results/Cluster_Knee_Segment_5.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Kneedle point]{\textbf{Knee point}}
+        \label{subfig:Result_Cluster_Knee_Elbow_5}            \includegraphics[width=\textwidth]{Results/Cluster_Elbow_Knee_Segment_5.pdf}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Cluster distribution]{\textbf{Cluster distribution}}
+        \label{subfig:Result_Cluster_Knee_Distributione_5}            \includegraphics[width=\textwidth]{Results/Cluster_Distribution_Segment_5.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Logarithmic distribution]{\textbf{Logarithmic distribution}}
+        \label{subfig:Result_Cluster_Knee_Distribution_log_5}            \includegraphics[width=\textwidth]{Results/Cluster_Distribution_Log_Segment_5.pdf}
+    \end{subfigure}
+    \caption[Clustering of segment 5]{\textbf{Clustering of segment 5.} }
+    \label{fig:Result_Cluster_Knee_5}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Results/Clustertree_Segment_5.pdf}
+    \caption[Clustering tree of segment 5]{\textbf{Clustering tree of segment 5.} }
+    \label{fig:Result_Clustertree_Segment_5}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Results/Cluster_Difference_Segment_5.pdf}
+    \caption[Similarity matrix of segment 5 clusters]{\textbf{Similarity matrix of segment 5 clusters.} }
+    \label{fig:Proof_Clustertree_Segment_5}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Kneedle Algorithm]{\textbf{Kneedle Algorithm}}
+        \label{subfig:Result_Cluster_Knee_Kneedle_6}            \includegraphics[width=\textwidth]{Results/Cluster_Knee_Segment_6.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Kneedle point]{\textbf{Knee point}}
+        \label{subfig:Result_Cluster_Knee_Elbow_6}            \includegraphics[width=\textwidth]{Results/Cluster_Elbow_Knee_Segment_6.pdf}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Cluster distribution]{\textbf{Cluster distribution}}
+        \label{subfig:Result_Cluster_Knee_Distributione_6}            \includegraphics[width=\textwidth]{Results/Cluster_Distribution_Segment_6.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Logarithmic distribution]{\textbf{Logarithmic distribution}}
+        \label{subfig:Result_Cluster_Knee_Distribution_log_6}            \includegraphics[width=\textwidth]{Results/Cluster_Distribution_Log_Segment_6.pdf}
+    \end{subfigure}
+    \caption[Clustering of segment 6]{\textbf{Clustering of segment 6.} }
+    \label{fig:Result_Cluster_Knee_6}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Results/Clustertree_Segment_6.pdf}
+    \caption[Clustering tree of segment 6]{\textbf{Clustering tree of segment 6.} }
+    \label{fig:Result_Clustertree_Segment_6}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Results/Cluster_Difference_Segment_6.pdf}
+    \caption[Similarity matrix of segment 6 clusters]{\textbf{Similarity matrix of segment 6 clusters.} }
+    \label{fig:Proof_Clustertree_Segment_6}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Kneedle Algorithm]{\textbf{Kneedle Algorithm}}
+        \label{subfig:Result_Cluster_Knee_Kneedle_7}            \includegraphics[width=\textwidth]{Results/Cluster_Knee_Segment_7.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Kneedle point]{\textbf{Knee point}}
+        \label{subfig:Result_Cluster_Knee_Elbow_7}            \includegraphics[width=\textwidth]{Results/Cluster_Elbow_Knee_Segment_7.pdf}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Cluster distribution]{\textbf{Cluster distribution}}
+        \label{subfig:Result_Cluster_Knee_Distributione_7}            \includegraphics[width=\textwidth]{Results/Cluster_Distribution_Segment_7.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Logarithmic distribution]{\textbf{Logarithmic distribution}}
+        \label{subfig:Result_Cluster_Knee_Distribution_log_7}            \includegraphics[width=\textwidth]{Results/Cluster_Distribution_Log_Segment_7.pdf}
+    \end{subfigure}
+    \caption[Clustering of segment 7]{\textbf{Clustering of segment 7.} }
+    \label{fig:Result_Cluster_Knee_7}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Results/Clustertree_Segment_7.pdf}
+    \caption[Clustering tree of segment 7]{\textbf{Clustering tree of segment 7.} }
+    \label{fig:Result_Clustertree_Segment_7}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Results/Cluster_Difference_Segment_7.pdf}
+    \caption[Similarity matrix of segment 7 clusters]{\textbf{Similarity matrix of segment 7 clusters.} }
+    \label{fig:Proof_Clustertree_Segment_7}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Kneedle Algorithm]{\textbf{Kneedle Algorithm}}
+        \label{subfig:Result_Cluster_Knee_Kneedle_8}            \includegraphics[width=\textwidth]{Results/Cluster_Knee_Segment_8.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Kneedle point]{\textbf{Knee point}}
+        \label{subfig:Result_Cluster_Knee_Elbow_8}            \includegraphics[width=\textwidth]{Results/Cluster_Elbow_Knee_Segment_8.pdf}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Cluster distribution]{\textbf{Cluster distribution}}
+        \label{subfig:Result_Cluster_Knee_Distributione_8}            \includegraphics[width=\textwidth]{Results/Cluster_Distribution_Segment_8.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.475\textwidth}
+        \caption[Logarithmic distribution]{\textbf{Logarithmic distribution}}
+        \label{subfig:Result_Cluster_Knee_Distribution_log_8}            \includegraphics[width=\textwidth]{Results/Cluster_Distribution_Log_Segment_8.pdf}
+    \end{subfigure}
+    \caption[Clustering of segment 8]{\textbf{Clustering of segment 8.} }
+    \label{fig:Result_Cluster_Knee_8}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Results/Clustertree_Segment_8.pdf}
+    \caption[Clustering tree of segment 8]{\textbf{Clustering tree of segment 8.} }
+    \label{fig:Result_Clustertree_Segment_8}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Results/Cluster_Difference_Segment_8.pdf}
+    \caption[Similarity matrix of segment 8 clusters]{\textbf{Similarity matrix of segment 8 clusters.} }
+    \label{fig:Proof_Clustertree_Segment_8}
 \end{figure}
