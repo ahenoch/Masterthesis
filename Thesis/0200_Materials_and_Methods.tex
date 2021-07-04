@@ -59,6 +59,8 @@ The version used for the proposed results was acquired at 08/11/2020\footnote{Ge
     \label{tab:methods}
     \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}\hspace{6pt}}lllll}
         \toprule
+        & & \multicolumn{2}{l}{\textbf{Reduction}} & \\
+        \cmidrule(lr){3-4}
         \textbf{Abbreviation} & \textbf{Method} & \textbf{100 Components} & \textbf{30 Components} & \textbf{Exploration}\\
         \midrule
         PB & PCA/DBCV & --- & PCA & DBCV\\
@@ -110,7 +112,7 @@ The method is based on the one proposed by \textcite{viehweger_addressing_2019}.
 
 \section{7-mer Frequency Calculation} \label{sec:Frequency}
 
-The FASTA file containing the genomes of \gls{IAV} for clustering, was converted to vectors to enable clustering in high dimension by counting their 7-mer frequency (\autoref{fig:Vectorization_Pipeline} \textsf{\textbf{A}}). $4^7$ possible constellations of the nucleotides A,C,G,T with length 7 exist. Therefore, taking every constellation into consideration, the vector of every sequence has $4^7$ components. The numbers in the vector components are the number of occurrences of the related 7-mer in the sequence. The first constellation of the $4^7$ possible ones with length 7 is AAAAAAA, given a example sequence of the FASTA contains this 7-mer 10 times, the first component of the sequences vector would be 10. \autoref{fig:k-mer} illustrates the calculation using 3-mers instead of 7-mers.
+The FASTA file containing the genomes of \gls{IAV} for clustering, was converted to vectors to enable clustering in high dimension by counting their 7-mer frequency (\autoref{fig:Vectorization_Pipeline} \textsf{\textbf{A}}) \autocite{edgar_muscle_2004}. $4^7$ possible constellations of the nucleotides A,C,G,T with length 7 exist. Therefore, taking every constellation into consideration, the vector of every sequence has $4^7$ components. The numbers in the vector components are the number of occurrences of the related 7-mer in the sequence. The first constellation of the $4^7$ possible ones with length 7 is AAAAAAA, given a example sequence of the FASTA contains this 7-mer 10 times, the first component of the sequences vector would be 10. \autoref{fig:k-mer} illustrates the calculation using 3-mers instead of 7-mers.
 
 \begin{figure}[!hbt]
     \centering
@@ -257,7 +259,7 @@ The labeled cluster trees were created by \texttt{ETE3} with a newick file, gene
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/Precalculated.pdf}
-    \caption[Precalculation pipeline]{\textbf{Precalculation pipeline.} For the precalculated trees the L1-normalized 7-mer vectors distances were calculated and used for clustering by \texttt{HDBSCAN} (\textsf{\textbf{B}}, \textsf{\textbf{K}}, \textsf{\textbf{N}} and pathway \textsf{\textbf{7}}) and on the other hand processed with \texttt{BioPython} for \gls{UPGMA} tree creation and visualization by \texttt{ETE3} (\textsf{\textbf{N}} and \textsf{\textbf{8}}). Results from this pipeline were visualized according to \autoref{fig:Tree_Pipeline}.}
+    \caption[Precalculation pipeline]{\textbf{Precalculation pipeline.} For the precalculated trees the L1-normalized 7-mer frequency vectors distances were calculated and used for clustering by \texttt{HDBSCAN} (\textsf{\textbf{B}}, \textsf{\textbf{K}}, \textsf{\textbf{N}} and pathway \textsf{\textbf{7}}) and on the other hand processed with \texttt{BioPython} for \gls{UPGMA} tree creation and visualization by \texttt{ETE3} (\textsf{\textbf{N}} and \textsf{\textbf{8}}). Results from this pipeline were visualized according to \autoref{fig:Tree_Pipeline}.}
     \label{fig:Precalc_Pipeline}
 \end{figure}
 
@@ -271,8 +273,8 @@ The labeled cluster trees were created by \texttt{ETE3} with a newick file, gene
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/Simple.pdf}
-    \caption[Alignment pipeline]{\textbf{Alignment pipeline.} The sequences related to the centroid vectors were  Results from this pipeline were visualized according to \autoref{fig:Tree_Pipeline}.}
-    \label{fig:Alignment_Pipeline}
+    \caption[Simplified clustering pipeline]{\textbf{Simplified clustering pipeline.} For the simplified clustering on the sequence subset, the the L1-normalized 7-mer vectors were reduced with \texttt{PCA} (\textsf{\textbf{B}} and \textsf{\textbf{C}}). Following the dimension reduction, the vectors were normlized again acording to L2-norm and clustered by \texttt{HDBCSCAN} (\textsf{\textbf{E}} and \textsf{\textbf{N}}). Results from this pipeline were visualized according to \autoref{fig:Tree_Pipeline}.}
+    \label{fig:Simple_Pipeline}
 \end{figure}
 
 The precalculated trees were created using cosine distance calculation on the L1-norm normalized 7-mer frequency vectors of the segment 4 H13 and H16 sequences of the FASTA (\autoref{fig:Precalc_Pipeline} \textsf{\textbf{F}}). The calculated distances were used for \gls{UPGMA} tree building with \texttt{BioPython} (\autoref{fig:Alignment_Pipeline} \textsf{\textbf{O}} and \textsf{\textbf{P}}). The vectors were also clustered by \texttt{HDBSCAN} using the calculated distances with \texttt{metric='precalculated'}. Other settings were used as described in \autoref{sec:HDBSCAN} without hybrid clustering.
