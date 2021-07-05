@@ -8,7 +8,7 @@
 
 30 components were extracted by the PCA \autocite{pedregosa_scikit-learn_2011}. Extraction of 30 components out of $4^7$ in total is $\approx 0.18\%$. The size limit of the PCA function for calculation with default setting \texttt{svd\_solver='auto'} is 500 different vectors with 500 components and at least 80\% of the components to extract. Since every maximum for standard settings was exceeded, \texttt{svd\_solver='randomized'} setting was used automatically \autocite{pedregosa_scikit-learn_2011}. Randomized truncated \gls{SVD} is performed in the PCA as described in \textcite{halko_finding_2010}.
 
-% \autoref{eq:PCA_k} and \autoref{eq:PCA_30} illustrate the use of the \gls{PCA} by the method of \textcite{halko_finding_2010} to reduce the matrix $\mathbf{X}_{\text{L1}}$ with $j=4^7$ dimensions to $k=30$ dimensions \autocite{jolliffe_principal_2016, pedregosa_scikit-learn_2011}. This calculation is a representation of the approach used in \autoref{fig:Clustering_Pipeline} pathway \textsf{\textbf{1}} and the settings for the Jupyter results with the use of \gls{PCA} only \autocite{kluyver_jupyter_2016}.
+% \autoref{eq:PCA_k} and \autoref{eq:PCA_30} illustrate the use of the \gls{PCA} by the method of \textcite{halko_finding_2010} to reduce the matrix $\mathbf{X}_{\text{L1}}$ with $j=4^7$ dimensions to $k=30$ dimensions \autocite{jolliffe_principal_2016, pedregosa_scikit-learn_2011}. This calculation is a representation of the approach used in \autoref{fig:Clustering_Pipeline} workflow \textsf{\textbf{1}} and the settings for the Jupyter results with the use of \gls{PCA} only \autocite{kluyver_jupyter_2016}.
 
 % \begin{empheq}{alignat = -1}
 %     &\mathbf{X}_{\text{PCA}} &&= \text{PCA}(\mathbf{X}_{\text{L1}}, \text{n\_components})\label{eq:PCA_k}\\

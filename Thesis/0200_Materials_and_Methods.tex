@@ -55,7 +55,7 @@ The version used for the proposed results was acquired at 08/11/2020\footnote{Ge
 \begin{table}[!hbt]
     \footnotesize
     \centering
-    \caption[Summary of the clustering methods]{\textbf{Summary of the clustering methods.} For easier separation the different settings were listed. Method PCA/DBCV and PCA/Knee use \autoref{fig:Vectorization_Pipeline} pathway \textsf{\textbf{1}} followed by \autoref{fig:Clustering_Pipeline} pathway \textsf{\textbf{3}} for method PCA/DBCV and \textsf{\textbf{4}} for PCA/Knee. Method UMAP/DBCV and UMAP/Knee differ only by the first part using \autoref{fig:Vectorization_Pipeline} pathway \textsf{\textbf{2}} instead of \textsf{\textbf{1}}.}
+    \caption[Summary of the clustering methods]{\textbf{Summary of the clustering methods.} For easier separation the different settings were listed. Method PCA/DBCV and PCA/Knee use \autoref{fig:Vectorization_Pipeline} workflow \textsf{\textbf{1}} followed by \autoref{fig:Clustering_Pipeline} workflow \textsf{\textbf{3}} for method PCA/DBCV and \textsf{\textbf{4}} for PCA/Knee. Method UMAP/DBCV and UMAP/Knee differ only by the first part using \autoref{fig:Vectorization_Pipeline} workflow \textsf{\textbf{2}} instead of \textsf{\textbf{1}}.}
     \label{tab:methods}
     \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}\hspace{6pt}}lllll}
         \toprule
@@ -80,14 +80,14 @@ A combined version of the pipelines in \autoref{fig:Vectorization_Pipeline}, \au
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/Vectorization.pdf}
-    \caption[Preprocessing pipeline]{\textbf{Preprocessing pipeline.} To create high-quality vectors representing the sequences, the FASTA file was translated to normalized vectors containing the 7-mer frequencies of the specific sequences (\textsf{\textbf{A}} and \textsf{\textbf{B}}). By pathway \textsf{\textbf{1}}, a low complexity representation of the vectors is obtained for clustering only using \texttt{PCA} (\textsf{\textbf{C}}). Pathway \textsf{\textbf{2}} describes additional execution of \texttt{UMAP} that can be used after \texttt{PCA} as intermediate instead of final step (\textsf{\textbf{D}}). Reduction with pathway \textsf{\textbf{1}} or \textsf{\textbf{2}} results in reduced frequency vectors with 30 components.} 
+    \caption[Preprocessing pipeline]{\textbf{Preprocessing pipeline.} To create high-quality vectors representing the sequences, the FASTA file was translated to normalized vectors containing the 7-mer frequencies of the specific sequences (\textsf{\textbf{A}} and \textsf{\textbf{B}}). By workflow \textsf{\textbf{1}}, a low complexity representation of the vectors is obtained for clustering only using \texttt{PCA} (\textsf{\textbf{C}}). workflow \textsf{\textbf{2}} describes additional execution of \texttt{UMAP} that can be used after \texttt{PCA} as intermediate instead of final step (\textsf{\textbf{D}}). Reduction with workflow \textsf{\textbf{1}} or \textsf{\textbf{2}} results in reduced frequency vectors with 30 components.} 
     \label{fig:Vectorization_Pipeline}
 \end{figure}
 
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/Clustering.pdf}
-    \caption[Clustering pipeline]{\textbf{Clustering pipeline.} Following the preprocessing pipeline (\autoref{fig:Vectorization_Pipeline}) normalization is used again with L2-norm as preparation for \texttt{HDBSCAN} (\textsf{\textbf{E}}). Initial \texttt{HDBSCAN} clustering (\textsf{\textbf{F}}) is performed in preparation to the $\varepsilon$ exploration using either pathway \textsf{\textbf{3}} or \textsf{\textbf{4}}. Final hybrid clustering (\textsf{\textbf{H}}) is then executed on the results of the $\varepsilon$ exploration using the Kneedle Algorithm (\textsf{\textbf{I}} and pathway \textsf{\textbf{4}} or DBCV (pathway \textsf{\textbf{3}} and \textsf{\textbf{G}}).}
+    \caption[Clustering pipeline]{\textbf{Clustering pipeline.} Following the preprocessing pipeline (\autoref{fig:Vectorization_Pipeline}) normalization is used again with L2-norm as preparation for \texttt{HDBSCAN} (\textsf{\textbf{E}}). Initial \texttt{HDBSCAN} clustering (\textsf{\textbf{F}}) is performed in preparation to the $\varepsilon$ exploration using either workflow \textsf{\textbf{3}} or \textsf{\textbf{4}}. Final hybrid clustering (\textsf{\textbf{H}}) is then executed on the results of the $\varepsilon$ exploration using the Kneedle Algorithm (\textsf{\textbf{I}} and workflow \textsf{\textbf{4}} or DBCV (workflow \textsf{\textbf{3}} and \textsf{\textbf{G}}).}
     \label{fig:Clustering_Pipeline}
 \end{figure}
 
@@ -117,7 +117,7 @@ The FASTA file containing the genomes of \gls{IAV} for clustering, was converted
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=0.5\textwidth]{Graphics/Kmer.pdf}
-    \caption[K-mer vector creation]{\textbf{K-mer vector creation.} An example genomic sequence (red box) is splitted into 3-mers. The sequences 3-mers are then compared to the list of all $4^3$ possible 3-mer constellations (blue box) Based on the occurrence number of the lists 3-mers in the sequence a vector with $4^3$ components is created (green box).}
+    \caption[$k$-mer vector creation]{\textbf{$k$-mer vector creation.} An example genomic sequence (red box) is splitted into 3-mers. The sequences 3-mers are then compared to the list of all $4^3$ possible 3-mer constellations (blue box) Based on the occurrence number of the lists 3-mers in the sequence a vector with $4^3$ components is created (green box).}
     \label{fig:k-mer}
 \end{figure}
 
@@ -135,11 +135,11 @@ To gain the frequency of the 7-mers all the vectors were normalized to a vector 
 
 \vspace{1em}
 
-Without posterior use of \texttt{UMAP} 30 components were extracted by the \texttt{PCA} (\autoref{fig:Vectorization_Pipeline} pathway \textsf{\textbf{1}}) and otherwise 100 (\autoref{fig:Vectorization_Pipeline} pathway \textsf{\textbf{2}}). Extraction of 30 or 100 components out of $4^7$ in total equals $\approx 0.18\%$ or $\approx 0.61\%$. The size limit of the \texttt{PCA} function for calculation with default setting \texttt{svd\_solver='auto'} is 500 different vectors with 500 components and at least 80\% of the components to extract. Since every maximum for standard settings was exceeded, \texttt{svd\_solver='randomized'} setting was used automatically. %\autocite{pedregosa_scikit-learn_2011}. %Randomized truncated \gls{SVD} is performed in the PCA as described in \textcite{halko_finding_2010}.
+Without posterior use of \texttt{UMAP} 30 components were extracted by the \texttt{PCA} (\autoref{fig:Vectorization_Pipeline} workflow \textsf{\textbf{1}}) and otherwise 100 (\autoref{fig:Vectorization_Pipeline} workflow \textsf{\textbf{2}}). Extraction of 30 or 100 components out of $4^7$ in total equals $\approx 0.18\%$ or $\approx 0.61\%$. The size limit of the \texttt{PCA} function for calculation with default setting \texttt{svd\_solver='auto'} is 500 different vectors with 500 components and at least 80\% of the components to extract. Since every maximum for standard settings was exceeded, \texttt{svd\_solver='randomized'} setting was used automatically. %\autocite{pedregosa_scikit-learn_2011}. %Randomized truncated \gls{SVD} is performed in the PCA as described in \textcite{halko_finding_2010}.
 
 \vspace{1em}
 
-\texttt{UMAP} was used for dimension reduction similar to \texttt{PCA}, aiming to better preserve the global structure of the data (\autoref{fig:Vectorization_Pipeline} \textsf{\textbf{D}} and pathway \textsf{\textbf{2}}) \autocite{mcinnes_umap_2020}. It is similar to the well-known \texttt{t-SNE} with better run time performance and better structure preservation in the lower dimension and less restrictions \autocite{maaten_visualizing_2008, mcinnes_umap_2020}. %Embedding is, hereby, the presentation of the used dataset in the lower dimension.
+\texttt{UMAP} was used for dimension reduction similar to \texttt{PCA}, aiming to better preserve the global structure of the data (\autoref{fig:Vectorization_Pipeline} \textsf{\textbf{D}} and workflow \textsf{\textbf{2}}) \autocite{mcinnes_umap_2020}. It is similar to the well-known \texttt{t-SNE} with better run time performance and better structure preservation in the lower dimension and less restrictions \autocite{maaten_visualizing_2008, mcinnes_umap_2020}. %Embedding is, hereby, the presentation of the used dataset in the lower dimension.
 
 The used parameters of \texttt{UMAP} match most of the ones listed in the manual under section \glqq UMAP enhanced clustering\grqq{}\footnote{\url{https://umap-learn.readthedocs.io/en/latest/clustering.html} (accessed 07/01/2020)}. The settings are proposed to be used with \texttt{UMAP} prior to \texttt{HDBSCAN} clustering. Since the goal was clustering, not plotting 30 components was used instead of the proposed 2. The neighbors number was also changed. It is recommended to be set in a range of 1 to 100. Based on the high number of sequences used e.~g.~, 56617 for segment 4, the highest recommended setting of 100 was used to better preserve the global picture of the data. Also based on the input size \texttt{n\_epochs=200} setting was used automatically.
 
@@ -240,7 +240,7 @@ The used chord distance is proportional with the initially intended to use cosin
 
 \section{Epsilon Selection} \label{sec:epsilon}
 
-To find an appropriate value for $\varepsilon$, two different methods were used and compared (\autoref{fig:Clustering_Pipeline} pathway \textsf{\textbf{3}} and \textsf{\textbf{4}}). The first method, the \gls{DBCV} exploration in \autoref{fig:Clustering_Pipeline} \textsf{\textbf{G}}, is based on repeated execution of hybrid \texttt{HDBSCAN} with different settings for $\varepsilon$ and comparison by the \gls{DBCV}. The \gls{DBCV} is a calculation based on the minimum spanning tree to estimate overall cluster density \autocite{moulavi_density-based_2014}. To enable the calculation hybrid \texttt{HDBSCAN} was performed with \texttt{gen\_min\_span\_tree=True} setting.
+To find an appropriate value for $\varepsilon$, two different methods were used and compared (\autoref{fig:Clustering_Pipeline} workflow \textsf{\textbf{3}} and \textsf{\textbf{4}}). The first method, the \gls{DBCV} exploration in \autoref{fig:Clustering_Pipeline} \textsf{\textbf{G}}, is based on repeated execution of hybrid \texttt{HDBSCAN} with different settings for $\varepsilon$ and comparison by the \gls{DBCV}. The \gls{DBCV} is a calculation based on the minimum spanning tree to estimate overall cluster density \autocite{moulavi_density-based_2014}. To enable the calculation hybrid \texttt{HDBSCAN} was performed with \texttt{gen\_min\_span\_tree=True} setting.
 
 \vspace{1em}
 
@@ -259,14 +259,14 @@ The labeled cluster trees were created by \texttt{ETE3} with a newick file, gene
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/Precalculated.pdf}
-    \caption[Precalculation pipeline]{\textbf{Precalculation pipeline.} For the precalculated trees the L1-normalized 7-mer frequency vectors distances were calculated and used for clustering by \texttt{HDBSCAN} (\textsf{\textbf{B}}, \textsf{\textbf{K}}, \textsf{\textbf{N}} and pathway \textsf{\textbf{7}}) and on the other hand processed with \texttt{BioPython} for \gls{UPGMA} tree creation and visualization by \texttt{ETE3} (\textsf{\textbf{N}} and \textsf{\textbf{8}}). Results from this pipeline were visualized according to \autoref{fig:Tree_Pipeline}.}
+    \caption[Precalculation pipeline]{\textbf{Precalculation pipeline.} For the precalculated trees the L1-normalized 7-mer frequency vectors distances were calculated and used for clustering by \texttt{HDBSCAN} (\textsf{\textbf{B}}, \textsf{\textbf{K}}, \textsf{\textbf{N}} and workflow \textsf{\textbf{7}}) and on the other hand processed with \texttt{BioPython} for \gls{UPGMA} tree creation and visualization by \texttt{ETE3} (\textsf{\textbf{N}} and \textsf{\textbf{8}}). Results from this pipeline were visualized according to \autoref{fig:Tree_Pipeline}.}
     \label{fig:Precalc_Pipeline}
 \end{figure}
 
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/Alignment.pdf}
-    \caption[Alignment pipeline]{\textbf{Alignment pipeline.} The sequences related to the centroid vectors were aligned using \texttt{MAFFT} resulting in the output as guide-tree visualized by \texttt{ETE3} (\textsf{\textbf{L}} and pathway \textsf{\textbf{5}}). A small FASTA subset of H13/H16 was also aligned by \texttt{MAFFT} prior to evolutionary distance calculation with \texttt{BioPython} and clustering with \texttt{HDBSCAN} (\textsf{\textbf{L}}, \textsf{\textbf{M}}, \textsf{\textbf{N}} and pathway \textsf{\textbf{6}}). Results from this pipeline were visualized according to \autoref{fig:Tree_Pipeline}.}
+    \caption[Alignment pipeline]{\textbf{Alignment pipeline.} The sequences related to the centroid vectors were aligned using \texttt{MAFFT} resulting in the output as guide-tree visualized by \texttt{ETE3} (\textsf{\textbf{L}} and workflow \textsf{\textbf{5}}). A small FASTA subset of H13/H16 was also aligned by \texttt{MAFFT} prior to evolutionary distance calculation with \texttt{BioPython} and clustering with \texttt{HDBSCAN} (\textsf{\textbf{L}}, \textsf{\textbf{M}}, \textsf{\textbf{N}} and workflow \textsf{\textbf{6}}). Results from this pipeline were visualized according to \autoref{fig:Tree_Pipeline}.}
     \label{fig:Alignment_Pipeline}
 \end{figure}
 
