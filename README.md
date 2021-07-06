@@ -8,7 +8,7 @@ This masterthesis was written as part of the Bioinformatik (M. Sc.) program at t
 
 ## Repository
 
-The repository contains the following folders and files. The main results are contained in the Results folder.
+The repository contains the following folders and files. The main results are contained in Results.
 
 | Content | Description |
 | -- | -- |
@@ -37,7 +37,7 @@ For the default execution discussed in the thesis, the default execution of the 
 
 `python3 Clustering.py -i A.fasta -p 50 -t 12`
 
-The FASTA file exceeds the size allowed to be placed in the repository. The following table can be used as input in the [nucleotide search interface](https://www.fludb.org/brc/influenza_sequence_search_segment_display.spg?method=ShowCleanSearch&decorator=influenza) of the Influenza Research Interface.
+The FASTA file exceeds the size allowed to be placed in the repository. The following table can be used as input in the [nucleotide search interface](https://www.fludb.org/brc/influenza_sequence_search_segment_display.spg?method=ShowCleanSearch&decorator=influenza) of the Influenza Research Database (IRD).
 
 | Field | Parameter |
 | -- | -- |
@@ -61,9 +61,9 @@ The header of the FASTA has to be modified on there according to
 
 to be used with the expected result. The tool combines three pipeline generated in the project:
 
-- Vectorization Pipeline, that can be found ![here](/Graphics/Vectorization.pdf)
-- Clustering Pipeline, that can be found ![here](/Graphics/Clustering.pdf)
-- Visualization Pipeline, that can be found ![here](/Graphics/Tree.pdf)
+- ![Vectorization Pipeline](/Graphics/Vectorization.pdf)
+- ![Clustering Pipeline](/Graphics/Clustering.pdf)
+- ![Visualization Pipeline](/Graphics/Tree.pdf)
 
 ## Manual
 
