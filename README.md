@@ -8,7 +8,7 @@ This masterthesis was written as part of the Bioinformatik (M. Sc.) program at t
 
 ## Repository
 
-The repository contains the following folders and files.
+The repository contains the following folders and files. The main results are contained in the Results folder.
 
 | Content | Description |
 | -- | -- |
@@ -18,14 +18,15 @@ The repository contains the following folders and files.
 | Thesis/ | Folder containing the components of written the thesis |
 | UMAP/ | Folder containing all UK and UD method comparison results |
 | A.fasta | The FASTA file used in the project |
-| Clustering.py | The *Influenza A Virus* clustering tool |
+| Clustering.py | The *Influenza A Virus* clustering tool as described above |
 | Environment.yml | The configuration file for recreation of the used environment |
 | PCA.ipynb | The pipeline used for the PK and PD method comparison results |
-| README.md | The instructions for usage of the clustering tool |
 | Thesis.pdf | The thesis in PDF format |
 | UMAP.ipynb | The pipeline used for the UK and UD method comparison results |
 
 ## Installation
+
+The tool used in the project can be installed as described in the following. 
 
 `git clone https://github.com/ahenoch/Masterthesis.git`
 
@@ -37,11 +38,11 @@ For the default execution discussed in the thesis, the default execution of the 
 
 `python3 Clustering.py -i A.fasta -p 50 -t 12`
 
-![Vectorization Pipeline](/Graphics/Vectorization.pdf)
+The tool combines three pipeline generated in the project:
 
-![Clustering Pipeline](/Graphics/Clustering.pdf)
-
-![Visualization Pipeline](/Graphics/Tree.pdf)
+- Vectorization Pipeline, that can be found ![here](/Graphics/Vectorization.pdf)
+- Clustering Pipeline, that can be found ![here](/Graphics/Clustering.pdf)
+- Visualization Pipeline, that can be found ![here](/Graphics/Tree.pdf)
 
 ## Manual
 
@@ -61,3 +62,18 @@ For the default execution discussed in the thesis, the default execution of the 
 | -r | --render | format of output graphics (default pdf) |
 | -t | --threads | number of threads to use for the pairwise cluster validation |
 | -h | --help | open the help page |
+
+## Results 
+
+The main results of the project include method comparisons to find the method most appropriate to cluster the *Influenza A Virus* as described in the ![thesis](/Masterthesis.pdf). A new classification was build using the method in the final step of the project, that can be found ![here](/Results/cluster.csv). All clusters are visualized as trees and validation plots.
+
+| Segment | Clustertree | Validation |
+| -- | -- | -- |
+| 1 | ![here](/Graphics/Clustertree_Segment_1.pdf) | ![here](/Graphics/Cluster_Difference_Segment_1.pdf) |
+| 2 | ![here](/Graphics/Clustertree_Segment_2.pdf) | ![here](/Graphics/Cluster_Difference_Segment_2.pdf) |
+| 3 | ![here](/Graphics/Clustertree_Segment_3.pdf) | ![here](/Graphics/Cluster_Difference_Segment_3.pdf) |
+| 4 | ![here](/Graphics/Clustertree_Segment_4.pdf) | ![here](/Graphics/Cluster_Difference_Segment_4.pdf) |
+| 5 | ![here](/Graphics/Clustertree_Segment_5.pdf) | ![here](/Graphics/Cluster_Difference_Segment_5.pdf) |
+| 6 | ![here](/Graphics/Clustertree_Segment_6.pdf) | ![here](/Graphics/Cluster_Difference_Segment_6.pdf) |
+| 7 | ![here](/Graphics/Clustertree_Segment_7.pdf) | ![here](/Graphics/Cluster_Difference_Segment_7.pdf) |
+| 8 | ![here](/Graphics/Clustertree_Segment_8.pdf) | ![here](/Graphics/Cluster_Difference_Segment_8.pdf) |
