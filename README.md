@@ -17,7 +17,6 @@ The repository contains the following folders and files. The main results are co
 | Results/ | Folder containing the result of every segments final clustering |
 | Thesis/ | Folder containing the components of written the thesis |
 | UMAP/ | Folder containing all UK and UD method comparison results |
-| A.fasta | The FASTA file used in the project |
 | Clustering.py | The *Influenza A Virus* clustering tool as described above |
 | Environment.yml | The configuration file for recreation of the used environment |
 | PCA.ipynb | The pipeline used for the PK and PD method comparison results |
@@ -26,7 +25,7 @@ The repository contains the following folders and files. The main results are co
 
 ## Installation
 
-The tool used in the project can be installed as described in the following. 
+The tool used in the project can be installed and used as described in the following. 
 
 `git clone https://github.com/ahenoch/Masterthesis.git`
 
@@ -38,7 +37,29 @@ For the default execution discussed in the thesis, the default execution of the 
 
 `python3 Clustering.py -i A.fasta -p 50 -t 12`
 
-The tool combines three pipeline generated in the project:
+The FASTA file exceeds the size allowed to be placed in the repository. The following table can be used as input in the [nucleotide search interface](https://www.fludb.org/brc/influenza_sequence_search_segment_display.spg?method=ShowCleanSearch&decorator=influenza) of the Influenza Research Interface.
+
+| Field | Parameter |
+| -- | -- |
+| Data Type | Genome Segments |
+| Virus Type | A |
+| Complete Genome | Complete Genome Only |
+| Select Segments | All |
+| Complete | All |
+
+The header of the FASTA has to be modified on there according to 
+
+1. accession 
+2. strain 
+3. segment 
+4. protein 
+5. genus 
+6. subtype 
+7. date 
+8. host 
+9. curation
+
+to be used with the expected result. The tool combines three pipeline generated in the project:
 
 - Vectorization Pipeline, that can be found ![here](/Graphics/Vectorization.pdf)
 - Clustering Pipeline, that can be found ![here](/Graphics/Clustering.pdf)
@@ -69,11 +90,11 @@ The main results of the project include method comparisons to find the method mo
 
 | Segment | Clustertree | Validation |
 | -- | -- | -- |
-| 1 | ![here](/Graphics/Clustertree_Segment_1.pdf) | ![here](/Graphics/Cluster_Difference_Segment_1.pdf) |
-| 2 | ![here](/Graphics/Clustertree_Segment_2.pdf) | ![here](/Graphics/Cluster_Difference_Segment_2.pdf) |
-| 3 | ![here](/Graphics/Clustertree_Segment_3.pdf) | ![here](/Graphics/Cluster_Difference_Segment_3.pdf) |
-| 4 | ![here](/Graphics/Clustertree_Segment_4.pdf) | ![here](/Graphics/Cluster_Difference_Segment_4.pdf) |
-| 5 | ![here](/Graphics/Clustertree_Segment_5.pdf) | ![here](/Graphics/Cluster_Difference_Segment_5.pdf) |
-| 6 | ![here](/Graphics/Clustertree_Segment_6.pdf) | ![here](/Graphics/Cluster_Difference_Segment_6.pdf) |
-| 7 | ![here](/Graphics/Clustertree_Segment_7.pdf) | ![here](/Graphics/Cluster_Difference_Segment_7.pdf) |
-| 8 | ![here](/Graphics/Clustertree_Segment_8.pdf) | ![here](/Graphics/Cluster_Difference_Segment_8.pdf) |
+| 1 | ![here](/Results/Clustertree_Segment_1.pdf) | ![here](/Results/Cluster_Difference_Segment_1.pdf) |
+| 2 | ![here](/Results/Clustertree_Segment_2.pdf) | ![here](/Results/Cluster_Difference_Segment_2.pdf) |
+| 3 | ![here](/Results/Clustertree_Segment_3.pdf) | ![here](/Results/Cluster_Difference_Segment_3.pdf) |
+| 4 | ![here](/Results/Clustertree_Segment_4.pdf) | ![here](/Results/Cluster_Difference_Segment_4.pdf) |
+| 5 | ![here](/Results/Clustertree_Segment_5.pdf) | ![here](/Results/Cluster_Difference_Segment_5.pdf) |
+| 6 | ![here](/Results/Clustertree_Segment_6.pdf) | ![here](/Results/Cluster_Difference_Segment_6.pdf) |
+| 7 | ![here](/Results/Clustertree_Segment_7.pdf) | ![here](/Results/Cluster_Difference_Segment_7.pdf) |
+| 8 | ![here](/Results/Clustertree_Segment_8.pdf) | ![here](/Results/Cluster_Difference_Segment_8.pdf) |
