@@ -1,6 +1,6 @@
 \chapter{Materials and Methods} \label{chap:Materials_and_Methods}
 
-\section{Data and Pipeline}
+\section{Data and pipeline}
 
 The tools listed in \autoref{tab:Package_Version} were installed using the \texttt{Conda package distribution system} version 2-2.4.0 \autocite{anaconda_software_distribution_anaconda_2020}. A configuration file for recreation of the used environment is present in the projects GitHub repository\footnote{\url{https://github.com/ahenoch/Masterthesis.git}}
 
@@ -110,7 +110,7 @@ The method is based on the one proposed by \textcite{viehweger_addressing_2019}.
     \end{aligned}
 \end{equation}
 
-\section{7-mer Frequency Calculation} \label{sec:Frequency}
+\section{7-mer frequency calculation} \label{sec:Frequency}
 
 The FASTA file containing the genomes of \gls{IAV} for clustering, was converted to vectors to enable clustering in high dimension by counting their 7-mer frequency (\autoref{fig:Vectorization_Pipeline} \textsf{\textbf{A}}) \autocite{edgar_muscle_2004}. $4^7$ possible constellations of the nucleotides A,C,G,T with length 7 exist. Therefore, taking every constellation into consideration, the vector of every sequence has $4^7$ components. The numbers in the vector components are the number of occurrences of the related 7-mer in the sequence. The first constellation of the $4^7$ possible ones with length 7 is AAAAAAA, given a example sequence of the FASTA contains this 7-mer 10 times, the first component of the sequences vector would be 10. \autoref{fig:k-mer} illustrates the calculation using 3-mers instead of 7-mers.
 
@@ -129,7 +129,7 @@ To gain the frequency of the 7-mers all the vectors were normalized to a vector 
     \end{aligned}
 \end{equation}
 
-\section{Dimension Reduction} \label{sec:PCA}
+\section{Dimension reduction} \label{sec:PCA}
 
 \texttt{PCA} was used to handle the complexity of the vectors by simplification with the least loss of information possible (\autoref{fig:Vectorization_Pipeline} \textsf{\textbf{C}}) \autocite{pearson_liii_1901} \autocite{pedregosa_scikit-learn_2011}.
 
@@ -147,7 +147,7 @@ The used parameters of \texttt{UMAP} match most of the ones listed in the manual
 
 \texttt{UMAP} was used posterior to dimension reduction with \texttt{PCA}, because of the similarity to \texttt{t-SNE}. As explained in the manual of \texttt{t-SNE}\footnote{\url{https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html} (accessed 07/01/2020)}, the dimension should be reduced to a reasonable amount prior to execution to reduce noise. In in section \glqq What is the difference between PCA / UMAP / VAEs?\grqq{} of the \texttt{UMAP} manual\footnote{\url{https://umap-learn.readthedocs.io/en/latest/faq.html} (accessed 07/01/2020)} a pipeline is proposed, to reduce from high dimension with \texttt{PCA}, continue with reduction by \texttt{UMAP} and cluster with \texttt{HDBSCAN} and is, therefore, used as reference. Reduction with \texttt{UMAP} to 30 components posterior to \texttt{PCA} with 100 components also provided a comfortable balancing of computational effort of both methods, while preserving $\approx 85\%$ explained variance with \texttt{PCA} \autocite{mcinnes_umap_2020}. 
 
-\section{Hybrid Clustering} \label{sec:HDBSCAN}
+\section{Hybrid clustering} \label{sec:HDBSCAN}
 
 \texttt{HDBSCAN} was used to cluster the reduced vectors. It is an clustering algorithm proposed by \textcite{campello_hierarchical_2015} as a novel version of the well-known \texttt{DBSCAN} \autocite{hutchison_density-based_2013}. Execution of \texttt{HDBSCAN} involves varying values of $\varepsilon$, thus, not one specific threshold is used to define the clusters, but instead clusters of varying densities are extracted based on their stability \autocite{mcinnes_hdbscan_2017}. \texttt{HDBSCAN} was used with hybrid clustering setting as proposed in \textcite{malzer_hybrid_2020}, combining \texttt{HDBSCAN} it with \texttt{DBSCAN}. Thereby, some of the disadvantages of using either of these methods can be avoided \autocite{mcinnes_hdbscan_2017, moulavi_density-based_2014}. Since \texttt{DBSCAN} is a hierarchical clustering tool, it is dependent on a strict threshold $\varepsilon$ for clustering. Vectors not surrounded by $k$ other vectors in a radius defined by this threshold value $\varepsilon$ are omitted as single vector clusters or noise \autocite{ester_density-based_1996, schubert_dbscan_2017}. Standard \texttt{HDBSCAN}, on the other hand, tend to create unwanted micro-clusters in areas of high density \autocite{mcinnes_hdbscan_2017}. Using the hybrid \texttt{HDBSCAN} proposed in \autocite{malzer_hybrid_2020}, a threshold value $\varepsilon$ can be used to extract these high density areas as single clusters with \texttt{DBSCAN}, but still use the standard \texttt{HDBSCAN} for the otherwise omitted vectors (\autoref{fig:Hybrid} and \autoref{fig:Clustering_Pipeline} \textsf{\textbf{H}}). Hybrid \texttt{HDBSCAN} is, thus, clustering with \texttt{DBSCAN},resulting in a \textbf{raw} cluster number containing finished clusters and omitted single vector clusters, and subsequent standard \texttt{HDBSCAN}, reducing the \textbf{final} cluster number by clustering the omitted vectors.
 
@@ -238,7 +238,7 @@ The used chord distance is proportional with the initially intended to use cosin
     \label{fig:HDB}
 \end{figure}
 
-\section{Epsilon Selection} \label{sec:epsilon}
+\section{Epsilon selection} \label{sec:epsilon}
 
 To find an appropriate value for $\varepsilon$, two different methods were used and compared (\autoref{fig:Clustering_Pipeline} workflow \textsf{\textbf{3}} and \textsf{\textbf{4}}). The first method, the \gls{DBCV} exploration in \autoref{fig:Clustering_Pipeline} \textsf{\textbf{G}}, is based on repeated execution of hybrid \texttt{HDBSCAN} with different settings for $\varepsilon$ and comparison by the \gls{DBCV}. The \gls{DBCV} is a calculation based on the minimum spanning tree to estimate overall cluster density \autocite{moulavi_density-based_2014}. To enable the calculation hybrid \texttt{HDBSCAN} was performed with \texttt{gen\_min\_span\_tree=True} setting.
 
@@ -250,7 +250,7 @@ Second method for $\varepsilon$ exploration was performed using the Kneedle Algo
 
 Knee point selection was restricted to a given area between one and a maximum value of 500. The maximum was chosen to include the area with the highest expected differences. The best Knee point was expected to be less than 100, a higher value was used to prevent forcing the number of clusters to be maximal 100. 
 
-\section{Alignments and Vector Calculations} \label{sec:MAFFT}
+\section{Alignments and vector calculations} \label{sec:MAFFT}
 
 The labeled cluster trees were created by \texttt{ETE3} with a newick file, generated according to a feature request, proposed for the \texttt{SciPy}\footnote{\url{https://github.com/scipy/scipy/issues/8274} (accessed 06/02/21)} (\autoref{fig:Tree_Pipeline} \textsf{\textbf{J}}) \autocite{huerta-cepas_ete_2016}. Clusters centroid vectors were selected by calculating euclidean distance between all the vectors of a cluster to each other. The vector with the smallest mean distance was declared as centroid (\autoref{fig:Tree_Pipeline} \textsf{\textbf{K}}). 
 
