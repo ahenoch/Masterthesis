@@ -48,6 +48,8 @@ Clustering with each of the four methods, resulted in tables containing the used
     {\output}
 \end{table}
 
+\vspace{1em}
+
 Comparing the methods to the ones using the \gls{DBCV} for $\varepsilon$ exploration instead of the Kneedle Algorithm (\autoref{tab:Cluster_DBCV} did not result in much difference for the \texttt{UMAP} reduction with \gls{DBCV} exploration method (UD). The number of clusters found was a little higher compared to the results found with the Kneedle Algorithm exploration. Using \gls{DBCV} to find the optimal $\varepsilon$ with the \texttt{PCA} pipeline (PD) on the other hand changes the results drastically. The number of final clusters was between 9000 and 12000 depending on the segment, with the exception of segment 4. The raw cluster number was equivalent to the total number of sequences for the given segment. Also the number of unclustered sequences was increased by a major amount to around 20\% for some segments, making the method in any case unusable for \gls{IAV} clustering. Only the clustering of segment 4 with \gls{DBCV} $\varepsilon$ exploration (PD) seemed to be as stable as with the Kneedle Algorithm (PK). The number of clusters for the other segments was higher, because the \gls{DBCV} method was searching for the $\varepsilon$ value setting that results in the best \gls{DBCV}. In all the segments except 4 this resulted in a value of zero. Hybrid clustering with a $\varepsilon$ value of zero results in standard \texttt{HDBSCAN} clustering only and is, considering the amount of unclustered sequences, not suited for \gls{IAV} clustering without the hybrid setting. Based on the results in \autoref{tab:Cluster_Knee} and \autoref{tab:Cluster_DBCV}, the best method for \gls{IAV} clustering seemed to be the combination of \texttt{PCA} and the Kneedle Algorithm (PK). It resulted in an appropriate number of clusters and was the only combination using all the benefits of the hybrid \texttt{HDBSCAN} clustering. 
 
 \begin{table}[!hbt]
@@ -96,6 +98,8 @@ Comparing the methods to the ones using the \gls{DBCV} for $\varepsilon$ explora
     {\output}
 \end{table}
 
+\vspace{1em}
+
 To backup this assumption, the results were visualized for better understanding and analysis. Since investigation of all segments would overfill this section, only the methods PK, UK and UD and their clustering behavior on segment 4 were discussed in detail. As described, the \texttt{PCA} method in combination with the \gls{DBCV} (PD) used only standard \texttt{HDBSCAN}, resulting in a very high number of clusters and 20\% unclustered sequences. Therefore, the method is already rejected and not included in the following discussions. Nevertheless, all graphics for the other segments with all used method can be found in the \autoref{chap:Appendix}. 
 
 \begin{figure}[!hbt]
@@ -124,6 +128,8 @@ To backup this assumption, the results were visualized for better understanding 
     \caption[Clustering of segment 4 with PK]{\textbf{Clustering of segment 4 with PK.} Segment 4 clustering, using the combination of \texttt{PCA} and the Kneedle Algorithm (PK) results in the given figure. The green curve in the top left sub figure describes the change of the distance in the single linkage tree with increasing normalized cluster number and, therefore, the location of the knee, at the maximum, highlighted by the red line. The blue line is the inverse polynomial representation of the blue line in top right sub figure. The top right sub figure shows the absolute relation of the distance in the single linkage tree to the total number of clusters as the blue line. The red line, indicates the number of raw clusters, by the \texttt{DBSCAN} part of the hybrid \texttt{HDBSCAN} clustering and the final cluster number in green. The yellow line describes the threshold, extracted from the knee and, therefore, the $\varepsilon$ value used to perform the hybrid clustering. The normalized cluster number in the red line in the top left sub figure is equivalent to the raw cluster number in the top right sub figure. The bottom sub figures give information about the distribution of the clusters sizes, by plotting the number of clusters containing a given counted number of sequences in continuous and logarithmic scale.}
     \label{fig:PCA_Cluster_Knee_4}
 \end{figure}
+
+\vspace{1em}
 
 A big difference in the cluster size distribution stand out, when comparing the method with \texttt{PCA} (PK) to the ones with \texttt{UMAP} (UK and UD). Only the method using \texttt{PCA} and the Kneedle Algorithm created clusters with more than 10000 vectors (\autoref{subfig:PCA_Cluster_Knee_Distributione_4}). The different cluster sizes using \texttt{UMAP} are spreaded more equally with no cluster of 3000 vectors or more (\autoref{subfig:UMAP_Cluster_DBCV_Distribution_4} and \autoref{subfig:UMAP_Cluster_Knee_Distributione_4}). Since the \texttt{UMAP} methods also use prior \texttt{PCA} reduction, the major difference is the additional use of \texttt{UMAP} (\autoref{sec:Dimension_Reduction}). Therefore, the difference in cluster size distribution was most likely caused by \texttt{UMAP}. \texttt{UMAP} not only reduces the dimension of the data but also changes the position of the vectors in the embedded dimension according to the used settings. The \texttt{n\_neighbors=100} setting seems to be most likely the cause of a change of this magnitude. By increasing the number of neighbors the vectors were more crowded in groups to support the bigger picture of the data and, therefore, seemed to build more crowded clusters of equal sizes. 
 
@@ -170,6 +176,8 @@ If a cluster contains sequences of more than one subtype plus some not classifie
     {PCA/error_segment_4_cluster_29_difference_head.csv}
 \end{table}
 
+\vspace{1em}
+
 The prime example of the not classified sequence annotation is the yellow labeled cluster 29 of subtype H9 (\autoref{fig:PCA_Clusteree_Knee_4} \textbf{\textsf{A}}). While the vectors of all sequences of subtype H9 are accumulated in this single cluster, the cluster size of 1569 is bigger than the number of H9 sequences in \autoref{subfig:Frequency_4} with 1454. This is justified by the presence of 115 not classified sequences in the cluster which are declared as H9, since only H9 and unclassified sequences are present in the cluster. The declaration of the unclassified sequences to be the H9 sequences is supported by the very small evolutionary distance values for the unclassified sequences in comparison to a sample of H9 sequences from the same cluster (\autoref{tab:PCA_Error_4_29}). The sequences were also compared to unclassified sequences from other clusters to prove the smaller evolutionary distance to H9 sequences. This comparison was performed to prove that, even when only used for visualization reasons, the annotation of not classified sequences in that way is most likely true.
 
 \vspace{1em}
@@ -193,6 +201,8 @@ The number of clusters for a given subtype of \gls{HA} antibody seems to corresp
     \caption[Clustering tree of segment 4 with PK]{\textbf{Clustering tree of segment 4 with PK.} The cluster tree of segment 4 clustering, using the combination of \texttt{PCA} and the Kneedle Algorithm (PK) (\autoref{fig:PCA_Cluster_Knee_4}). The labeling of the clusters in the tree is based on the subtype of the contained sequences. Unclassified sequences of a cluster are reclassified as a given subtype if sequences of only this subtype are present in the cluster in addition to the unclassified ones. Unlabeled clusters contain sequences from at least two subtypes and zero or more unclassified sequences. Two clusters are mixed since containing sequences of more than one subtype (\autoref{tab:Cluster_Knee}). These non homogeneous clusters are marked by \textbf{\textsf{B}} and \textbf{\textsf{C}}. The cluster 29 marked by \textbf{\textsf{A}} is an example for an cluster consisting of all sequences from a given subtype. The misplaced cluster from subtype H3 is marked by \textbf{\textsf{D}}. Dotted lines in the tree indicate the same host.}
     \label{fig:PCA_Clusteree_Knee_4}
 \end{figure}
+
+\vspace{1em}
 
 Striking anomalies divergent from the expected nearly uniform allocation of the subtypes in \autoref{fig:PCA_Cluster_Knee_4} are noted by \textbf{\textsf{B}}, \textbf{\textsf{C}} and \textbf{\textsf{D}} and are discussed in the following. For final acceptance of the method PK as the prime \gls{IAV} clustering method proposed in this project, the cluster tree was compared to a similar one created on the results from method UK (\autoref{fig:UMAP_Clusteree_Knee_4}. While the labeling of the cluster tree of method PK resemble the subtype classification of \gls{IAV} very closely, no recognizable subtype separation is present in the cluster tree of UK. 
 \footnotetext{\url{https://github.com/ahenoch/Masterthesis.git}}

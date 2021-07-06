@@ -7,13 +7,17 @@
     \label{fig:Result_Clustertree_Segment_4}
 \end{figure}
 
-Reannotation of the most likely false annotated sequence in \autoref{fig:PCA_Clusteree_Knee_4} \textbf{\textsf{C}} as well as increasing of the components in \texttt{PCA} successfully raised the accuracy of the pipeline. Thus, the clustering was performed according to the PK method, that proved to give the most stable results, with 50 components reduction instead of 30. Clustering errors found in the previous section were resolved successfully as H13 and H16 are now completely divided, with the mentioned small but still present difference between these subtypes. Also, all clusters of H3 are now present in direct connection to each other and no cluster not homogeneous for one subtype exist anymore.
+Reannotation of the most likely false annotated sequence in \autoref{fig:PCA_Clusteree_Knee_4} \textbf{\textsf{C}} as well as increasing of the components in \texttt{PCA} successfully raised the accuracy of the pipeline. Thus, the clustering was performed according to the PK method, that proved to give the most stable results, with 50 components reduction instead of 30. Clustering errors found in the previous section were resolved successfully as H13 and H16 are now completely divided, with the mentioned small but still present difference between these subtypes. Also, all clusters of H3 are now present in direct connection to each other and no cluster not homogeneous for one subtype exist anymore. Comparison of the associated clustering information graphics in \autoref{fig:Result_Cluster_Knee_4} to the previous ones in \autoref{sec:Clustering} also indicate a small improvement in stability of the Kneedle Algorithm $\varepsilon$ exploration. Little changes in the distribution of the clustersizes are also noticeable, as a cluster now exist, containing 20000 of the H3 sequences pointing in direction of a merge of two big clusters by the availability of a higher amount of information.  
 
 \vspace{1em}
 %neue classification vorschlagen blablabla
 % vielleicht bisschen evolution black sea gull etc
 
-Resulting from this improved clustering of segment 4 a new classification involving 57 groups instead of 18 subtypes is proposed (\autoref{fig:Result_Clustertree_Segment_4}). By pairwise comparison of random 10 sequence samples of these groups the similarity inside these groups is described in \autoref{fig:Proof_Clustertree_Segment_4}. To avoid creating a bias, the result for accidental comparisons of sequences with the same accession are ignored and not considered in calculations of respective mean values. Samples of 10 sequences were used due to the high amount of computational power that is necessary for this calculation. For segment 4 calculation involves $10^2$ pairwise alignments, for every of the 57 clusters to each other. Making $57^2\cdot 10^2$ calculations.
+Resulting from this improved clustering of segment 4 a new classification involving 57 groups instead of 18 subtypes is proposed (\autoref{fig:Result_Clustertree_Segment_4}). The big differences in the cluster sizes related to H1 and H3 indicate a high amount of more similar sequences. This can be caused by the higher abundance of more present-day sequences and continued evolution, thus, higher differences in comparison to less sequenced strains of the past decades. Less present mutations lowering the infectiousness and therefore, not established in a higher amount of strains or sequencing errors that produced undesired niches are also possible. These possible error sources have to be examined in the next steps following this project.
+
+\vspace{1em}
+
+By pairwise comparison of random 10 sequence samples of these groups the similarity inside these groups is described in \autoref{fig:Proof_Clustertree_Segment_4}. To avoid creating a bias, the result for accidental comparisons of sequences with the same accession are ignored and not considered in calculations of respective mean values. Samples of 10 sequences were used due to the high amount of computational power that is necessary for this calculation. For segment 4 calculation involves $10^2$ pairwise alignments, for every of the 57 clusters to each other. Making $57^2\cdot 10^2$ calculations.
 
 \begin{figure}[!hbt]
     \centering
@@ -21,6 +25,8 @@ Resulting from this improved clustering of segment 4 a new classification involv
     \caption[Similarity matrix of segment 4 clusters]{\textbf{Similarity matrix of segment 4 clusters.}. Random samples of up to 10 sequences of every cluster in \autoref{fig:Result_Clustertree_Segment_4} were compared by pairwise alignments with the samples of all other clusters. Less than 10 sequences were only used in clusters containing less than 10 sequences. The percentage of similarity was calculated for very alignment making a matrix of up to $10\times10$ holding the similarity values of the samples comparisons. The mean of the matrix was then calculated and written as the given cluster interactions mean similarity. This was repeated for every possible cluster interaction resulting in the presented figure. Interactions of the same clusters were reduced to only different sequences, results of alignments with sequences having the same accession were removed, thereby, preventing bias creation. The mean of these up to 100 comparisons for every cluster interaction are colored according to their similarity from 1.0 or 100\% similarity in red to 0.0 or 0\% similarity in blue.}
     \label{fig:Proof_Clustertree_Segment_4}
 \end{figure}
+
+\vspace{1em}
 
 All clusters in \autoref{fig:Proof_Clustertree_Segment_4} have the highest similarities with themselves and mostly high similarities with clusters of the same subtype. For instance cluster 0, share some degree of sequence identity with other clusters stemming from the same subtype H1, as shown in \autoref{fig:Proof_Clustertree_Segment_4}. However, the highest similarity of around 90\% is only shared with other sequences of the cluster itself, which makes this cluster very self contained. 
 
@@ -43,7 +49,7 @@ While the clusters of segment 4 seem to be very self contained and give a good r
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=0.5\textwidth]{Graphics/Transition.pdf}
-    \caption[7-mer vector calculation involving transitions]{\textbf{7-mer vector calculation involving transitions.} An example genomic sequence (red box) is splitted into 3-mers. The sequences 3-mers are then compared to the list of all $4^3$ possible 3-mer constellations (blue box) Based on the occurrence number of the lists 3-mers in the sequence a vector with $4^3$ components is created (green box).}
+    \caption[7-mer vector calculation involving transitions]{\textbf{7-mer vector calculation involving transitions.} By changing \autoref{fig:k-mer} to include e.~g.~, all transitions possible with one mutation, evolutionary distance can be included in the vectors themselves. Thereby, vectors involving sequences different by a small amount of mutations with higher evolutionary significance move closer to each other. All weightings used here are only exemplary and useful values have to be selected in the future based on novel publications  involving mutation probabilities.}
     \label{fig:trans}
 \end{figure}
 

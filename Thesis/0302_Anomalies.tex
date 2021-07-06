@@ -31,6 +31,8 @@ To evaluate the anomalies in \autoref{fig:PCA_Cluster_Knee_4} \textbf{\textsf{B}
     {PCA/error_segment_4_cluster_2_difference_head.csv}
 \end{table}
 
+\vspace{1em}
+
 In case of \autoref{fig:PCA_Cluster_Knee_4} \textbf{\textsf{C}}, a single sequence with subtype H10 was classified as belonging to cluster 2 which other than that completely consists of H1 and unclassified sequences. By investigation on this possible misplacement, comparison with \gls{MSA} was used. The results for this comparison in \autoref{tab:PCA_Error_4_2} points to the fact, that the as H10 annotated sequence with accession MK237334 is related to subtype H1. The mean of evolutionary distance based on \glspl{MSA} with the sequence and a sample of cluster 0 H1 sequences was very low. Considering the large size of cluster 0 a higher difference was expected, pointing in direction of many very similar sequences in the cluster. Nevertheless, the evolutionary distance of the sequence in comparison to a sample of random H10 sequences was much higher (\autoref{tab:PCA_Error_4_2}). %Even when considering the random sampling of the H10 sequences and the possibility of higher differences of the sequences by origination from different clusters, a misannotation is still more likely. 
 Furthermore, only this sole sequence, annotated as subtype H10, was present in a cluster of over 900 sequences of H1 with a very low evolutionary distance to a sequence sample of the cluster, rendering the error most likely as a misannotation.
 
@@ -63,7 +65,8 @@ Furthermore, only this sole sequence, annotated as subtype H10, was present in a
     {PCA/error_segment_4_cluster_48_difference_head.csv}
 \end{table}
 
-\footnotetext{\url{https://github.com/ahenoch/Masterthesis.git}}
+\vspace{1em}
+
 When comparing the distances for the same calculation performed on \autoref{fig:PCA_Cluster_Knee_4} \textbf{\textsf{C}} in \autoref{tab:PCA_Error_4_48}, no decision for misannotation can be made. The dominant subtype in the cluster 48 is H16 but the sequences of subtype H13 that seem to be misplaced in the cluster have a smaller distance to the sample of sequences from subtype H13. The difference in distance to sample sequences of H13 as well as to sequences of H16 gave indeed no clear finding. Both results are quite similar and the misclustered sequences seem to share much sequence similarity with both subtypes. Maybe the misclustered sequences in cluster 48 point to a more complex classification. Cluster 48 remained a mixed cluster with many sequences from subtype H13 and H16 and, thus, was treated as clustering error. Therefore, subtype H13 and H16 are the focus of investigations of the clustering behavior in the following sections to reveal possible subdivisions responsible for the clustering error.
 
 \begin{figure}[!hbt]
@@ -73,7 +76,10 @@ When comparing the distances for the same calculation performed on \autoref{fig:
     \label{fig:PCA_Guidetree_Centroid_4}
 \end{figure}
 
+\vspace{1em}
+
 The last error involved cluster 4, that is homogeneous for subtype H3 but is split off the other H3 clusters by nearly all the non H3 clusters \autoref{fig:PCA_Cluster_Knee_4} \textbf{\textsf{D}}. By evaluation of the clusters relation with a \gls{MSA} created guide tree generated from the centroid vectors sequences, the error persists (\autoref{fig:PCA_Guidetree_Centroid_4}). Every of the 55 clusters have a sequence that should best represent the whole cluster, the centroid sequence, calculated as described in \autoref{sec:MAFFT}. When using the guide tree as comparison, the uniform labeled distribution stood out. Even the centroid of the mentioned cluster 4 is arranged in a line with all the centroids of clusters homogeneous for subtype H3. This subset of centroid sequences used for the guide tree might be to small for a sure proof, but still the centroid sequences should be the most meaningful ones representing the whole cluster and point to a clear subtype separation. Therefore cluster 4 and 48 (\autoref{fig:PCA_Cluster_Knee_4} \textbf{\textsf{C}} and \textbf{\textsf{D}}) remained as identified clustering mistakes and are further examined in the following.
+\footnotetext{\url{https://github.com/ahenoch/Masterthesis.git}}
 
 %Übergang zu cluster Comparison durch Centroid Alignment Tree -> H13/H16 Clustertree, Alignmenttree Vergleich -> Cluster H13/H16 Comparison
 %fehler im clustering oder fehler in der DAtenbank
