@@ -37,7 +37,7 @@ For the default execution discussed in the thesis, the default execution of the 
 
 `python3 Clustering.py -i A.fasta -p 50 -t 12`
 
-The FASTA file exceeds the size allowed to be placed in the repository. The following table can be used as input in the [nucleotide search interface](https://www.fludb.org/brc/influenza_sequence_search_segment_display.spg?method=ShowCleanSearch&decorator=influenza) of the Influenza Research Database (IRD). The FASTA can be also downloaded directly from the [FSU-Clous](https://cloud.uni-jena.de/s/Pd3rcsDiKGsiBGD)
+The FASTA file exceeds the size allowed to be placed in the repository. The following table can be used as input in the [nucleotide search interface](https://www.fludb.org/brc/influenza_sequence_search_segment_display.spg?method=ShowCleanSearch&decorator=influenza) of the Influenza Research Database (IRD). The FASTA can be also downloaded directly from the [here](https://cloud.uni-jena.de/s/Pd3rcsDiKGsiBGD).
 
 | Field | Parameter |
 | -- | -- |
@@ -86,7 +86,7 @@ to be used with the expected result. The tool combines three pipeline generated 
 
 ## Results 
 
-The main results of the project include method comparisons to find the method most appropriate to cluster the *Influenza A Virus* as described in the ![thesis](/Masterthesis.pdf). A new classification was build using the method in the final step of the project, that can be found ![here](/Results/cluster.csv). All clusters are visualized as trees and validation plots.
+The main results of the project include method comparisons to find the method most appropriate to cluster the *Influenza A Virus* as described in the ![thesis](/Masterthesis.pdf). A new classification was build using the method in the final step of the project, that includes cluster assignment for all accessions and can be found ![here](/Results/cluster.csv). All clusters are visualized as trees and validation plots.
 
 | Segment | Clustertree | Validation |
 | -- | -- | -- |
@@ -98,3 +98,11 @@ The main results of the project include method comparisons to find the method mo
 | 6 | ![here](/Results/Clustertree_Segment_6.pdf) | ![here](/Results/Cluster_Difference_Segment_6.pdf) |
 | 7 | ![here](/Results/Clustertree_Segment_7.pdf) | ![here](/Results/Cluster_Difference_Segment_7.pdf) |
 | 8 | ![here](/Results/Clustertree_Segment_8.pdf) | ![here](/Results/Cluster_Difference_Segment_8.pdf) |
+
+## Next Steps
+
+All future steps are described in the thesis. The most important ones are listed here:
+
+- k-mer frequency vectors considering evolutionary aspects with the BLOSUM matrix
+- Kneedle Algorithm without area and poly calculation to obliterate even the slightest bias
+- Deeper examination of the best dimension to reduce the vectors with `PCA` to
