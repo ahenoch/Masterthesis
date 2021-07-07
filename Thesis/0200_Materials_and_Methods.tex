@@ -67,7 +67,7 @@ Since its file size exceeds the limits of GitHub, the FASTA file containing all 
     \end{tabular*}
 \end{table}
 
-In this project four different ways to cluster the segments of \gls{IAV} are described and discussed (\autoref{tab:methods}). The methods are compared to each other and analyzed for their capability of \gls{IAV} clustering. Abbreviations of the four methods were used in the following as indicated in \autoref{tab:methods}. A combined version of the pipelines in \autoref{fig:Vectorization_Pipeline}, \autoref{fig:Clustering_Pipeline} and \autoref{fig:Tree_Pipeline} is available in the projects GitHub repository\footnote{\url{https://github.com/ahenoch/Masterthesis.git}} as a novel clustering tool for \gls{IAV} genomes. The tool contains the method elaborated as best suitable for \gls{IAV} clustering and is intended to be used for future research (\autoref{sec:Serotype_Classification}). Execution of the tool on the FASTA file containing 449462 sequences takes around one and a half hours. The sequences are, thereby, clustered segment-wise based on their 7-mer frequencies. The output consists of database ready CSV files holding the cluster assignment of every sequence, analysis graphics and a labeled cluster tree of each used segment. 
+In this project four different ways to cluster the segments of \gls{IAV} are described and discussed (\autoref{tab:methods}). The methods are compared to each other and analyzed for their capability of \gls{IAV} clustering. Abbreviations of the four methods were used in the following as indicated in \autoref{tab:methods}. A combined version of the pipelines in \autoref{fig:Vectorization_Pipeline}, \autoref{fig:Clustering_Pipeline} and \autoref{fig:Tree_Pipeline} is available in the projects GitHub repository\footnote{\url{https://github.com/ahenoch/Masterthesis.git}} as a novel clustering tool for \gls{IAV} genomes (\autoref{sec:Serotype_Classification}). The tool contains the method elaborated as best suitable for \gls{IAV} clustering and is intended to be used for future research. Execution of the tool on the FASTA file containing 449462 sequences takes around one and a half hours. The sequences are, thereby, clustered segment-wise based on their 7-mer frequencies. The output consists of database ready CSV files holding the cluster assignment of every sequence, analysis graphics and a labeled cluster tree of each used segment. 
 
 \begin{figure}[!hbt]
     \centering
@@ -83,24 +83,22 @@ In this project four different ways to cluster the segments of \gls{IAV} are des
     \label{fig:Clustering_Pipeline}
 \end{figure}
 
-\begin{figure}[!hbt]
-    \centering
-    \includegraphics[width=\textwidth]{Graphics/Tree.pdf}
-    \caption[Postprocessing pipeline]{\textbf{Postprocessing pipeline.} Following the clustering pipeline (\autoref{fig:Clustering_Pipeline}) the cluster-tree is build by \texttt{BioPython} and visualized by \texttt{ETE3} (\textsf{\textbf{J}}). For every cluster the vectors with the smallest distance to the other cluster members are calculated and determined as the clusters centroids (\textsf{\textbf{K}}).}
-    \label{fig:Tree_Pipeline}
-\end{figure}
-
 \vspace{1em}
 
 The method is based on the one proposed by \textcite{viehweger_addressing_2019}. Instead of using the tool \texttt{nanotext} as proposed in \textcite{viehweger_encoding_2019}, a simple 7-mer frequency calculation was implemented and used as described in \autoref{sec:Frequency}. Similar to \textcite{viehweger_addressing_2019}, the calculated vectors were clustered using the same tool \texttt{HDBSCAN} but with settings described in the \autoref{sec:HDBSCAN} instead. Since \texttt{nanotext} was not used in this project, different types of dimension reduction were performed and compared, as described in \autoref{sec:PCA} and discussed in \autoref{sec:Clustering}. With reference to the use of cosine similarity $s_{\text{cos}}(\mathbf{x}, \mathbf{y})$ as measurement for genomic similarity in \texttt{nanotext}, the use of the complementary cosine distance $d_{\text{cos}}(\mathbf{x}, \mathbf{y})$ in \texttt{HDBSCAN} was targeted (\autoref{eq:cos}) \autocite{viehweger_encoding_2019}. %To my best knowledge there is no other publication to the present day that used the same method proposed or created similar results.
-
-\clearpage
 
 \begin{equation}\label{eq:cos}
     \begin{aligned}
         d_{\text{cos}}(\mathbf{x}, \mathbf{y}) = 1 - s_{\text{cos}}(\mathbf{x}, \mathbf{y})
     \end{aligned}
 \end{equation}
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=\textwidth]{Graphics/Tree.pdf}
+    \caption[Postprocessing pipeline]{\textbf{Postprocessing pipeline.} Following the clustering pipeline (\autoref{fig:Clustering_Pipeline}) the cluster-tree is build by \texttt{BioPython} and visualized by \texttt{ETE3} (\textsf{\textbf{J}}). For every cluster the vectors with the smallest distance to the other cluster members are calculated and determined as the clusters centroids (\textsf{\textbf{K}}).}
+    \label{fig:Tree_Pipeline}
+\end{figure}
 
 \section{7-mer frequency calculation} \label{sec:Frequency}
 
