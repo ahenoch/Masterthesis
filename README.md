@@ -1,10 +1,10 @@
 # Masterthesis
 
-This masterthesis was written as part of the Bioinformatik (M. Sc.) program at the Friedrich-Schiller-Universität Jena. The project was supervised by Prof. Dr. Manja Marz and Kevin Lamkiewicz.
+This thesis was written as part of the Bioinformatik (M. Sc.) program at the Friedrich-Schiller-Universität Jena. The whole project was supervised by Prof. Dr. Manja Marz and Kevin Lamkiewicz.
 
-## Introduction
+## Abstract
 
-
+Reoccurring local outbreaks of new, highly pathogenic strains of the \gls{IAV}, picture a unnoticed but still persisting major danger to the whole human population, that reached global extend with millions of deaths several times in the past. Due to the lack of a real cure, resort to vaccines producing varying levels of immunization with yearly expiration is inevitable. For better preparation on possible future pandemics, enlarging the knowledge of the \gls{IAV} is crucial. High evolution-rates by more drastic mutation mechanisms of the \gls{IAV}, with an aged classification containing little insight, complicate accurate novel research though. This thesis, thus, serves the elaboration of a pipeline usable on all existing and subsequently sequenced genomes of \gls{IAV}, to not only renew the classification but also keep it up-to-date. Instead of being alignment based, this method utilizes the better scalablity of $k$-mer frequency vectors in a novel hybrid clustering approach, connecting hierarchical with density-based clustering. Most appropriate parameters were thoroughly tested and selected by different validation techniques. For best preservation of the high amount of information included in the vectors used in the clustering, different tools were tested for the best representation in a clusterable dimension. Thereby, a workflow combining a careful selected vector clustering method with appropriate parameters, posterior to a dimension reduction, preserving a high amount of information, was proposed. 
 
 ## Repository
 
@@ -37,7 +37,7 @@ For the default execution discussed in the thesis, the default execution of the 
 
 `python3 Clustering.py -i A.fasta -p 50 -t 12`
 
-The FASTA file exceeds the size allowed to be placed in the repository. The following table can be used as input in the [nucleotide search interface](https://www.fludb.org/brc/influenza_sequence_search_segment_display.spg?method=ShowCleanSearch&decorator=influenza) of the Influenza Research Database (IRD). The FASTA can be also downloaded directly from the [here](https://cloud.uni-jena.de/s/fYkQ2NAwjND8oEM).
+The FASTA file exceeds the size allowed to be placed in the repository. The following table can be used as input in the [nucleotide search interface](https://www.fludb.org/brc/influenza_sequence_search_segment_display.spg?method=ShowCleanSearch&decorator=influenza) of the Influenza Research Database (IRD) to recreate the file in a more recent version. The FASTA can be also downloaded directly from the [here](https://cloud.uni-jena.de/s/fYkQ2NAwjND8oEM) in the version of GenBank Genome Sequence/Annotation Update <= 11/2020, that is used in the project.
 
 | Field | Parameter |
 | -- | -- |
@@ -106,3 +106,7 @@ All future steps are described in the thesis. The most important ones are listed
 - k-mer frequency vectors considering evolutionary aspects with the BLOSUM matrix
 - Kneedle Algorithm without area and poly calculation to obliterate even the slightest bias
 - Deeper examination of the best dimension to reduce the vectors with `PCA` to
+ 
+---
+
+Special thanks to Kevin Lamkiewicz for supervision!
