@@ -37,7 +37,7 @@ For the default execution discussed in the thesis, the default execution of the 
 
 `python3 Clustering.py -i A.fasta -p 50 -t 12`
 
-The FASTA file exceeds the size allowed to be placed in the repository. The following table can be used as input in the [nucleotide search interface](https://www.fludb.org/brc/influenza_sequence_search_segment_display.spg?method=ShowCleanSearch&decorator=influenza) of the Influenza Research Database (IRD). The FASTA can be also downloaded directly from the [here](https://cloud.uni-jena.de/s/Pd3rcsDiKGsiBGD).
+The FASTA file exceeds the size allowed to be placed in the repository. The following table can be used as input in the [nucleotide search interface](https://www.fludb.org/brc/influenza_sequence_search_segment_display.spg?method=ShowCleanSearch&decorator=influenza) of the Influenza Research Database (IRD). The FASTA can be also downloaded directly from the [here](https://cloud.uni-jena.de/s/fYkQ2NAwjND8oEM).
 
 | Field | Parameter |
 | -- | -- |
