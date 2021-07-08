@@ -61,9 +61,9 @@ The header of the FASTA has to be modified on there according to
 
 to be used with the expected result. The tool combines three pipeline generated in the project:
 
-- ![Vectorization Pipeline](/Graphics/Vectorization.pdf)
+- ![Preprocessing Pipeline](/Graphics/Vectorization.pdf)
 - ![Clustering Pipeline](/Graphics/Clustering.pdf)
-- ![Visualization Pipeline](/Graphics/Tree.pdf)
+- ![Postprocessing Pipeline](/Graphics/Tree.pdf)
 
 ## Manual
 
@@ -106,6 +106,7 @@ All future steps are described in the thesis. The most important ones are listed
 - k-mer frequency vectors considering evolutionary aspects with the BLOSUM matrix
 - Kneedle Algorithm without area and poly calculation to obliterate even the slightest bias
 - Deeper examination of the best dimension to reduce the vectors with `PCA` to
+- Commenting the Clustering.py script
  
 ---
 
