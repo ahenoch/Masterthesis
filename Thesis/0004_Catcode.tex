@@ -2,15 +2,15 @@
 \renewcommand\frontmatter{%
     \cleardoublepage
     \@mainmatterfalse
-    \pagenumbering{gobble}
+    %\pagenumbering{gobble}
     %\pagenumbering{roman}
 }
 
 \renewcommand\mainmatter{%
     \cleardoublepage
     \@mainmattertrue
-    %\pagenumbering{arabic}
-    \setcounter{page}{11}
+    \pagenumbering{arabic}
+    \setcounter{page}{7}
 }
 
 \renewcommand\backmatter{%
@@ -20,6 +20,6 @@
         \clearpage
     \fi
     \@mainmatterfalse
-    \pagenumbering{gobble}
+    %\pagenumbering{gobble}
 }
 \makeatother

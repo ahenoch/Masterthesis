@@ -1,4 +1,5 @@
-\documentclass[numbers=noenddot, 12pt, listof=totoc, bibliography=totoc, svgnames, fleqn]{scrbook}
+%\documentclass[numbers=noenddot, 12pt, listof=totoc, bibliography=totoc, svgnames, fleqn]{scrbook}
+\documentclass[numbers=noenddot, 12pt, bibliography=totoc, svgnames, fleqn]{scrbook}
 
 \input{Thesis/0001_Packages}
 
@@ -8,7 +9,7 @@
     
     %\linenumbers
     \input{Thesis/0003_Settings}
-    %\input{Thesis/0004_Catcode}
+    \input{Thesis/0004_Catcode}
     
     \frontmatter
     \pagestyle{empty} 
@@ -21,12 +22,10 @@
     \glsresetall
     \input{Thesis/0007_Abstract}
     
-    \input{Thesis/0009_Danksagung}
-    
     \mainmatter
     \pagestyle{scrheadings} 
     \renewcommand*{\chapterpagestyle}{plain}
-    \KOMAoptions{cleardoublepage=headings}
+    \KOMAoptions{cleardoublepage=plain}
     
     \tableofcontents
     
@@ -34,6 +33,8 @@
     \setglossarystyle{listgroup}
     \printnoidxglossary[title=List of Abbreviations, type=\acronymtype]
     %\lstlistoflistings
+
+    \input{Thesis/0009_Danksagung}
 
     \input{Thesis/0100_Introduction}
     
@@ -59,7 +60,7 @@
     \input{Thesis/0400_Conclusion}
     
     %\nocite{*}
-    \printbibliography[title=Bibliography]
+    \printbibliography[heading=bibliographysection, title=Bibliography]
     
     \listoffigures
     
