@@ -22,10 +22,10 @@
     \glsresetall
     \input{Thesis/0007_Abstract}
     
+    \KOMAoptions{cleardoublepage=plain}
     \mainmatter
     \pagestyle{scrheadings} 
     \renewcommand*{\chapterpagestyle}{plain}
-    \KOMAoptions{cleardoublepage=plain}
     
     \tableofcontents
     
@@ -33,9 +33,11 @@
     \setglossarystyle{listgroup}
     \printnoidxglossary[title=List of Abbreviations, type=\acronymtype]
     %\lstlistoflistings
-
+    
+    \thispagestyle{plain}
     \input{Thesis/0009_Danksagung}
 
+    \thispagestyle{plain}
     \input{Thesis/0100_Introduction}
     
     \glsresetall
@@ -43,6 +45,7 @@
     \setcounter{figure}{0}
     \setcounter{equation}{0}
 
+    \thispagestyle{plain}
     \input{Thesis/0200_Materials_and_Methods}
     
     \glsresetall
@@ -50,6 +53,7 @@
     \setcounter{figure}{0}
     \setcounter{equation}{0}
 
+    \thispagestyle{plain}
     \input{Thesis/0300_Results_and_Discussion}
 
     \glsresetall
@@ -57,19 +61,25 @@
     \setcounter{figure}{0}
     \setcounter{equation}{0}
     
+    %\thispagestyle{plain}
     \input{Thesis/0400_Conclusion}
     
+    \thispagestyle{plain}
     %\nocite{*}
     \printbibliography[heading=bibliographysection, title=Bibliography]
     
     \listoffigures
     
+    \thispagestyle{plain}
     \listoftables
     
     \appendix
     
     \input{Thesis/0500_Appendix}
+    \newpage
+    \mbox{}
     
+    \KOMAoptions{cleardoublepage=empty}
     \backmatter
     \pagestyle{empty} 
     \renewcommand*{\chapterpagestyle}{empty}
