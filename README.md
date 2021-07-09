@@ -80,13 +80,13 @@ to be used with the expected result. The tool combines three pipeline generated 
 | -u | --umap | n\_components parameter for UMAP (optional) |
 | -p | --pca | n\_components parameter for PCA (optional) |
 | -k | --max\_kneedle | search area for Kneedle Algorithm (default: 500) |
-| -r | --render | format of output graphics (default pdf) |
-| -t | --threads | number of threads to use for the pairwise cluster validation |
+| -r | --render | format of output graphics (default: pdf) |
+| -t | --threads | number of threads to use for the pairwise cluster validation (default: 12)|
 | -h | --help | open the help page |
 
 ## Results 
 
-The main results of the project include method comparisons to find the method most appropriate to cluster the *Influenza A Virus* as described in the ![thesis](/Masterthesis.pdf). A new classification was build using the method in the final step of the project, that includes cluster assignment for all accessions and can be found ![here](/Results/cluster.csv). All clusters are visualized as trees and validation plots.
+The main results of the project include method comparisons to find the method most appropriate to cluster the *Influenza A Virus* as described in the ![thesis](/Thesis.pdf). A new classification was build using the method in the final step of the project, that includes cluster assignment for all accessions and can be found ![here](/Results/cluster.csv). All clusters are visualized as trees and validation plots.
 
 | Segment | Clustertree | Validation |
 | -- | -- | -- |
