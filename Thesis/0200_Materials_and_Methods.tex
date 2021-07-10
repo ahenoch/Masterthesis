@@ -166,11 +166,11 @@ Distance calculations by \texttt{HDBSCAN} were performed with the \texttt{metric
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.475\textwidth}
-        \caption[L2]{\textbf{L2-norm normalized euclidean distance}}
+        \caption[L2]{\textbf{Euclidean distance and L2-norm normalization}}
         \label{subfig:L2}            
         \includegraphics[width=\textwidth]{Graphics/L2.pdf}
     \end{subfigure}
-    \caption[Cosine distance approximation]{\textbf{Cosine distance approximation.} The cosine distance of two vectors $\mathbf{x}$ and $\mathbf{y}$ is based on the cosine of the angle $\Theta$ between the vectors (left picture). Since this information is not always available or the alternative calculation using the vectors only is to expensive for a high number of vectors, the euclidean distance can be used for approximation, with the precondition of a L2-norm of both vectors equal to one. Therefore, to approximate cosine distance with euclidean distance, all vectors L2-norm had to be one. L2-norm normalization was used on every vector scaling them to the unit sphere to match this condition (right picture).}
+    \caption[Distance differences as graphical example]{\textbf{Distance differences as graphical example.} The cosine distance of two vectors $\mathbf{x}$ and $\mathbf{y}$ is based on the cosine of the angle $\Theta$ between the vectors (left picture). Since this information is not always available or the alternative calculation using the vectors only is to expensive for a high number of vectors, the euclidean distance can be used for approximation of cosine distance, with the precondition of a L2-norm of both vectors equal to one. L2-norm normalization was used on every vector scaling them to the unit sphere to match this condition (right picture).}
     \label{fig:L2_Normalisation_Background}
 \end{figure}
 
@@ -181,7 +181,8 @@ Distance calculations by \texttt{HDBSCAN} were performed with the \texttt{metric
     \end{aligned}
 \end{equation}
 
-Due to the L2-norm normalization according to \autoref{eq:norm2}, all vectors satisfy the condition in \autoref{eq:assumpt}.
+\newpage
+Approximation is possible by euclidean distance calculation on vectors with an L2-norm of one \autoref{fig:L2_Normalisation_Background}. Due to the L2-norm normalization, according to \autoref{eq:norm2}, all vectors satisfy this condition (\autoref{eq:assumpt}).
 
 \begin{equation}\label{eq:assumpt}
     \begin{aligned}
@@ -189,7 +190,7 @@ Due to the L2-norm normalization according to \autoref{eq:norm2}, all vectors sa
     \end{aligned}
 \end{equation}
 
-The euclidean distance of the L2-norm normalized vectors, is in close relation to the cosine distance as proven in \autoref{eq:chord3}. Dividing the squared euclidean distance of the L2-norm normalized vectors by two, results in the cosine distance of the vectors \autoref{fig:Normalisation_Methods} \autocite{korenius_principal_2007}.
+The euclidean distance of the L2-norm normalized vectors, is in close relation to the cosine distance as proven in \autoref{eq:chord3} and \autoref{fig:Normalisation_Methods}. Dividing the squared euclidean distance of the L2-norm normalized vectors by two, results in the cosine distance of the vectors \autocite{korenius_principal_2007}.
 
 \begin{equation}\label{eq:chord3}
     %\Vert\mathbf{\hat{x}}\Vert_2 = \Vert\mathbf{\hat{y}}\Vert_2 = 1 \Rightarrow 
@@ -198,14 +199,15 @@ The euclidean distance of the L2-norm normalized vectors, is in close relation t
         &= (\mathbf{\hat{x}} - \mathbf{\hat{y}})^\top (\mathbf{\hat{x}} - \mathbf{\hat{y}})\\
         %&= \mathbf{\hat{x}}^\top \mathbf{\hat{x}} - 2 \mathbf{\hat{x}}^\top \mathbf{\hat{y}} + \mathbf{\hat{y}}^\top \mathbf{\hat{y}}\\
         %&= 2 - 2\mathbf{\hat{x}}^\top \mathbf{\hat{y}}\\
-        &= \Vert\mathbf{\hat{x}}\Vert_2^2 + \Vert\mathbf{\hat{y}}\Vert_2^2 - 2 \cos(\Theta)\\
+        &= \Vert\mathbf{\hat{x}}\Vert_2^2 + \Vert\mathbf{\hat{y}}\Vert_2^2 - 2 \mathbf{\hat{x}}^\top\mathbf{\hat{y}}\\
         &= 2 (1 - \cos(\Theta))\\
         &= 2 d_{\text{cos}}(\mathbf{\hat{x}},\mathbf{\hat{y}})\\
-        \frac{d_{\text{eucl}}(\mathbf{\hat{x}},\mathbf{\hat{y}})^2}{2} &= d_{\text{cos}}(\mathbf{\hat{x}},\mathbf{\hat{y}})
+        %\frac{d_{\text{eucl}}(\mathbf{\hat{x}},\mathbf{\hat{y}})^2}{2} &= d_{\text{cos}}(\mathbf{\hat{x}},\mathbf{\hat{y}})
     \end{aligned}
 \end{equation}
 
-Thus, in this project, approximation of cosine distance with the euclidean distance metric, posterior to the normalization with the L2-norm, which scales the vectors to the unit sphere was used (\autoref{eq:chord2} and \autoref{subfig:L2}). 
+\newpage
+Thus, in this project, approximation of cosine distance with the euclidean distance metric, posterior to the normalization with the L2-norm, which scales the vectors to the unit sphere, was used (\autoref{eq:chord2} and \autoref{subfig:L2}). 
 
 \begin{equation}\label{eq:chord2}
     %\Vert\mathbf{\hat{x}}\Vert_2 = \Vert\mathbf{\hat{y}}\Vert_2 = 1 \Rightarrow 
@@ -214,7 +216,7 @@ Thus, in this project, approximation of cosine distance with the euclidean dista
     \end{aligned}
 \end{equation}
 
-Due to the use of the euclidean distance metric in \texttt{HDBSCAN}, the calculation of the euclidean distance of the L2-norm normalized vectors is integrated into the mutual reachability distance calculation of \texttt{HDBSCAN}. The mutual reachability distance is the maximum of the described euclidean distance and the core distances of two L2-norm normalized vectors (\autoref{eq:reach}). It is the main calculation of \texttt{HDBSCAN} used for clustering. The core distance is the minimum radius necessary to include $k=1$ other vector around a given vector \autocite{mcinnes_hdbscan_2017}. Threshold $\varepsilon$ is used on the mutual reachability distances between the vectors \autoref{fig:Hybrid}. Due to the parameter choice of $k=1$, the core distance can never be higher than the euclidean distance, making the mutual reachability distance always equal the euclidean distance on the L2-norm normalized vectors. 
+Due to the use of the euclidean distance metric in \texttt{HDBSCAN}, the calculation of the euclidean distance of the L2-norm normalized vectors is integrated into the mutual reachability distance calculation of \texttt{HDBSCAN}. The mutual reachability distance is the maximum of the described euclidean distance and the core distances of two L2-norm normalized vectors (\autoref{eq:reach} and \autoref{fig:HDB}). It is the main calculation of \texttt{HDBSCAN} used for clustering. The core distance is the minimum radius necessary to include $k=1$ other vector around a given vector \autocite{mcinnes_hdbscan_2017}. Threshold $\varepsilon$ is used on the mutual reachability distances between the vectors \autoref{fig:Hybrid}. Due to the parameter choice of $k=1$, the core distance can never be higher than the euclidean distance, making the mutual reachability distance always equal the euclidean distance of the L2-norm normalized vectors. 
 
 \begin{equation}\label{eq:reach}
     %\Vert\mathbf{\hat{x}}\Vert_2 = \Vert\mathbf{\hat{y}}\Vert_2 = 1 \Rightarrow 
@@ -236,11 +238,7 @@ To find an appropriate value for $\varepsilon$, two different methods were used 
 
 \vspace{1em}
 
-Second method for $\varepsilon$ exploration was performed using the Kneedle Algorithm on the linkage matrix created by the initially performed standard \texttt{HDBSCAN} clustering without hybrid setting (\autoref{fig:Clustering_Pipeline} \textsf{\textbf{F}} and \textsf{\textbf{I}}) \autocite{satopaa_finding_2011}. With increasing cluster number, the distance threshold $\varepsilon$ of hierarchical clustering decreases. This describes a decreasing curve of convex type, with distance threshold on the y- and cluster number on the x-axis. The knee is the number of clusters at the point in the polynomial representation of the curve with maximal acceleration. Polynomial representation was used to find the maximum acceleration of a more precise smoothed curve. Therefore the settings \texttt{curve='concave'}, \texttt{direction='increasing'} and \texttt{interp\_method='interp1d'} were used to find the optimal number of clusters. The optimal number of clusters was converted to the respective $\varepsilon$ threshold.
-
-\vspace{1em}
-
-Knee point selection was restricted to a given area between one and a maximum value of 500. The maximum was chosen to include the area with the highest expected differences. The best Knee point was expected to be less than 100, a higher value was used to prevent bias creation by forcing the number of clusters to be maximal 100. 
+Second method for $\varepsilon$ exploration was performed using the Kneedle Algorithm on the linkage matrix created by the initially performed standard \texttt{HDBSCAN} clustering without hybrid setting (\autoref{fig:Clustering_Pipeline} \textsf{\textbf{F}} and \textsf{\textbf{I}}) \autocite{satopaa_finding_2011}. With increasing cluster number, the distance threshold $\varepsilon$ of hierarchical clustering decreases. This describes a decreasing curve of convex type, with distance threshold on the y- and cluster number on the x-axis. The knee is the number of clusters at the point in the polynomial representation of the curve with maximal acceleration. Polynomial representation was used to find the maximum acceleration of a more precise smoothed curve. Therefore the settings \texttt{curve='concave'}, \texttt{direction='increasing'} and \texttt{interp\_method='interp1d'} were used to find the optimal number of clusters. The optimal number of clusters was converted to the respective $\varepsilon$ threshold. Knee point selection was restricted to a given area between one and a maximum value of 500. The maximum was chosen to include the area with the highest expected differences. The best Knee point was expected to be less than 100, a higher value was used to prevent bias creation by forcing the number of clusters to be maximal 100. 
 
 \section{Alignments and vector calculations} \label{sec:MAFFT}
 
