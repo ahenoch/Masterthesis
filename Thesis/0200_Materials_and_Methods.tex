@@ -85,11 +85,13 @@ In this project four different ways to cluster the segments of \gls{IAV} are des
 
 \vspace{1em}
 
-The method is based on \textcite{viehweger_addressing_2019}. Instead of using the tool \texttt{nanotext}, as proposed in \textcite{viehweger_encoding_2019}, a simple 7-mer frequency calculation was implemented and used as described in \autoref{sec:Frequency}. Similar to \textcite{viehweger_addressing_2019}, the calculated vectors were clustered using the same tool \texttt{HDBSCAN} but with settings described in the \autoref{sec:HDBSCAN} instead. Since \texttt{nanotext} was not used in this project, different types of dimension reduction were performed and compared, as described in \autoref{sec:PCA} and discussed in \autoref{sec:Clustering}. With reference to the use of cosine similarity $s_{\text{cos}}(\mathbf{x}, \mathbf{y})$ as measurement for genomic similarity in \texttt{nanotext}, the use of the complementary cosine distance $d_{\text{cos}}(\mathbf{x}, \mathbf{y})$ in \texttt{HDBSCAN} was targeted (\autoref{eq:cos}) \autocite{viehweger_encoding_2019}. %To my best knowledge there is no other publication to the present day that used the same method proposed or created similar results.
+The method is based on \textcite{viehweger_addressing_2019}. Instead of using the tool \texttt{nanotext}, as proposed in \textcite{viehweger_encoding_2019}, a simple 7-mer frequency calculation was implemented and used as described in \autoref{sec:Frequency}. Similar to \textcite{viehweger_addressing_2019}, the calculated vectors were clustered using the same tool \texttt{HDBSCAN} but with settings described in the \autoref{sec:HDBSCAN} instead. Since \texttt{nanotext} was not used in this project, different types of dimension reduction were performed and compared, as described in \autoref{sec:PCA} and discussed in \autoref{sec:Clustering}. With reference to the use of cosine similarity $s_{\text{cos}}(\mathbf{x}, \mathbf{y})$ as measurement for genomic similarity in \texttt{nanotext}, the use of the complementary cosine distance $d_{\text{cos}}(\mathbf{x}, \mathbf{y})$ in \texttt{HDBSCAN} was targeted in this project (\autoref{eq:cos}) \autocite{viehweger_encoding_2019}. %To my best knowledge there is no other publication to the present day that used the same method proposed or created similar results.
 
 \begin{equation}\label{eq:cos}
     \begin{aligned}
-        d_{\text{cos}}(\mathbf{x}, \mathbf{y}) = 1 - s_{\text{cos}}(\mathbf{x}, \mathbf{y})
+        d_{\text{cos}}(\mathbf{x}, \mathbf{y}) &= 1 - s_{\text{cos}}(\mathbf{x}, \mathbf{y})\\
+        &= 1 - \frac{\mathbf{x}^\top\mathbf{y}}{\Vert\mathbf{x}\Vert_2 \Vert\mathbf{y}\Vert_2}\\
+        &= 1 - \cos (\Theta)
     \end{aligned}
 \end{equation}
 
@@ -146,19 +148,19 @@ This method is useful when intending to cluster with a small cluster size value,
 
 \vspace{1em}
 
-Distance calculations by \texttt{HDBSCAN} were performed with the euclidean distance setting due to an open issue in the GitHub Repository of \texttt{HDBSCAN}\footnote{\url{https://github.com/scikit-learn-contrib/hdbscan/issues/69} (accessed 06/02/21)}. In the issue, the inability to use cosine distance metric with \texttt{HDBSCAN} and the approximation of it by chord distance metric, is described. Given that chord distance metric is also not available firsthand in \texttt{HDBSCAN}, the possibility to use normalization of the vectors with L2-norm, prior to clustering with euclidean metric setting is suggested \autoref{fig:Clustering_Pipeline} \textsf{\textbf{E}}). \footnotetext{\url{https://hdbscan.readthedocs.io/en/latest/how_to_use_epsilon.html} (accessed 07/01/2021)}
+Distance calculations by \texttt{HDBSCAN} were performed with the \texttt{metric='euclidean'} setting, due to an open issue in the GitHub Repository of \texttt{HDBSCAN}\footnote{\url{https://github.com/scikit-learn-contrib/hdbscan/issues/69} (accessed 06/02/21)}. In the issue, the inability to use cosine distance metric with \texttt{HDBSCAN} and the approximation of it by euclidean distance of L2-norm normalized vectors, is described (\autoref{eq:norm2} and \autoref{fig:Clustering_Pipeline} \textsf{\textbf{E}}). 
 
 \begin{figure}[!hbt]
     \centering
     \includegraphics[width=\textwidth]{Graphics/Hybrid.pdf}
-    \caption[Hybrid clustering threshold]{\textbf{Hybrid clustering threshold.} The hybrid clustering \texttt{HDBSCAN} differentiate between clusters where vectors are connected by distances smaller and higher than $\varepsilon$. When the distance is smaller, the \texttt{DBSCAN} algorithm is used and clusters are generated based on this threshold value $\varepsilon$ by combining vectors with smaller distance. Omitted vectors, not having a given number of $k=1$ vectors in reachable distance of $\varepsilon$ and are, therefore, impossible to be clustered by \texttt{DBSCAN}, are subsequently clustered with \texttt{HDBSCAN} building clusters with higher threshold if appropriate. The graphic is based on \glqq Combining HDBSCAN* with DBSCAN\grqq{} in the manual\footnotemark and adapted to the chord distance calculations in this project, as a two dimensional example.}
+    \caption[Hybrid clustering threshold]{\textbf{Hybrid clustering threshold.} The hybrid clustering \texttt{HDBSCAN} differentiate between clusters where vectors are connected by distances smaller and higher than $\varepsilon$. When the distance is smaller, the \texttt{DBSCAN} algorithm is used and clusters are generated based on this threshold value $\varepsilon$ by combining vectors with smaller distance. Omitted vectors, not having a given number of $k=1$ vectors in reachable distance of $\varepsilon$ and are, therefore, impossible to be clustered by \texttt{DBSCAN}, are subsequently clustered with \texttt{HDBSCAN} building clusters with higher threshold if appropriate. The graphic is based on \glqq Combining HDBSCAN* with DBSCAN\grqq{} in the manual\footnotemark and adapted to the euclidean distance calculations in this project, as a two dimensional example.}
     \label{fig:Hybrid}
 \end{figure}
 
 \begin{figure}[!hbt]
     \centering
     \begin{subfigure}[b]{0.475\textwidth}
-        \caption[Chord]{\textbf{Chord distance}}
+        \caption[Cosine distance]{\textbf{Cosine distance}}
         \label{subfig:Chord}
         \includegraphics[width=\textwidth]{Graphics/Chord.pdf}
     \end{subfigure}
@@ -168,56 +170,56 @@ Distance calculations by \texttt{HDBSCAN} were performed with the euclidean dist
         \label{subfig:L2}            
         \includegraphics[width=\textwidth]{Graphics/L2.pdf}
     \end{subfigure}
-    \caption[Chord calculation background]{\textbf{Chord calculation background.} The chord distance can be calculated, when having a similar radius $r$ for both vectors and the information of their angle $\Theta$ (left picture). Since this information is not always available or sometimes expensive to calculate for a high number of vectors, the euclidean distance can be used for similar results, with the precondition of a L2-norm of both vectors equal to $r$. L2-norm of $r$ is in this case, thus, similar to a radius of $r$, satisfying the condition. To approximate cosine distance, with chord distance, the same calculation of euclidean distance was used with L2-norm equal to $r = 1$. To satisfy the requirement that all vectors L2-norm had to equal one, L2-norm normalization was used on every vector scaling them to match the condition (right picture).}
+    \caption[Cosine distance approximation]{\textbf{Cosine distance approximation.} The cosine distance of two vectors $\mathbf{x}$ and $\mathbf{y}$ is based on the cosine of the angle $\Theta$ between the vectors (left picture). Since this information is not always available or the alternative calculation using the vectors only is to expensive for a high number of vectors, the euclidean distance can be used for approximation, with the precondition of a L2-norm of both vectors equal to one. Therefore, to approximate cosine distance with euclidean distance, all vectors L2-norm had to be one. L2-norm normalization was used on every vector scaling them to the unit sphere to match this condition (right picture).}
     \label{fig:L2_Normalisation_Background}
 \end{figure}
 
+\footnotetext{\url{https://hdbscan.readthedocs.io/en/latest/how_to_use_epsilon.html} (accessed 07/01/2021)}
 \begin{equation}\label{eq:norm2}
     \begin{aligned}
         \mathbf{\hat{x}} = \frac{\mathbf{x}}{\Vert\mathbf{x}\Vert_2}
     \end{aligned}
 \end{equation}
 
-Calculation of chord distance $d_{\text{chord}}$ is possible when having two vectors, here as an example named as $\mathbf{a}$ and $\mathbf{b}$, with the same L2-norm equal to a radius $r$ of a sphere centered to the origin of the coordinate system and an angle of $\Theta$ (\autoref{eq:chord1} and \autoref{subfig:Chord}) \autocite{maor_trigonometric_2013}. The euclidean distance $d_{\text{eucl}}$ is equal to the chord distance for the same vectors.
+Due to the L2-norm normalization according to \autoref{eq:norm2}, all vectors satisfy the condition in \autoref{eq:assumpt}.
 
-\begin{equation}\label{eq:chord1}
-    \Vert\mathbf{a}\Vert_2 = \Vert\mathbf{b}\Vert_2 = r \Rightarrow 
+\begin{equation}\label{eq:assumpt}
     \begin{aligned}
-        d_{\text{chord}}(\mathbf{a},\mathbf{b}) &= 2 \cdot r \sin \left(\frac{\Theta}{2}\right)\\
-        &= d_{\text{eucl}}(\mathbf{a},\mathbf{b})
+        \Vert\mathbf{\hat{x}}\Vert_2 = \Vert\mathbf{\hat{y}}\Vert_2 = 1
     \end{aligned}
 \end{equation}
 
-Thus, in this project, chord distance can be calculated with the euclidean distance metric, posterior to the normalization with the L2-norm, which scales the vectors to the unit sphere, fulfilling the precondition for similarity by $r=1$ (\autoref{eq:chord2} and \autoref{subfig:L2}). 
-
-\begin{equation}\label{eq:chord2}
-    \Vert\mathbf{\hat{x}}\Vert_2 = \Vert\mathbf{\hat{y}}\Vert_2 = 1 \Rightarrow 
-    \begin{aligned}
-        d_{\text{chord}}(\mathbf{\hat{x}},\mathbf{\hat{y}}) &= d_{\text{eucl}}(\mathbf{\hat{x}},\mathbf{\hat{y}})\\
-        &= \Vert\mathbf{\hat{x}} - \mathbf{\hat{y}}\Vert_2
-    \end{aligned}
-\end{equation}
-
-The calculation of the chord distance, by L2-norm normalized vectors euclidean distance is, thereby, integrated into the mutual reachability distance calculation of \texttt{HDBSCAN}. The mutual reachability distance is the maximum of the described chord distance and the core distances of two vectors (\autoref{eq:reach}). It is the main calculation of \texttt{HDBSCAN} used for clustering. The core distance is the minimum radius necessary to include one other vector around a given vector \autocite{mcinnes_hdbscan_2017}. Threshold $\varepsilon$ is used on the mutual reachability distances between the vectors \autoref{fig:Hybrid}. Due to the parameter choice of $k=1$, the core distance can never be higher than the euclidean distance, making the mutual reachability distance always equal the chord distance calculated by euclidean distance. 
-
-\begin{equation}\label{eq:reach}
-    \begin{aligned}
-        d_{\text{mreach}-k}(\mathbf{\hat{x}},\mathbf{\hat{y}}) &= \max \{ \text{core}_k(\mathbf{\hat{x}}), \text{core}_k(\mathbf{\hat{y}}), d_{\text{chord}}(\mathbf{\hat{x}},\mathbf{\hat{y}}) \}
-    \end{aligned}
-\end{equation}
-
-The used chord distance, by euclidean distance calculation, is proportional with the initially intended to use cosine distance as shown in \autoref{eq:chord3}. Dividing the squared chord distance by two results in the cosine distance of the vectors \autoref{fig:Normalisation_Methods} \autocite{korenius_principal_2007}.
+The euclidean distance of the L2-norm normalized vectors, is in close relation to the cosine distance as proven in \autoref{eq:chord3}. Dividing the squared euclidean distance of the L2-norm normalized vectors by two, results in the cosine distance of the vectors \autoref{fig:Normalisation_Methods} \autocite{korenius_principal_2007}.
 
 \begin{equation}\label{eq:chord3}
-    \Vert\mathbf{\hat{x}}\Vert_2 = \Vert\mathbf{\hat{y}}\Vert_2 = 1 \Rightarrow 
+    %\Vert\mathbf{\hat{x}}\Vert_2 = \Vert\mathbf{\hat{y}}\Vert_2 = 1 \Rightarrow 
     \begin{aligned}  
-        d_{\text{chord}}(\mathbf{\hat{x}},\mathbf{\hat{y}})^2 &= \Vert\mathbf{\hat{x}} - \mathbf{\hat{y}}\Vert_2^2\\
+        d_{\text{eucl}}(\mathbf{\hat{x}},\mathbf{\hat{y}})^2 &= \Vert\mathbf{\hat{x}} - \mathbf{\hat{y}}\Vert_2^2\\
         &= (\mathbf{\hat{x}} - \mathbf{\hat{y}})^\top (\mathbf{\hat{x}} - \mathbf{\hat{y}})\\
-        &= \mathbf{\hat{x}}^\top \mathbf{\hat{x}} - 2 \mathbf{\hat{x}}^\top \mathbf{\hat{y}} + \mathbf{\hat{y}}^\top \mathbf{\hat{y}}\\
-        &= 2 - 2\mathbf{\hat{x}}^\top \mathbf{\hat{y}}\\
-        &= 2 - 2 \cos(\Theta)\\
-        &= 2 \cdot (1 - \cos(\Theta))\\
-        &= 2 \cdot d_{\text{cos}}(\mathbf{\hat{x}},\mathbf{\hat{y}})
+        %&= \mathbf{\hat{x}}^\top \mathbf{\hat{x}} - 2 \mathbf{\hat{x}}^\top \mathbf{\hat{y}} + \mathbf{\hat{y}}^\top \mathbf{\hat{y}}\\
+        %&= 2 - 2\mathbf{\hat{x}}^\top \mathbf{\hat{y}}\\
+        &= \Vert\mathbf{\hat{x}}\Vert_2^2 + \Vert\mathbf{\hat{y}}\Vert_2^2 - 2 \cos(\Theta)\\
+        &= 2 (1 - \cos(\Theta))\\
+        &= 2 d_{\text{cos}}(\mathbf{\hat{x}},\mathbf{\hat{y}})\\
+        \frac{d_{\text{eucl}}(\mathbf{\hat{x}},\mathbf{\hat{y}})^2}{2} &= d_{\text{cos}}(\mathbf{\hat{x}},\mathbf{\hat{y}})
+    \end{aligned}
+\end{equation}
+
+Thus, in this project, approximation of cosine distance with the euclidean distance metric, posterior to the normalization with the L2-norm, which scales the vectors to the unit sphere was used (\autoref{eq:chord2} and \autoref{subfig:L2}). 
+
+\begin{equation}\label{eq:chord2}
+    %\Vert\mathbf{\hat{x}}\Vert_2 = \Vert\mathbf{\hat{y}}\Vert_2 = 1 \Rightarrow 
+    \begin{aligned}
+        d_{\text{eucl}}(\mathbf{\hat{x}},\mathbf{\hat{y}}) &= \Vert\mathbf{\hat{x}} - \mathbf{\hat{y}}\Vert_2
+    \end{aligned}
+\end{equation}
+
+Due to the use of the euclidean distance metric in \texttt{HDBSCAN}, the calculation of the euclidean distance of the L2-norm normalized vectors is integrated into the mutual reachability distance calculation of \texttt{HDBSCAN}. The mutual reachability distance is the maximum of the described euclidean distance and the core distances of two L2-norm normalized vectors (\autoref{eq:reach}). It is the main calculation of \texttt{HDBSCAN} used for clustering. The core distance is the minimum radius necessary to include $k=1$ other vector around a given vector \autocite{mcinnes_hdbscan_2017}. Threshold $\varepsilon$ is used on the mutual reachability distances between the vectors \autoref{fig:Hybrid}. Due to the parameter choice of $k=1$, the core distance can never be higher than the euclidean distance, making the mutual reachability distance always equal the euclidean distance on the L2-norm normalized vectors. 
+
+\begin{equation}\label{eq:reach}
+    %\Vert\mathbf{\hat{x}}\Vert_2 = \Vert\mathbf{\hat{y}}\Vert_2 = 1 \Rightarrow 
+    \begin{aligned}
+        d_{\text{mreach}-k}(\mathbf{\hat{x}},\mathbf{\hat{y}}) &= \max \{ \text{core}_k(\mathbf{\hat{x}}), \text{core}_k(\mathbf{\hat{y}}), d_{\text{eucl}}(\mathbf{\hat{x}},\mathbf{\hat{y}}) \}
     \end{aligned}
 \end{equation}
 
