@@ -51,18 +51,18 @@ Since its file size exceeds the limits of GitHub, the FASTA file containing all 
 \begin{table}[!hbt]
     \footnotesize
     \centering
-    \caption[Summary of the clustering methods]{\textbf{Summary of the clustering methods.} For easier separation, the different settings were listed. Method PCA/DBCV and PCA/Knee use \autoref{fig:Vectorization_Pipeline} workflow \textsf{\textbf{1}} followed by \autoref{fig:Clustering_Pipeline} workflow \textsf{\textbf{3}} for method PCA/DBCV and \textsf{\textbf{4}} for PCA/Knee. Method UMAP/DBCV and UMAP/Knee differ only by the first part using \autoref{fig:Vectorization_Pipeline} workflow \textsf{\textbf{2}} instead of \textsf{\textbf{1}}.}
+    \caption[Summary of the clustering methods]{\textbf{Summary of the clustering methods.} For easier separation, the different Methods are listed. The methods PD and PK use the same dimension reduction by \autoref{fig:Vectorization_Pipeline} workflow \textsf{\textbf{1}}, followed by different $\varepsilon$ exploration by \autoref{fig:Clustering_Pipeline} workflow \textsf{\textbf{3}} for method PD and \textsf{\textbf{4}} for PK. Method UD and UK, use the \autoref{fig:Vectorization_Pipeline} workflow \textsf{\textbf{2}} for dimension reduction instead.}
     \label{tab:methods}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}\hspace{6pt}}lllll}
+    \begin{tabular*}{0.85\textwidth}{@{\extracolsep{\fill}\hspace{6pt}}llll}
         \toprule
-        & & \multicolumn{2}{l}{\textbf{Reduction}} & \\
-        \cmidrule(lr){3-4}
-        \textbf{Abbreviation} & \textbf{Method} & \textbf{100 Components} & \textbf{30 Components} & \textbf{Exploration}\\
+        & \multicolumn{2}{l}{\textbf{Reduction}} & \\
+        \cmidrule(lr){2-3}
+        \textbf{Abbreviation} & \textbf{100 Components} & \textbf{30 Components} & \textbf{Exploration}\\
         \midrule
-        PB & PCA/DBCV & --- & PCA & DBCV\\
-        PK & PCA/Knee & --- & PCA & Kneedle Algorithm\\
-        UD & UMAP/DBCV & PCA & UMAP & DBCV\\
-        UK & UMAP/Knee & PCA & UMAP & Kneedle Algorithm\\
+        PB & --- & PCA & DBCV\\
+        PK & --- & PCA & Kneedle Algorithm\\
+        UD & PCA & UMAP & DBCV\\
+        UK & PCA & UMAP & Kneedle Algorithm\\
         \bottomrule
     \end{tabular*}
 \end{table}
