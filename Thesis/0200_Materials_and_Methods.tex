@@ -59,10 +59,10 @@ Since its file size exceeds the limits of GitHub, the FASTA file containing all 
         \cmidrule(lr){2-3}
         \textbf{Abbreviation} & \textbf{100 Components} & \textbf{30 Components} & \textbf{Exploration}\\
         \midrule
-        PB & --- & PCA & DBCV\\
-        PK & --- & PCA & Kneedle Algorithm\\
-        UD & PCA & UMAP & DBCV\\
-        UK & PCA & UMAP & Kneedle Algorithm\\
+        PB & --- & \texttt{PCA} & \acrshort{DBCV}\\
+        PK & --- & \texttt{PCA} & Kneedle Algorithm\\
+        UD & \texttt{PCA} & \texttt{UMAP} & \acrshort{DBCV}\\
+        UK & \texttt{PCA} & \texttt{UMAP} & Kneedle Algorithm\\
         \bottomrule
     \end{tabular*}
 \end{table}
@@ -113,7 +113,7 @@ The FASTA file containing the genomes of \gls{IAV} for clustering, was converted
     \label{fig:k-mer}
 \end{figure}
 
-To gain the frequency of the 7-mers all the vectors were normalized to a vector sum of one, according to L1-norm (\autoref{eq:norm1} and \autoref{fig:Vectorization_Pipeline} \textsf{\textbf{B}}). 
+To gain the frequency of the 7-mers, all the vectors were normalized to a vector sum of one, according to L1-norm (\autoref{eq:norm1} and \autoref{fig:Vectorization_Pipeline} \textsf{\textbf{B}}). 
 
 \begin{equation}\label{eq:norm1}
     \begin{aligned}
@@ -136,7 +136,7 @@ The used parameters of \texttt{UMAP} match most of the ones listed in the manual
 
 \vspace{1em}
 
-\texttt{UMAP} was used posterior to dimension reduction with \texttt{PCA}, because of the similarity to \texttt{t-SNE}. As explained in the manual of \texttt{t-SNE}\footnote{\url{https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html} (accessed 07/01/2021)}, the dimension should be reduced to a reasonable amount prior to execution to reduce noise. Furthermore, in section \glqq What is the difference between PCA / UMAP / VAEs?\grqq{} of the \texttt{UMAP} manual\footnote{\url{https://umap-learn.readthedocs.io/en/latest/faq.html} (accessed 07/01/2021)} a pipeline is proposed, to also reduce from high dimension with \texttt{PCA}, continue with reduction by \texttt{UMAP} and cluster with \texttt{HDBSCAN} and is, therefore, used as reference. Reduction with \texttt{UMAP} to 30 components posterior to \texttt{PCA} with 100 components also provided a comfortable balancing of computational effort of both methods, while preserving $\approx 85\%$ explained variance with \texttt{PCA} \autocite{mcinnes_umap_2020}. 
+\texttt{UMAP} was used posterior to dimension reduction with \texttt{PCA}, because of the similarity to \texttt{t-SNE}. As explained in the manual of \texttt{t-SNE}\footnote{\url{https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html} (accessed 07/01/2021)}, the dimension should be reduced to a reasonable amount prior to execution to reduce noise. Furthermore, in section \glqq What is the difference between PCA / UMAP / VAEs?\grqq{} of the \texttt{UMAP} manual\footnote{\url{https://umap-learn.readthedocs.io/en/latest/faq.html} (accessed 07/01/2021)} a pipeline is proposed, to also reduce from high dimension with \texttt{PCA}, continue with reduction by \texttt{UMAP} and cluster with \texttt{HDBSCAN} and is, therefore, also used as reference. Reduction with \texttt{UMAP} to 30 components posterior to \texttt{PCA} with 100 components also provided a comfortable balancing of computational effort of both methods, while preserving $\approx 85\%$ explained variance with \texttt{PCA} \autocite{mcinnes_umap_2020}. 
 
 \section{Hybrid clustering} \label{sec:HDBSCAN}
 
@@ -144,7 +144,7 @@ The used parameters of \texttt{UMAP} match most of the ones listed in the manual
 
 \vspace{1em}
 
-This method is useful when intending to cluster with a small cluster size value, while still aiming to cluster high-density areas together. Thereby it is exactly suitable for the proposed clustering. Specific strains of \gls{IAV} were sequenced a lot more, thus, probably creating high-density areas, that should be clustered together with the \texttt{DBSCAN} part. The standard \texttt{HDBSCAN} part was then used with a small minimum cluster size to find clusters of rare sequenced variants, with possibly important mutations in low-density areas \autocite{malzer_hybrid_2020}. The smallest minimum cluster size of two was used. To declare as least vectors as possible as noise, the minimum samples value $k$ was also set to the minimum of one. The appropriate $\varepsilon$ was identified with explorations by different methods. In preparation of the $\varepsilon$ exploration, as described in \autoref{sec:epsilon}, it was necessary to use standard \texttt{HDBSCAN} once alone, without the hybrid setting \autoref{fig:Clustering_Pipeline} \textsf{\textbf{F}}). The standard \texttt{HDBSCAN} and the hybrid \texttt{HDBSCAN}, involving, as described, also the standard version, were used with the same settings plus a respective $\varepsilon$ value in the latter one \autoref{fig:Clustering_Pipeline} \textsf{\textbf{H}}).
+This method is useful when intending to cluster with a small cluster size value, while still aiming to cluster high-density areas together. Thereby it is well suited for the proposed clustering. Specific strains of \gls{IAV} were sequenced a lot more, thus, probably creating high-density areas, that should be clustered together with the \texttt{DBSCAN} part. The standard \texttt{HDBSCAN} part of the hybrid clustering is then used with a small minimum cluster size to find clusters of rare sequenced variants, with possibly important mutations in low-density areas \autocite{malzer_hybrid_2020}. The smallest minimum cluster size of two was used. To declare as least vectors as possible as noise, the minimum samples value $k$ was also set to the minimum of one. The appropriate $\varepsilon$ was identified with explorations by different methods. In preparation of the $\varepsilon$ exploration, as described in \autoref{sec:epsilon}, it was necessary to use standard \texttt{HDBSCAN} once alone, without the hybrid setting \autoref{fig:Clustering_Pipeline} \textsf{\textbf{F}}). The standard \texttt{HDBSCAN} and the hybrid \texttt{HDBSCAN}, involving, as described, also the standard version, were used with the same settings plus a respective $\varepsilon$ value in the latter one \autoref{fig:Clustering_Pipeline} \textsf{\textbf{H}}).
 
 \vspace{1em}
 
@@ -238,7 +238,7 @@ To find an appropriate value for $\varepsilon$, two different methods were used 
 
 \vspace{1em}
 
-Second method for $\varepsilon$ exploration was performed using the Kneedle Algorithm on the linkage matrix created by the initially performed standard \texttt{HDBSCAN} clustering without hybrid setting (\autoref{fig:Clustering_Pipeline} \textsf{\textbf{F}} and \textsf{\textbf{I}}) \autocite{satopaa_finding_2011}. With increasing cluster number, the distance threshold $\varepsilon$ of hierarchical clustering decreases. This describes a decreasing curve of convex type, with distance threshold on the y- and cluster number on the x-axis. The knee is the number of clusters at the point in the polynomial representation of the curve with maximal acceleration. Polynomial representation was used to find the maximum acceleration of a more precise smoothed curve. Therefore the settings \texttt{curve='concave'}, \texttt{direction='increasing'} and \texttt{interp\_method='interp1d'} were used to find the optimal number of clusters. The optimal number of clusters was converted to the respective $\varepsilon$ threshold. Knee point selection was restricted to a given area between one and a maximum value of 500. The maximum was chosen to include the area with the highest expected differences. The best Knee point was expected to be less than 100, a higher value was used to prevent bias creation by forcing the number of clusters to be maximal 100. 
+Second method for $\varepsilon$ exploration was performed using the Kneedle Algorithm on the linkage matrix created by the initially performed standard \texttt{HDBSCAN} clustering without hybrid setting (\autoref{fig:Clustering_Pipeline} \textsf{\textbf{F}} and \textsf{\textbf{I}}) \autocite{satopaa_finding_2011}. With increasing cluster number, the distance threshold decreases in hierarchical clustering methods. This describes a decreasing curve of convex type, with distance threshold on the y- and cluster number on the x-axis. The knee is the number of clusters at the point in the polynomial representation of the curve with maximal acceleration. Polynomial representation was used to find the maximum acceleration of a more precise smoothed curve. Therefore, the settings \texttt{curve='concave'}, \texttt{direction='increasing'} and \texttt{interp\_method='interp1d'} were used to find the optimal number of clusters. The optimal number of clusters was converted to the respective $\varepsilon$ threshold. Knee point selection was restricted to a given area between one and a maximum value of 500. The maximum was chosen to include the area with the highest expected differences. The best Knee point was expected to be less than 100, a higher value was used to prevent bias creation by forcing the number of clusters to be maximal 100. 
 
 \section{Alignments and vector calculations} \label{sec:MAFFT}
 
